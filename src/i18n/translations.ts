@@ -17,7 +17,7 @@ export const translations = {
     "hero.title.l1": "Вершина —",
     "hero.title.l2": "это выбор.",
     "hero.intro":
-      "YUP — один маршрут на язык, тело, знания, привычки и голову. AI собирает план под твою жизнь. Ты — идёшь. Каждый день. Без распыления, без отмазок.",
+      "YUP — один маршрут на английский, форму, знания и pet-проекты. AI собирает план под твой семестр и твою жизнь. Ты — идёшь. Каждый день. Без распыления, без отмазок.",
     "hero.cta.steps": "Как устроен",
     "hero.cta.steps.suffix": "/ 3 шага",
     "hero.cta.start": "Начать восхождение",
@@ -25,7 +25,7 @@ export const translations = {
     "hero.stat1.caption":
       "Меньше распыления — один план вместо десятка приложений.",
     "hero.stat2.kpi": "365",
-    "hero.stat2.caption": "Дней в году. Каждый — шаг к вершине, не к плато.",
+    "hero.stat2.caption": "Дней в году. Каждый — шаг к версии тебя через год.",
     "hero.spheres.lang": "Язык",
     "hero.spheres.body": "Тело",
     "hero.spheres.knowledge": "Знания",
@@ -59,7 +59,7 @@ export const translations = {
       "Никаких опросников на час и абстрактных «персонализаций». Ты называешь цель — система отвечает конкретным маршрутом и первым шагом, который можно сделать прямо сейчас.",
     "how.s1.t": "Назови вершину",
     "how.s1.d":
-      "Опиши цель словами — без анкет на час. Говорить по-английски. Подтянуться 20 раз. Прочесть 12 книг. Выйти из тревоги. Это и есть вершина.",
+      "Опиши цель словами — без анкет на час. Английский до B2 за год. Подтянуться 20 раз. Pet-проект до релиза. Не слить сессию. Это и есть вершина.",
     "how.s2.t": "AI прокладывает маршрут",
     "how.s2.d":
       "За пару минут — персональный путь на месяц вперёд. Конкретные шаги, лучшие источники, реалистичный темп. Никакого спама контентом ради контента.",
@@ -107,7 +107,7 @@ export const translations = {
     "journey.c2.t": "Маршрут",
     "journey.c2.when": "1–3 месяц",
     "journey.c2.d":
-      "Ритм каждого дня. План адаптируется под жизнь — командировки, болезнь, сорванный сон. Главное — не остановиться.",
+      "Ритм каждого дня. План адаптируется под жизнь — пары, дедлайны, сессия, бессонная ночь. Главное — не остановиться.",
     "journey.c3.label": "Лагерь",
     "journey.c3.t": "Плечо",
     "journey.c3.when": "3–6 месяц",
@@ -157,9 +157,9 @@ export const translations = {
     "faq.q4.q": "Сколько времени в день нужно?",
     "faq.q4.a":
       "Минимум — 20 минут. Можно час, можно три. AI считает твоё реальное расписание. Главное — каждый день, а не один раз героически.",
-    "faq.q5.q": "Это подходит и парням, и девушкам?",
+    "faq.q5.q": "Сколько это будет стоить?",
     "faq.q5.a":
-      "Да. YUP не про «успешный успех» и не про мягкие аффирмации. Это про цель и путь к ней — одинаково для всех, кто хочет дойти.",
+      "Базовый план — бесплатно: одна цель и полный маршрут. Полная версия — недорого, чтобы потянуть со стипендии. Точные цены объявляем первой волне — без скрытых платежей и подписок-ловушек.",
     "faq.q6.q": "Когда будет доступен?",
     "faq.q6.a":
       "Работаем над первой версией. Запись в waitlist выше — позовём первой волной, без рассылок и распродаж.",
@@ -168,7 +168,7 @@ export const translations = {
     "footer.quote": "«Гора не ждёт.",
     "footer.quote.accent": "Она просто стоит.»",
     "footer.about":
-      "YUP — инструмент дисциплины для тех, кто устал распыляться. Один маршрут. Один шаг в день. Одна вершина за раз.",
+      "YUP — маршрут самореализации для тех, кто решил не пройти свои 18–22 вслепую. Один путь. Один шаг в день. Одна вершина за раз.",
     "footer.col1.title": "Маршрут",
     "footer.col1.l1": "Как устроен",
     "footer.col1.l2": "Сферы",
@@ -193,7 +193,7 @@ export const translations = {
     "hero.title.l1": "The summit —",
     "hero.title.l2": "is a choice.",
     "hero.intro":
-      "YUP is one route across language, body, knowledge, habits, and mind. AI builds the plan around your life. You walk it. Every day. No scatter, no excuses.",
+      "YUP is one route across language, body, knowledge, and side projects. AI builds the plan around your semester and your life. You walk it. Every day. No scatter, no excuses.",
     "hero.cta.steps": "How it works",
     "hero.cta.steps.suffix": "/ 3 steps",
     "hero.cta.start": "Start the climb",
@@ -202,7 +202,7 @@ export const translations = {
       "Less scatter — one plan instead of ten apps pulling at you.",
     "hero.stat2.kpi": "365",
     "hero.stat2.caption":
-      "Days in a year. Each one — a step toward the summit, not the plateau.",
+      "Days in a year. Each one — a step toward who you'll be a year from now.",
     "hero.spheres.lang": "Language",
     "hero.spheres.body": "Body",
     "hero.spheres.knowledge": "Knowledge",
@@ -236,7 +236,7 @@ export const translations = {
       "No hour-long surveys, no abstract \"personalization.\" You name the goal — the system answers with a concrete route and the first step you can take right now.",
     "how.s1.t": "Name the summit",
     "how.s1.d":
-      "Describe the goal in plain words. Speak English fluently. Do 20 pull-ups. Read 12 design books. Get out of anxiety. That's the summit.",
+      "Describe the goal in plain words. English to B2 in a year. Do 20 pull-ups. Ship a side project. Don't blow your semester. That's the summit.",
     "how.s2.t": "AI maps the route",
     "how.s2.d":
       "In a couple of minutes — a personal path for the month ahead. Concrete steps, the best sources, a realistic pace. No content spam for the sake of content.",
@@ -284,7 +284,7 @@ export const translations = {
     "journey.c2.t": "Route",
     "journey.c2.when": "Month 1–3",
     "journey.c2.d":
-      "Daily rhythm. The plan adapts to life — travel, illness, broken sleep. The point is — don't stop.",
+      "Daily rhythm. The plan adapts to life — classes, deadlines, finals week, a sleepless night. The point is — don't stop.",
     "journey.c3.label": "Camp",
     "journey.c3.t": "Shoulder",
     "journey.c3.when": "Month 3–6",
@@ -345,7 +345,7 @@ export const translations = {
     "footer.quote": "\"The mountain doesn't wait.",
     "footer.quote.accent": "It just stands.\"",
     "footer.about":
-      "YUP — a discipline tool for those tired of scattering. One route. One step a day. One summit at a time.",
+      "YUP — a self-realization route for anyone who refuses to walk through their 18–22 blind. One path. One step a day. One summit at a time.",
     "footer.col1.title": "Route",
     "footer.col1.l1": "How it works",
     "footer.col1.l2": "Spheres",
