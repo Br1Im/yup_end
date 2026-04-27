@@ -3,38 +3,46 @@ import { Mountain } from "./Mountain";
 export function Hero() {
   return (
     <section
-      className="relative overflow-hidden min-h-[92vh] flex flex-col"
+      id="top"
+      className="relative overflow-hidden bg-[color:var(--stone-1)] text-white min-h-[100svh] flex flex-col"
       style={{ isolation: "isolate" }}
     >
-      {/* Mountain backdrop, anchored at the bottom */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[78%] -z-10">
+      {/* Mountain backdrop fills the section */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
         <Mountain className="w-full h-full block" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[color:var(--background)] via-[color:var(--background)]/70 to-transparent" />
       </div>
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 pt-20 md:pt-28 flex-1 flex flex-col">
-        <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs text-[color:var(--muted)] bg-[color:var(--background)]/85 border border-[color:var(--line)] backdrop-blur-sm">
-            <span className="size-1.5 rounded-full bg-[color:var(--peach)]" />
-            один план — все сферы роста
-          </span>
+      {/* Top vignette — keep nav legible */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[color:var(--stone-1)]/95 to-transparent -z-10" />
+      {/* Bottom hand-off into paper section below */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[color:var(--paper)] -z-10" />
 
-          <h1 className="serif mt-6 text-5xl md:text-7xl leading-[1.05] tracking-tight text-[color:var(--foreground)]">
-            Восхождение
-            <br />к лучшей версии
+      <div className="relative mx-auto w-full max-w-6xl px-6 pt-32 md:pt-44 flex-1 flex flex-col">
+        <div className="max-w-3xl">
+          <div className="flex items-center gap-3 text-white/60">
+            <span className="size-1.5 rounded-full bg-[color:var(--ember)]" />
+            <span className="mono-tag">путь · цель · вершина</span>
+          </div>
+
+          <h1 className="display mt-8 text-[3.4rem] sm:text-[4.4rem] md:text-[6rem] leading-[0.95] tracking-[-0.025em]">
+            Подняться выше
             <br />
-            <span className="italic text-[color:var(--sage-deep)]">себя.</span>
+            <span className="italic text-[color:var(--gold)]">
+              — это решение,
+            </span>
+            <br />
+            не настроение.
           </h1>
 
-          <p className="mt-6 text-lg md:text-xl text-[color:var(--muted)] max-w-xl leading-relaxed">
-            <span className="pixel text-[color:var(--foreground)]">YUP</span> —
-            тёплая платформа для саморазвития. AI собирает персональную тропу
-            из всего: язык, тело, знания, привычки, психология. Ты идёшь шаг
-            за шагом — без выгорания.
+          <p className="mt-8 text-base md:text-lg text-white/70 max-w-xl leading-relaxed">
+            YUP собирает один маршрут на все сферы роста — язык, тело,
+            знания, привычки, голову. Без распыления, без бесконечного
+            «начну с понедельника». Только цель, маршрут и шаг, который
+            нужно сделать сегодня.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a href="#waitlist" className="btn-primary">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <a href="#waitlist" className="btn-ember">
               Начать восхождение
               <svg
                 width="18"
@@ -45,36 +53,61 @@ export function Hero() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                aria-hidden
               >
-                <path d="M5 12h14M13 5l7 7-7 7" />
+                <path d="M7 17L17 7M17 7H8M17 7v9" />
               </svg>
             </a>
-            <a href="#how" className="btn-ghost">
-              Как это работает
+            <a href="#how" className="btn-ghost-light">
+              Как устроен маршрут
             </a>
           </div>
         </div>
 
-        {/* Stats anchored near bottom of hero, on top of meadow */}
-        <div className="mt-auto pt-16 pb-10">
-          <div className="inline-flex items-center gap-8 text-sm text-[color:var(--muted)] bg-[color:var(--background)]/75 backdrop-blur-sm border border-[color:var(--line)] rounded-2xl px-6 py-4">
-            <Stat value="5 сфер" label="в одном плане" />
-            <span className="w-px h-8 bg-[color:var(--line)]" />
-            <Stat value="15 мин" label="в день — и ты идёшь" />
-            <span className="w-px h-8 bg-[color:var(--line)]" />
-            <Stat value="∞" label="скорость — твоя" />
-          </div>
+        {/* Bottom corner stat strip */}
+        <div className="mt-auto pt-20 pb-12 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10">
+          <Pillar
+            number="01"
+            title="Одна цель"
+            text="Всё, что не ведёт к ней — в сторону."
+          />
+          <Pillar
+            number="02"
+            title="Один маршрут"
+            text="AI собирает путь под твою жизнь, а не наоборот."
+          />
+          <Pillar
+            number="03"
+            title="Один шаг в день"
+            text="Не марафон по выходным — ежедневная дисциплина."
+          />
+          <Pillar
+            number="04"
+            title="Одна вершина"
+            text="И сразу следующая. Останавливаться нельзя."
+          />
         </div>
       </div>
     </section>
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+function Pillar({
+  number,
+  title,
+  text,
+}: {
+  number: string;
+  title: string;
+  text: string;
+}) {
   return (
-    <div className="space-y-0.5">
-      <div className="serif text-xl text-[color:var(--foreground)]">{value}</div>
-      <div className="text-xs">{label}</div>
+    <div className="border-t border-white/15 pt-4 max-w-[18rem]">
+      <div className="text-[0.7rem] tracking-[0.22em] uppercase text-[color:var(--ember)] font-semibold">
+        {number}
+      </div>
+      <div className="mt-3 text-base font-semibold text-white">{title}</div>
+      <div className="mt-1.5 text-sm text-white/55 leading-relaxed">{text}</div>
     </div>
   );
 }

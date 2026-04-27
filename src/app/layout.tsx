@@ -1,53 +1,47 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Lora, Press_Start_2P } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
 
-const lora = Lora({
-  variable: "--font-serif",
+const display = Playfair_Display({
+  variable: "--font-display",
   subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-
-const pressStart = Press_Start_2P({
-  variable: "--font-pixel",
-  subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://yup.app"),
-  title: "YUP — спокойное саморазвитие с AI-наставником",
+  title: "YUP — путь к твоей вершине",
   description:
-    "Один план для всех сфер роста: язык, тело, знания, привычки, психология. AI собирает тропу, ты идёшь шаг за шагом.",
+    "Один план на все сферы роста: язык, тело, знания, привычки, голова. AI собирает маршрут, ты идёшь шаг за шагом — пока цель не возьмёшь.",
   openGraph: {
-    title: "YUP — спокойное саморазвитие с AI",
+    title: "YUP — путь к твоей вершине",
     description:
-      "Объединяем все способы саморазвития в одну тёплую платформу. Восхождение к лучшей версии себя.",
+      "Серьёзная платформа для саморазвития. Цель → маршрут → восхождение. Без распыления.",
     locale: "ru_RU",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5efe3",
+  themeColor: "#14151a",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="ru"
-      className={`${manrope.variable} ${lora.variable} ${pressStart.variable}`}
+      className={`${inter.variable} ${display.variable}`}
     >
       <body className="min-h-dvh">
         <div className="grain" aria-hidden />

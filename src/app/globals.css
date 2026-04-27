@@ -1,42 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm summer palette inspired by birch trees, Soviet-block evening light,
-     and voxel mountain valleys. */
-  --background: #f5efe3;        /* warm cream */
-  --background-deep: #ebe2d0;   /* a touch deeper for cards */
-  --foreground: #2b2a26;        /* soft graphite, not black */
-  --muted: #6b6963;             /* warm muted text */
-  --line: #d9cfba;              /* hairline divider */
+  /* Paper / surface */
+  --paper: #ece5d6;          /* warm paper cream */
+  --paper-deep: #ddd4c0;     /* deeper paper for cards */
+  --paper-soft: #f5efe3;     /* lifted surface */
 
-  --sage: #7a9c6b;              /* meadow / birch leaves */
-  --sage-deep: #5d7d52;
-  --sky: #a8c8e0;               /* faded summer sky */
-  --sky-deep: #7fa8c7;
-  --peach: #d9a87a;             /* warm sunset accent */
-  --peach-deep: #c08a5a;
-  --snow: #fbfaf6;              /* mountain top */
-  --rock: #8a857a;              /* mountain rock shadow */
+  /* Ink / text */
+  --ink: #0e0f12;            /* near-black headline */
+  --ink-2: #1c1d22;          /* body */
+  --muted: #6a6962;          /* muted */
+  --muted-2: #8a877e;        /* dimmer */
+  --line: #c8bea8;           /* hairline */
+  --line-soft: #ddd2b8;
+
+  /* Stone / mountain palette */
+  --stone-1: #14151a;        /* deepest ridge */
+  --stone-2: #25272d;        /* near ridge */
+  --stone-3: #3a3c43;        /* mid ridge */
+  --stone-4: #54565d;        /* far ridge */
+  --stone-5: #6b6b6e;        /* atmosphere */
+
+  /* Accent — sunrise on summit */
+  --ember: #d6603d;          /* burning sunrise */
+  --ember-deep: #a8431e;
+  --gold: #c89c5e;           /* summit gold */
+  --gold-deep: #9a7339;
+
+  /* Sky for hero */
+  --sky-night: #15161c;
+  --sky-mid: #2a2630;
+  --sky-warm: #c7855e;
+  --sky-glow: #e7b783;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-background-deep: var(--background-deep);
-  --color-foreground: var(--foreground);
+  --color-background: var(--paper);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-paper-soft: var(--paper-soft);
+  --color-foreground: var(--ink);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
   --color-line: var(--line);
-  --color-sage: var(--sage);
-  --color-sage-deep: var(--sage-deep);
-  --color-sky: var(--sky);
-  --color-sky-deep: var(--sky-deep);
-  --color-peach: var(--peach);
-  --color-peach-deep: var(--peach-deep);
-  --color-snow: var(--snow);
-  --color-rock: var(--rock);
+  --color-line-soft: var(--line-soft);
+  --color-stone-1: var(--stone-1);
+  --color-stone-2: var(--stone-2);
+  --color-stone-3: var(--stone-3);
+  --color-stone-4: var(--stone-4);
+  --color-stone-5: var(--stone-5);
+  --color-ember: var(--ember);
+  --color-ember-deep: var(--ember-deep);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-sky-night: var(--sky-night);
+  --color-sky-mid: var(--sky-mid);
+  --color-sky-warm: var(--sky-warm);
+  --color-sky-glow: var(--sky-glow);
 
-  --font-sans: var(--font-manrope);
-  --font-serif: var(--font-serif);
-  --font-pixel: var(--font-pixel);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
 }
 
 * {
@@ -46,6 +74,8 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--paper);
+  color: var(--ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -53,92 +83,140 @@ html {
 }
 
 html, body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
 }
 
 body {
-  /* Subtle warm vignette + film grain feel via repeating gradients. */
-  background-image:
-    radial-gradient(1200px 700px at 80% -10%, rgba(217, 168, 122, 0.18), transparent 60%),
-    radial-gradient(900px 500px at -10% 30%, rgba(168, 200, 224, 0.14), transparent 60%),
-    radial-gradient(1000px 600px at 50% 110%, rgba(122, 156, 107, 0.12), transparent 60%);
-  background-attachment: fixed;
+  background: var(--paper);
 }
 
-::selection {
-  background: var(--peach);
-  color: var(--foreground);
+.display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-feature-settings: "ss01";
+  letter-spacing: -0.02em;
 }
 
-/* Reusable ornaments */
-.serif {
-  font-family: var(--font-serif), Georgia, serif;
-  font-feature-settings: "ss01", "ss02";
+.mono-tag {
+  font-family: var(--font-sans), ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
-.pixel {
-  font-family: var(--font-pixel), monospace;
-  letter-spacing: 0.02em;
+.eyebrow {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
 }
 
 .grain {
-  pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 50;
-  opacity: 0.05;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.06;
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.16 0 0 0 0 0.15 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  background-size: 200px 200px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
-/* Voxel hint — pixelated bottom rim for sections */
-.voxel-edge {
-  --voxel: 8px;
-  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - var(--voxel) * 4), transparent calc(100% - var(--voxel) * 4));
-  mask-image: linear-gradient(to bottom, black calc(100% - var(--voxel) * 4), transparent calc(100% - var(--voxel) * 4));
-}
-
+/* Buttons */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 999px;
-  background: var(--foreground);
-  color: var(--background);
-  font-weight: 500;
+  padding: 0.95rem 1.5rem;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 600;
   letter-spacing: 0.01em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), 0 6px 20px -10px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--ink);
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 .btn-primary:hover {
+  background: #000;
   transform: translateY(-1px);
-  background: #1a1916;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), 0 12px 24px -10px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.45);
+}
+
+.btn-ember {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 6px;
+  background: var(--ember);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--ember-deep);
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.btn-ember:hover {
+  background: var(--ember-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px -16px rgba(168, 67, 30, 0.5);
 }
 
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 999px;
-  border: 1px solid var(--line);
+  padding: 0.95rem 1.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-weight: 600;
   background: transparent;
-  color: var(--foreground);
-  font-weight: 500;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 .btn-ghost:hover {
-  border-color: var(--foreground);
-  background: rgba(0, 0, 0, 0.03);
+  background: var(--ink);
+  color: var(--paper);
 }
 
-.divider-dotted {
-  background-image: radial-gradient(circle, var(--line) 1px, transparent 1px);
-  background-size: 8px 8px;
+.btn-ghost-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-weight: 600;
+  background: transparent;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.btn-ghost-light:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.hairline {
   height: 1px;
+  width: 100%;
+  background: var(--line);
+}
+
+.hairline-dotted {
+  height: 1px;
+  width: 100%;
+  background-image: linear-gradient(to right, var(--line) 50%, transparent 50%);
+  background-size: 8px 1px;
+}
+
+::selection {
+  background: var(--ember);
+  color: #fff;
+}
+
+input::selection,
+textarea::selection {
+  background: var(--ember);
+  color: #fff;
 }

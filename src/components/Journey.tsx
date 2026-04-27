@@ -1,87 +1,123 @@
 const CAMPS = [
   {
-    name: "Базовый лагерь",
-    sub: "Первая неделя",
-    body: "Знакомство. AI слушает, что ты хочешь, и предлагает первую короткую тропу — на 7 дней.",
+    n: "00",
+    label: "База",
+    title: "Старт",
+    when: "День 1–7",
+    text: "Цель названа. AI слушает, что ты хочешь, и выдаёт первую короткую тропу — на 7 дней. Лёгкий вход, чтобы поверить в темп.",
   },
   {
-    name: "Тропа",
-    sub: "1–3 месяц",
-    body: "Ритм каждого дня. План адаптируется под жизнь — командировки, болезнь, отпуск.",
+    n: "I",
+    label: "Лагерь",
+    title: "Маршрут",
+    when: "1–3 месяц",
+    text: "Ритм каждого дня. План адаптируется под жизнь — командировки, болезнь, сорванный сон. Главное — не остановиться.",
   },
   {
-    name: "Плечо",
-    sub: "3–6 месяц",
-    body: "Привычки уже стоят. Появляются результаты — слова свободнее, тело сильнее, голова тише.",
+    n: "II",
+    label: "Лагерь",
+    title: "Плечо",
+    when: "3–6 месяц",
+    text: "Привычки уже стоят. Появляются результаты — слова, форма, ясность в голове. Дальше — последний рывок к гребню.",
   },
   {
-    name: "Вершина",
-    sub: "Год и дальше",
-    body: "Ты идёшь сам. YUP больше как проводник, чем как наставник. Видишь, как далеко ушёл.",
+    n: "III",
+    label: "Вершина",
+    title: "Summit",
+    when: "Год+",
+    text: "Цель взята. Видно, как далеко ушёл. YUP перестаёт быть наставником и становится напарником в следующем восхождении.",
   },
 ];
 
 export function Journey() {
   return (
-    <section id="journey" className="relative bg-[color:var(--background-deep)]/60">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <div className="max-w-2xl">
-          <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--peach-deep)]">
-            Путь
-          </p>
-          <h2 className="serif mt-4 text-4xl md:text-5xl leading-tight text-[color:var(--foreground)]">
-            От базового лагеря —
-            <br />к своей вершине.
-          </h2>
+    <section
+      id="journey"
+      className="relative bg-[color:var(--stone-1)] text-white scroll-mt-20 overflow-hidden"
+    >
+      {/* subtle topographic line texture */}
+      <svg
+        className="absolute inset-0 w-full h-full opacity-[0.07] pointer-events-none"
+        aria-hidden
+      >
+        <defs>
+          <pattern
+            id="topo"
+            width="60"
+            height="60"
+            patternUnits="userSpaceOnUse"
+          >
+            <path d="M0 30 Q15 10 30 30 T60 30" stroke="#d6603d" strokeWidth="0.6" fill="none" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#topo)" />
+      </svg>
+
+      <div className="relative mx-auto max-w-6xl px-6 py-28 md:py-40">
+        <div className="grid md:grid-cols-12 gap-10 items-end">
+          <div className="md:col-span-7">
+            <span className="eyebrow text-white/55">Восхождение</span>
+            <h2 className="display mt-5 text-4xl md:text-6xl leading-[1.0] tracking-[-0.02em] text-white">
+              От базы
+              <br />
+              <span className="italic text-[color:var(--gold)]">
+                до твоей вершины.
+              </span>
+            </h2>
+          </div>
+          <div className="md:col-span-5 md:pb-2">
+            <p className="text-white/60 text-base leading-relaxed">
+              Восхождение — не марафон выходного дня. Это тихая система,
+              которая держит тебя в движении, когда мотивация
+              заканчивается. А она всегда заканчивается.
+            </p>
+          </div>
         </div>
 
         {/* Trail visualization */}
-        <div className="relative mt-20">
-          {/* Dashed trail line */}
-          <svg
-            className="absolute inset-x-0 top-6 hidden md:block"
-            viewBox="0 0 1000 80"
-            preserveAspectRatio="none"
-            style={{ width: "100%", height: "80px" }}
-            aria-hidden
-          >
-            <path
-              d="M 50 70 C 200 70, 250 30, 380 30 S 600 70, 720 40 S 900 10, 970 10"
-              stroke="var(--peach-deep)"
-              strokeWidth="2"
-              strokeDasharray="2 6"
-              fill="none"
-              opacity="0.7"
-            />
-          </svg>
-
-          <ol className="grid md:grid-cols-4 gap-10 md:gap-6 relative">
+        <div className="mt-20 relative">
+          {/* vertical trail spine on desktop is implicit via cards staircase */}
+          <ol className="grid md:grid-cols-4 gap-px bg-white/10">
             {CAMPS.map((c, i) => (
-              <li key={c.name} className="relative">
-                <div
-                  className="size-3.5 rounded-full bg-[color:var(--peach-deep)] ring-4 ring-[color:var(--background-deep)] mx-auto md:mx-0"
-                  style={{
-                    transform:
-                      i === 0
-                        ? "translateY(54px)"
-                        : i === 1
-                          ? "translateY(14px)"
-                          : i === 2
-                            ? "translateY(34px)"
-                            : "translateY(-6px)",
-                  }}
-                />
-                <div className="mt-6 text-center md:text-left">
-                  <div className="pixel text-[10px] text-[color:var(--peach-deep)] uppercase">
-                    {c.sub}
-                  </div>
-                  <h3 className="serif mt-2 text-2xl text-[color:var(--foreground)]">
-                    {c.name}
-                  </h3>
-                  <p className="mt-2 text-[color:var(--muted)] leading-relaxed">
-                    {c.body}
-                  </p>
+              <li
+                key={c.n}
+                className="relative bg-[color:var(--stone-1)] p-7 md:p-8 group hover:bg-[color:var(--stone-2)] transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-[0.7rem] tracking-[0.22em] uppercase text-[color:var(--ember)] font-semibold">
+                    {c.label}
+                  </span>
+                  <span className="hairline-dotted flex-1 opacity-60" />
                 </div>
+
+                <div className="mt-7 flex items-baseline gap-3">
+                  <span
+                    className="display text-5xl text-white/30"
+                    aria-hidden
+                  >
+                    {c.n}
+                  </span>
+                  <h3 className="display text-3xl text-white tracking-tight">
+                    {c.title}
+                  </h3>
+                </div>
+
+                <div className="mt-2 text-xs uppercase tracking-[0.18em] text-white/45 font-semibold">
+                  {c.when}
+                </div>
+
+                <p className="mt-4 text-white/65 leading-relaxed text-[0.95rem]">
+                  {c.text}
+                </p>
+
+                {/* Connector dot at top-left for visual rhythm */}
+                <span
+                  className="absolute -top-1.5 left-7 size-3 rounded-full bg-[color:var(--ember)] shadow-[0_0_0_4px_rgba(214,96,61,0.18)]"
+                  style={{
+                    transform: `translateY(${i * -2}px)`,
+                  }}
+                  aria-hidden
+                />
               </li>
             ))}
           </ol>

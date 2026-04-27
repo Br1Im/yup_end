@@ -1,99 +1,78 @@
-import {
-  Languages,
-  Activity,
-  BookOpen,
-  Sparkles,
-  HeartPulse,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Languages, Activity, BookOpen, Compass, Brain } from "lucide-react";
 
-const DOMAINS: {
-  icon: LucideIcon;
-  title: string;
-  body: string;
-  tone: "sage" | "sky" | "peach" | "rose" | "moss";
-}[] = [
+const DOMAINS = [
   {
     icon: Languages,
     title: "Язык",
-    body: "Английский, испанский, немецкий — без зубрёжки. План чередует слова, разговор и фильмы.",
-    tone: "sky",
+    text: "Английский, испанский, немецкий. Цель — свободно говорить, не сидеть в гранках. Маршрут чередует слова, разговор, погружение.",
   },
   {
     icon: Activity,
     title: "Тело",
-    body: "Сила, выносливость, гибкость. Тренировки подстраиваются под твою неделю и сон.",
-    tone: "sage",
+    text: "Сила, выносливость, форма. Тренировки подстраиваются под неделю, сон и восстановление. Нагрузка растёт, но не ломает.",
   },
   {
     icon: BookOpen,
     title: "Знания",
-    body: "Книги, курсы, статьи — по 20 минут в день. AI отбирает только то, что движет к цели.",
-    tone: "peach",
+    text: "Книги, курсы, статьи — отобраны под цель. По 20–30 минут в день. Заметки, повторения, реальное применение.",
   },
   {
-    icon: Sparkles,
+    icon: Compass,
     title: "Привычки",
-    body: "Маленькие, ежедневные. Без агрессивных стриков. Сорвался — план мягко перестроится.",
-    tone: "rose",
+    text: "Маленькие, ежедневные, без агрессивных стриков. Сорвался — план не разрушается, а перестраивается под текущее состояние.",
   },
   {
-    icon: HeartPulse,
-    title: "Психология",
-    body: "Дыхание, рефлексия, медитация. Не как обязанность — как тёплый момент дня.",
-    tone: "moss",
+    icon: Brain,
+    title: "Голова",
+    text: "Дыхание, рефлексия, медитация. Не ради галочки — как способ снять напряжение и держать фокус на цели.",
   },
 ];
 
-const TONE_BG: Record<string, string> = {
-  sage: "bg-[color:var(--sage)]/15 text-[color:var(--sage-deep)]",
-  sky: "bg-[color:var(--sky)]/25 text-[color:var(--sky-deep)]",
-  peach: "bg-[color:var(--peach)]/25 text-[color:var(--peach-deep)]",
-  rose: "bg-[#e8c4c4]/30 text-[#a06b6b]",
-  moss: "bg-[#c4d6b4]/40 text-[#5d7d52]",
-};
-
 export function Domains() {
   return (
-    <section id="domains" className="relative">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <div className="max-w-2xl">
-          <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--sky-deep)]">
-            Сферы роста
-          </p>
-          <h2 className="serif mt-4 text-4xl md:text-5xl leading-tight text-[color:var(--foreground)]">
-            Всё, что ты собирался —
+    <section
+      id="domains"
+      className="relative bg-[color:var(--paper)] scroll-mt-20"
+    >
+      <div className="mx-auto max-w-6xl px-6 py-28 md:py-40">
+        <div className="max-w-3xl">
+          <span className="eyebrow">Сферы роста</span>
+          <h2 className="display mt-5 text-4xl md:text-6xl leading-[1.0] tracking-[-0.02em] text-[color:var(--ink)]">
+            Пять сфер.
             <br />
-            <span className="italic text-[color:var(--peach-deep)]">в одном месте.</span>
+            <span className="italic text-[color:var(--ember)]">
+              Один человек.
+            </span>
           </h2>
-          <p className="mt-5 text-lg text-[color:var(--muted)] leading-relaxed">
-            YUP не привязывает к одной нише. Можешь идти параллельно по
-            нескольким сферам — план учтёт, что у тебя один день и одна голова.
+          <p className="mt-6 text-[color:var(--ink-2)] text-base md:text-lg max-w-2xl leading-relaxed">
+            YUP не привязывает тебя к одной нише. Можно идти параллельно
+            по нескольким сферам — план учтёт, что у тебя один день и
+            одна голова.
           </p>
         </div>
 
-        <ul className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {DOMAINS.map((d) => {
-            const Icon = d.icon;
-            return (
-              <li
-                key={d.title}
-                className="group relative bg-[color:var(--background-deep)]/40 border border-[color:var(--line)] rounded-2xl p-7 transition-colors hover:bg-[color:var(--background-deep)]"
-              >
-                <span
-                  className={`inline-flex size-11 items-center justify-center rounded-xl ${TONE_BG[d.tone]}`}
-                >
-                  <Icon className="size-5" strokeWidth={1.6} />
+        <ul className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px bg-[color:var(--line)]/60">
+          {DOMAINS.map((d) => (
+            <li
+              key={d.title}
+              className="relative bg-[color:var(--paper)] p-8 group hover:bg-[color:var(--paper-soft)] transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <div className="size-11 rounded-md border border-[color:var(--line)] flex items-center justify-center text-[color:var(--ink)] group-hover:border-[color:var(--ember)] group-hover:text-[color:var(--ember)] transition-colors">
+                  <d.icon className="size-[18px]" strokeWidth={1.6} />
+                </div>
+                <span className="text-[0.7rem] tracking-[0.22em] uppercase text-[color:var(--muted)] font-semibold">
+                  Сфера
                 </span>
-                <h3 className="serif mt-5 text-2xl text-[color:var(--foreground)]">
-                  {d.title}
-                </h3>
-                <p className="mt-2 text-[color:var(--muted)] leading-relaxed">
-                  {d.body}
-                </p>
-              </li>
-            );
-          })}
+              </div>
+              <h3 className="mt-7 text-2xl font-semibold tracking-tight text-[color:var(--ink)]">
+                {d.title}
+              </h3>
+              <p className="mt-3 text-[color:var(--muted)] leading-relaxed text-[0.95rem]">
+                {d.text}
+              </p>
+            </li>
+          ))}
         </ul>
       </div>
     </section>

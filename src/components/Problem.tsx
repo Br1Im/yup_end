@@ -1,50 +1,70 @@
 export function Problem() {
   return (
-    <section className="relative">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <div className="grid md:grid-cols-12 gap-10 items-end">
-          <div className="md:col-span-5">
-            <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--peach-deep)]">
-              Почему так трудно
-            </p>
-            <h2 className="serif mt-4 text-4xl md:text-5xl leading-tight text-[color:var(--foreground)]">
+    <section className="relative bg-[color:var(--paper)]">
+      <div className="mx-auto max-w-6xl px-6 py-28 md:py-36">
+        <div className="grid md:grid-cols-12 gap-10">
+          <div className="md:col-span-6">
+            <span className="eyebrow">Почему саморазвитие проваливается</span>
+            <h2 className="display mt-5 text-4xl md:text-6xl leading-[1.0] tracking-[-0.02em] text-[color:var(--ink)]">
               Десять приложений.
               <br />
-              <span className="italic text-[color:var(--sage-deep)]">Ноль</span>{" "}
-              ощущения движения.
+              <span className="italic text-[color:var(--ember)]">
+                Ни одной вершины.
+              </span>
             </h2>
           </div>
 
-          <div className="md:col-span-7 md:pl-10 space-y-5 text-lg text-[color:var(--muted)] leading-relaxed">
-            <p>
-              Языки в одном, медитация во втором, спорт в третьем, заметки в
-              четвёртом. Каждое тянет в свою сторону, ни одно не учитывает,
-              что у тебя ровно 24 часа в сутках и сегодня ты устал.
+          <div className="md:col-span-6 md:pt-3">
+            <p className="text-base md:text-lg text-[color:var(--ink-2)] leading-relaxed">
+              Языки в одном, тренировки во втором, заметки в третьем,
+              медитация в четвёртом. Каждое приложение требует тебя
+              целиком. Каждое тянет в свою сторону. Ни одно не знает,
+              что у тебя 24 часа в сутках и сегодня ты вымотан.
             </p>
-            <p className="text-[color:var(--foreground)]">
-              YUP смотрит на тебя целиком — и складывает один спокойный план
-              на день, неделю, год.
+            <p className="mt-5 text-base md:text-lg text-[color:var(--ink-2)] leading-relaxed">
+              YUP смотрит на цель, не на трекер. Один маршрут.
+              Один план на день. Один вектор — вверх.
             </p>
           </div>
         </div>
 
-        <div className="mt-16 divider-dotted" />
-
-        <div className="mt-16 grid sm:grid-cols-3 gap-8">
-          <Pain title="Раздробленность" body="5+ приложений, и ничего не доведено до конца." />
-          <Pain title="Перегруз" body="План на 3 часа в день — и ты сдаёшься на третий день." />
-          <Pain title="Без обратной связи" body="Никто не замечает, что ты прогрессируешь. Кроме тебя." />
+        <div className="mt-20 grid md:grid-cols-3 gap-px bg-[color:var(--line)]/70">
+          <Pain
+            n="01"
+            title="Распыление"
+            text="5+ инструментов, ни одной завершённой цели. YUP объединяет всё в один маршрут."
+          />
+          <Pain
+            n="02"
+            title="Перегруз"
+            text="План на 3 часа в день. Ты сдаёшься на третий. YUP считает твою реальную загрузку."
+          />
+          <Pain
+            n="03"
+            title="Без обратной связи"
+            text="Никто не замечает, что ты двигаешься. Кроме тебя. YUP видит и подстраивает темп."
+          />
         </div>
       </div>
     </section>
   );
 }
 
-function Pain({ title, body }: { title: string; body: string }) {
+function Pain({ n, title, text }: { n: string; title: string; text: string }) {
   return (
-    <div className="space-y-2">
-      <div className="serif text-xl text-[color:var(--foreground)]">{title}</div>
-      <p className="text-[color:var(--muted)] leading-relaxed">{body}</p>
+    <div className="bg-[color:var(--paper)] p-8">
+      <div className="flex items-baseline gap-3">
+        <span className="text-[0.7rem] tracking-[0.22em] uppercase font-semibold text-[color:var(--ember)]">
+          {n}
+        </span>
+        <span className="hairline-dotted flex-1" />
+      </div>
+      <h3 className="mt-5 text-xl font-semibold text-[color:var(--ink)]">
+        {title}
+      </h3>
+      <p className="mt-3 text-[color:var(--muted)] leading-relaxed text-[0.95rem]">
+        {text}
+      </p>
     </div>
   );
 }
