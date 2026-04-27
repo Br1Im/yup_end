@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Unbounded } from "next/font/google";
 import { I18nProvider } from "@/i18n/I18nProvider";
+import { ScrollReset } from "@/components/ScrollReset";
 import "./globals.css";
 
 const inter = Inter({
@@ -44,6 +45,7 @@ export default function RootLayout({
       className={`${inter.variable} ${display.variable}`}
     >
       <body className="min-h-dvh">
+        <ScrollReset />
         <div className="grain" aria-hidden />
         <I18nProvider>{children}</I18nProvider>
       </body>

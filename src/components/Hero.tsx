@@ -23,18 +23,18 @@ export function Hero() {
 
       <div className="relative mx-auto w-full max-w-7xl px-6 pb-12">
         <h1 className="display-tight text-center mt-4 text-[clamp(3.4rem,11.5vw,11rem)] leading-[0.84]">
-          <span className="block">{t("hero.title.l1")}</span>
-          <span className="block text-[color:var(--lime)] text-glow-lime">
+          <span className="block hero-anim-1">{t("hero.title.l1")}</span>
+          <span className="block text-[color:var(--lime)] text-glow-lime hero-anim-2">
             {t("hero.title.l2")}
           </span>
         </h1>
 
         <div className="relative mt-2 md:-mt-12">
-          <div className="relative mx-auto w-[78%] md:w-[58%] aspect-square">
+          <div className="relative mx-auto w-[78%] md:w-[58%] aspect-square hero-anim-fade hero-anim-fade-d2">
             <Mountain className="w-full h-full block" />
           </div>
 
-          <div className="md:absolute md:left-0 md:top-1/3 md:w-[22rem] mt-6 md:mt-0">
+          <div className="md:absolute md:left-0 md:top-1/3 md:w-[22rem] mt-6 md:mt-0 hero-anim-fade hero-anim-fade-d3">
             <div className="hairline-lime w-12 mb-5" />
             <p className="text-white/70 text-sm md:text-base leading-relaxed">
               {t("hero.intro")}
@@ -63,12 +63,12 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="md:absolute md:right-0 md:top-[28%] grid grid-cols-2 md:grid-cols-1 gap-4 mt-8 md:mt-0 md:w-[14rem]">
+          <div className="md:absolute md:right-0 md:top-[28%] grid grid-cols-2 md:grid-cols-1 gap-4 mt-8 md:mt-0 md:w-[14rem] hero-anim-fade hero-anim-fade-d4">
             <StatCard kpi={t("hero.stat1.kpi")} caption={t("hero.stat1.caption")} />
             <StatCard kpi={t("hero.stat2.kpi")} caption={t("hero.stat2.caption")} />
           </div>
 
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-[14%] md:bottom-[18%] z-10">
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-[14%] md:bottom-[18%] z-10 hero-anim-fade hero-anim-fade-d4">
             <a
               href="#waitlist"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[color:var(--bg-3)]/90 border border-[color:var(--line-strong)] backdrop-blur text-white font-semibold hover:border-[color:var(--lime)] hover:text-[color:var(--lime)] transition-colors text-sm"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/i18n/I18nProvider";
+import { Reveal } from "./Reveal";
 
 export function Billboard() {
   const { t } = useI18n();
@@ -18,14 +19,14 @@ export function Billboard() {
 
       <div className="relative mx-auto max-w-[1500px] px-6 py-24 md:py-36">
         <div className="display-tight text-center leading-[0.86] text-[clamp(3.5rem,13vw,13.5rem)]">
-          <div className="block">{t("billboard.l1")}</div>
-          <div className="block text-[color:var(--lime)] text-glow-lime">
+          <Reveal as="div" delay={1}>{t("billboard.l1")}</Reveal>
+          <Reveal as="div" delay={2} className="text-[color:var(--lime)] text-glow-lime">
             {t("billboard.l2")}
-          </div>
-          <div className="block">{t("billboard.l3")}</div>
+          </Reveal>
+          <Reveal as="div" delay={3}>{t("billboard.l3")}</Reveal>
         </div>
 
-        <div className="mt-14 flex flex-col md:flex-row items-center justify-center gap-4">
+        <Reveal variant="soft" delay={4} className="mt-14 flex flex-col md:flex-row items-center justify-center gap-4">
           <a href="#waitlist" className="btn-lime">
             {t("billboard.cta")}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -41,7 +42,7 @@ export function Billboard() {
           <span className="text-white/45 text-sm tracking-[0.2em] uppercase">
             {t("billboard.tag")}
           </span>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

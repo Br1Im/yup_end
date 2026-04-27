@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/i18n/I18nProvider";
+import { Reveal } from "./Reveal";
 
 export function Problem() {
   const { t } = useI18n();
@@ -19,29 +20,47 @@ export function Problem() {
           <span className="eyebrow text-white/55">{t("problem.eyebrow")}</span>
         </div>
 
-        <h2 className="display-tight text-[clamp(3rem,9.5vw,9rem)] leading-[0.86]">
-          <span className="block">{t("problem.title.l1")}</span>
-          <span className="block text-[color:var(--lime)]">
-            {t("problem.title.l2")}
-          </span>
-        </h2>
+        <Reveal>
+          <h2 className="display-tight text-[clamp(3rem,9.5vw,9rem)] leading-[0.86]">
+            <span className="block">{t("problem.title.l1")}</span>
+            <span className="block text-[color:var(--lime)]">
+              {t("problem.title.l2")}
+            </span>
+          </h2>
+        </Reveal>
 
         <div className="mt-16 grid md:grid-cols-12 gap-10">
-          <p className="md:col-span-6 md:col-start-1 text-white/70 leading-relaxed">
-            {t("problem.lead")}
-          </p>
-          <p className="md:col-span-5 md:col-start-8 text-white/85 leading-relaxed">
-            {t("problem.lead2")}{" "}
-            <span className="text-[color:var(--lime)] font-semibold">
-              {t("problem.lead2.accent")}
-            </span>
-            .
-          </p>
+          <Reveal
+            variant="soft"
+            delay={1}
+            className="md:col-span-6 md:col-start-1"
+          >
+            <p className="text-white/70 leading-relaxed">{t("problem.lead")}</p>
+          </Reveal>
+          <Reveal
+            variant="soft"
+            delay={2}
+            className="md:col-span-5 md:col-start-8"
+          >
+            <p className="text-white/85 leading-relaxed">
+              {t("problem.lead2")}{" "}
+              <span className="text-[color:var(--lime)] font-semibold">
+                {t("problem.lead2.accent")}
+              </span>
+              .
+            </p>
+          </Reveal>
         </div>
 
         <ul className="mt-20 grid md:grid-cols-3 gap-px bg-[color:var(--line)]">
-          {cards.map((c) => (
-            <PCard key={c.n} n={c.n} t={c.t} d={c.d} />
+          {cards.map((c, i) => (
+            <PCard
+              key={c.n}
+              n={c.n}
+              t={c.t}
+              d={c.d}
+              delay={(i + 1) as 1 | 2 | 3}
+            />
           ))}
         </ul>
       </div>
@@ -49,9 +68,24 @@ export function Problem() {
   );
 }
 
-function PCard({ n, t, d }: { n: string; t: string; d: string }) {
+function PCard({
+  n,
+  t,
+  d,
+  delay,
+}: {
+  n: string;
+  t: string;
+  d: string;
+  delay: 1 | 2 | 3;
+}) {
   return (
-    <li className="group bg-[color:var(--bg-2)] hover:bg-[color:var(--bg-3)] p-8 transition-colors">
+    <Reveal
+      as="li"
+      variant="soft"
+      delay={delay}
+      className="group bg-[color:var(--bg-2)] hover:bg-[color:var(--bg-3)] p-8 transition-colors"
+    >
       <div className="flex items-start justify-between">
         <span className="display text-2xl text-[color:var(--lime)]">{n}</span>
         <span className="size-8 rounded-full border border-[color:var(--line-strong)] flex items-center justify-center text-white/40 group-hover:text-[color:var(--lime)] group-hover:border-[color:var(--lime)] transition-colors">
@@ -68,6 +102,6 @@ function PCard({ n, t, d }: { n: string; t: string; d: string }) {
       </div>
       <h3 className="display mt-10 text-2xl">{t}</h3>
       <p className="mt-4 text-sm text-white/60 leading-relaxed">{d}</p>
-    </li>
+    </Reveal>
   );
 }

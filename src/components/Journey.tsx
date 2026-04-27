@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/i18n/I18nProvider";
+import { Reveal } from "./Reveal";
 
 export function Journey() {
   const { t } = useI18n();
@@ -64,21 +65,28 @@ export function Journey() {
           <span className="eyebrow text-white/55">{t("journey.eyebrow")}</span>
         </div>
 
-        <h2 className="display-tight text-[clamp(3rem,9vw,8.5rem)] leading-[0.86]">
-          <span className="block">{t("journey.title.l1")}</span>
-          <span className="block text-[color:var(--lime)]">
-            {t("journey.title.l2")}
-          </span>
-        </h2>
+        <Reveal>
+          <h2 className="display-tight text-[clamp(3rem,9vw,8.5rem)] leading-[0.86]">
+            <span className="block">{t("journey.title.l1")}</span>
+            <span className="block text-[color:var(--lime)]">
+              {t("journey.title.l2")}
+            </span>
+          </h2>
+        </Reveal>
 
-        <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
-          {t("journey.lead")}
-        </p>
+        <Reveal variant="soft" delay={1}>
+          <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
+            {t("journey.lead")}
+          </p>
+        </Reveal>
 
         <ol className="mt-20 grid md:grid-cols-4 gap-px bg-[color:var(--line)]">
           {camps.map((c, i) => (
-            <li
+            <Reveal
               key={c.n}
+              as="li"
+              variant="soft"
+              delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
               className="relative bg-[color:var(--bg)] p-7 md:p-8 group hover:bg-[color:var(--bg-3)] transition-colors"
             >
               <div className="flex items-center gap-3">
@@ -108,7 +116,7 @@ export function Journey() {
                 style={{ transform: `translateY(${i * -2}px)` }}
                 aria-hidden
               />
-            </li>
+            </Reveal>
           ))}
         </ol>
       </div>

@@ -2,6 +2,7 @@
 
 import { Languages, Activity, BookOpen, Compass, Brain } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { Reveal } from "./Reveal";
 
 export function Domains() {
   const { t } = useI18n();
@@ -29,21 +30,28 @@ export function Domains() {
           <span className="eyebrow text-white/55">{t("domains.eyebrow")}</span>
         </div>
 
-        <h2 className="display-tight text-[clamp(3rem,9vw,8.5rem)] leading-[0.86]">
-          <span className="block">{t("domains.title.l1")}</span>
-          <span className="block text-[color:var(--lime)]">
-            {t("domains.title.l2")}
-          </span>
-        </h2>
+        <Reveal>
+          <h2 className="display-tight text-[clamp(3rem,9vw,8.5rem)] leading-[0.86]">
+            <span className="block">{t("domains.title.l1")}</span>
+            <span className="block text-[color:var(--lime)]">
+              {t("domains.title.l2")}
+            </span>
+          </h2>
+        </Reveal>
 
-        <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
-          {t("domains.lead")}
-        </p>
+        <Reveal variant="soft" delay={1}>
+          <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
+            {t("domains.lead")}
+          </p>
+        </Reveal>
 
         <ul className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px bg-[color:var(--line)]">
           {domains.map((d, i) => (
-            <li
+            <Reveal
               key={d.title}
+              as="li"
+              variant="soft"
+              delay={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
               className="relative bg-[color:var(--bg-2)] hover:bg-[color:var(--bg-3)] p-7 group transition-colors"
             >
               <div className="flex items-center justify-between">
@@ -58,7 +66,7 @@ export function Domains() {
               <p className="mt-3 text-white/55 leading-relaxed text-[0.9rem]">
                 {d.text}
               </p>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>

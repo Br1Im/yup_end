@@ -222,3 +222,82 @@ body {
     transparent 22px
   );
 }
+
+/* Scroll-reveal: starts hidden + nudged down, transitions in when in view */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 800ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 800ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.reveal-soft {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal-soft.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Stagger helpers */
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+.reveal-delay-4 { transition-delay: 320ms; }
+.reveal-delay-5 { transition-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-soft {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hero entrance — runs once on mount via .has-hero-entered on <html> */
+@keyframes hero-rise {
+  0%   { opacity: 0; transform: translate3d(0, 36px, 0); letter-spacing: -0.02em; }
+  100% { opacity: 1; transform: translate3d(0, 0, 0);    letter-spacing: -0.04em; }
+}
+@keyframes hero-glow-pulse {
+  0%   { text-shadow: 0 0 0 rgba(205, 255, 61, 0); }
+  60%  { text-shadow: 0 0 60px rgba(205, 255, 61, 0.65); }
+  100% { text-shadow: 0 0 40px rgba(205, 255, 61, 0.45); }
+}
+@keyframes hero-fade {
+  0%   { opacity: 0; transform: translate3d(0, 18px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.hero-anim-1 {
+  animation: hero-rise 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hero-anim-2 {
+  animation:
+    hero-rise 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms both,
+    hero-glow-pulse 1600ms cubic-bezier(0.2, 0.7, 0.2, 1) 600ms both;
+}
+.hero-anim-fade {
+  animation: hero-fade 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hero-anim-fade-d1 { animation-delay: 380ms; }
+.hero-anim-fade-d2 { animation-delay: 480ms; }
+.hero-anim-fade-d3 { animation-delay: 580ms; }
+.hero-anim-fade-d4 { animation-delay: 680ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim-1,
+  .hero-anim-2,
+  .hero-anim-fade {
+    animation: none;
+  }
+}

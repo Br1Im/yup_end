@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { Reveal } from "./Reveal";
 
 export function Waitlist() {
   const { t } = useI18n();
@@ -42,18 +43,22 @@ export function Waitlist() {
           <span className="eyebrow text-white/55">{t("waitlist.eyebrow")}</span>
         </div>
 
-        <h2 className="display-tight text-[clamp(3rem,9.5vw,9rem)] leading-[0.86]">
-          <span className="block">{t("waitlist.title.l1")}</span>
-          <span className="block text-[color:var(--lime)] text-glow-lime">
-            {t("waitlist.title.l2")}
-          </span>
-        </h2>
+        <Reveal>
+          <h2 className="display-tight text-[clamp(3rem,9.5vw,9rem)] leading-[0.86]">
+            <span className="block">{t("waitlist.title.l1")}</span>
+            <span className="block text-[color:var(--lime)] text-glow-lime">
+              {t("waitlist.title.l2")}
+            </span>
+          </h2>
+        </Reveal>
 
         <div className="mt-12 grid md:grid-cols-12 gap-10">
-          <p className="md:col-span-6 text-white/70 leading-relaxed text-base md:text-lg">
-            {t("waitlist.lead")}
-          </p>
-          <div className="md:col-span-6">
+          <Reveal variant="soft" delay={1} className="md:col-span-6">
+            <p className="text-white/70 leading-relaxed text-base md:text-lg">
+              {t("waitlist.lead")}
+            </p>
+          </Reveal>
+          <Reveal variant="soft" delay={2} className="md:col-span-6">
             {status === "done" ? (
               <div className="inline-flex items-center gap-3 px-6 py-4 rounded-full bg-[color:var(--lime)]/10 border border-[color:var(--lime)]/40 text-[color:var(--lime)]">
                 <span className="size-2 rounded-full bg-[color:var(--lime)]" />
@@ -97,7 +102,7 @@ export function Waitlist() {
             <p className="mt-6 text-xs text-white/45">
               {t("waitlist.privacy")}
             </p>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

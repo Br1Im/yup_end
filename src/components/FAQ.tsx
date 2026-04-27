@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/i18n/I18nProvider";
+import { Reveal } from "./Reveal";
 
 export function FAQ() {
   const { t } = useI18n();
@@ -21,10 +22,12 @@ export function FAQ() {
           <span className="eyebrow text-white/55">{t("faq.eyebrow")}</span>
         </div>
 
-        <h2 className="display-tight text-[clamp(3rem,9vw,8rem)] leading-[0.86]">
-          <span className="block">{t("faq.title.l1")}</span>
-          <span className="block text-[color:var(--lime)]">{t("faq.title.l2")}</span>
-        </h2>
+        <Reveal>
+          <h2 className="display-tight text-[clamp(3rem,9vw,8rem)] leading-[0.86]">
+            <span className="block">{t("faq.title.l1")}</span>
+            <span className="block text-[color:var(--lime)]">{t("faq.title.l2")}</span>
+          </h2>
+        </Reveal>
 
         <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
           {t("faq.contact")}
@@ -37,8 +40,13 @@ export function FAQ() {
         </p>
 
         <ul className="mt-14 divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
-          {items.map((it) => (
-            <li key={it.q}>
+          {items.map((it, i) => (
+            <Reveal
+              key={it.q}
+              as="li"
+              variant="soft"
+              delay={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+            >
               <details className="group py-7">
                 <summary className="cursor-pointer list-none flex items-start justify-between gap-6">
                   <span className="display text-lg md:text-2xl text-white group-open:text-[color:var(--lime)] transition-colors">
@@ -59,7 +67,7 @@ export function FAQ() {
                   {it.a}
                 </p>
               </details>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>
