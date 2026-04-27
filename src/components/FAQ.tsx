@@ -16,7 +16,7 @@ export function FAQ() {
 
   return (
     <section id="faq" className="relative bg-[color:var(--bg)] scroll-mt-20 text-white">
-      <div className="mx-auto max-w-7xl px-6 py-28 md:py-40">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-20 md:py-40">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="size-2 rounded-full bg-[color:var(--lime)]" />
           <span className="eyebrow text-white/55">{t("faq.eyebrow")}</span>

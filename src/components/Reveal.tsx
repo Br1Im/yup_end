@@ -41,7 +41,11 @@ export function Reveal({
           }
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      // Fire only when the block is meaningfully on screen — its top has
+      // passed the bottom 22% of the viewport. Threshold 0 + a generous
+      // negative bottom rootMargin keeps tall headlines from animating
+      // while their top edge is still below the fold.
+      { threshold: 0, rootMargin: "0px 0px -22% 0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();

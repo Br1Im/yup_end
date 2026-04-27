@@ -37,7 +37,7 @@ export function Waitlist() {
       />
       <div className="absolute inset-0 slashes opacity-50" aria-hidden />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-20 md:py-40">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="size-2 rounded-full bg-[color:var(--lime)] shadow-[0_0_18px_rgba(205,255,61,0.7)]" />
           <span className="eyebrow text-white/55">{t("waitlist.eyebrow")}</span>

@@ -11,6 +11,7 @@ export const translations = {
     "header.nav.faq": "FAQ",
     "header.cta.signup": "Записаться",
     "header.cta.signup.suffix": "— бесплатно",
+    "header.cta.signup.short": "Записаться",
 
     // Hero
     "hero.title.l1": "Вершина —",
@@ -186,6 +187,7 @@ export const translations = {
     "header.nav.faq": "FAQ",
     "header.cta.signup": "Join",
     "header.cta.signup.suffix": "— it's free",
+    "header.cta.signup.short": "Join",
 
     // Hero
     "hero.title.l1": "The summit —",

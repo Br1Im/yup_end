@@ -59,7 +59,7 @@ export function Journey() {
         <rect width="100%" height="100%" fill="url(#topo)" />
       </svg>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-20 md:py-40">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="size-2 rounded-full bg-[color:var(--lime)]" />
           <span className="eyebrow text-white/55">{t("journey.eyebrow")}</span>

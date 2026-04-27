@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-[color:var(--bg)] text-white pt-28 md:pt-32"
+      className="relative overflow-hidden bg-[color:var(--bg)] text-white pt-24 sm:pt-28 md:pt-32"
       style={{ isolation: "isolate" }}
     >
       <div
@@ -21,16 +21,16 @@ export function Hero() {
       />
       <div className="absolute inset-0 -z-10 slashes opacity-60" aria-hidden />
 
-      <div className="relative mx-auto w-full max-w-7xl px-6 pb-12">
-        <h1 className="display-tight text-center mt-4 text-[clamp(3.4rem,11.5vw,11rem)] leading-[0.84]">
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 pb-12">
+        <h1 className="display-tight text-center mt-2 sm:mt-4 text-[clamp(3rem,12vw,11rem)] leading-[0.84]">
           <span className="block hero-anim-1">{t("hero.title.l1")}</span>
           <span className="block text-[color:var(--lime)] text-glow-lime hero-anim-2">
             {t("hero.title.l2")}
           </span>
         </h1>
 
-        <div className="relative mt-2 md:-mt-12">
-          <div className="relative mx-auto w-[78%] md:w-[58%] aspect-square hero-anim-fade hero-anim-fade-d2">
+        <div className="relative mt-4 md:-mt-12">
+          <div className="relative mx-auto w-[88%] sm:w-[78%] md:w-[58%] aspect-square hero-anim-fade hero-anim-fade-d2">
             <Mountain className="w-full h-full block" />
           </div>
 
@@ -68,7 +68,7 @@ export function Hero() {
             <StatCard kpi={t("hero.stat2.kpi")} caption={t("hero.stat2.caption")} />
           </div>
 
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-[14%] md:bottom-[18%] z-10 hero-anim-fade hero-anim-fade-d4">
+          <div className="hidden md:block md:absolute left-1/2 -translate-x-1/2 bottom-[18%] z-10 hero-anim-fade hero-anim-fade-d4">
             <a
               href="#waitlist"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[color:var(--bg-3)]/90 border border-[color:var(--line-strong)] backdrop-blur text-white font-semibold hover:border-[color:var(--lime)] hover:text-[color:var(--lime)] transition-colors text-sm"
@@ -87,7 +87,23 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-16 md:mt-8 border-t border-b border-[color:var(--line)] py-6">
+        {/* Mobile-only primary CTA */}
+        <div className="md:hidden mt-10 flex justify-center hero-anim-fade hero-anim-fade-d4">
+          <a href="#waitlist" className="btn-lime text-sm w-full max-w-xs justify-center">
+            {t("hero.cta.start")}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M7 17L17 7M17 7H8M17 7v9"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <div className="mt-12 md:mt-8 border-t border-b border-[color:var(--line)] py-6">
           <div className="flex flex-wrap items-center justify-around gap-y-4 text-white/55 uppercase text-xs tracking-[0.2em]">
             <Sphere label={t("hero.spheres.lang")} />
             <Sep />

@@ -14,7 +14,7 @@ export function Problem() {
 
   return (
     <section id="why" className="relative bg-[color:var(--bg)] text-white">
-      <div className="relative mx-auto max-w-7xl px-6 pt-28 md:pt-40 pb-20">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-20 md:pt-40 pb-16 md:pb-20">
         <div className="flex items-baseline gap-4 mb-12">
           <span className="size-2 rounded-full bg-[color:var(--lime)]" />
           <span className="eyebrow text-white/55">{t("problem.eyebrow")}</span>

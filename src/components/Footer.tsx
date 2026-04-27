@@ -6,7 +6,7 @@ export function Footer() {
   const { t } = useI18n();
   return (
     <footer className="relative bg-[color:var(--bg)] text-white border-t border-[color:var(--line)] overflow-hidden">
-      <div className="relative mx-auto max-w-7xl px-6 pt-20">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-20">
         <div
           className="display-tight text-[color:var(--lime)] text-glow-lime select-none leading-none"
           style={{ fontSize: "clamp(7rem, 26vw, 22rem)" }}
@@ -16,7 +16,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-12 pb-12">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-12 pb-12">
         <div className="grid md:grid-cols-12 gap-10 border-t border-[color:var(--line)] pt-10">
           <div className="md:col-span-6">
             <p className="display text-2xl md:text-3xl text-white max-w-xl leading-[1.05]">
