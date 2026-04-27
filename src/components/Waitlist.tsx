@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function Waitlist() {
+  const { t } = useI18n();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
     "idle" | "submitting" | "done" | "error"
@@ -24,7 +26,6 @@ export function Waitlist() {
       id="waitlist"
       className="relative bg-[color:var(--bg)] text-white scroll-mt-20 overflow-hidden"
     >
-      {/* lime glow accent */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -38,26 +39,25 @@ export function Waitlist() {
       <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="size-2 rounded-full bg-[color:var(--lime)] shadow-[0_0_18px_rgba(205,255,61,0.7)]" />
-          <span className="eyebrow text-white/55">Первая волна</span>
+          <span className="eyebrow text-white/55">{t("waitlist.eyebrow")}</span>
         </div>
 
         <h2 className="display-tight text-[clamp(3rem,9.5vw,9rem)] leading-[0.86]">
-          <span className="block">ХВАТИТ СИДЕТЬ.</span>
+          <span className="block">{t("waitlist.title.l1")}</span>
           <span className="block text-[color:var(--lime)] text-glow-lime">
-            ПОРА ИДТИ.
+            {t("waitlist.title.l2")}
           </span>
         </h2>
 
         <div className="mt-12 grid md:grid-cols-12 gap-10">
           <p className="md:col-span-6 text-white/70 leading-relaxed text-base md:text-lg">
-            YUP ещё в пути. Зову первой волной — без спама и серий писем
-            «зачем тебе саморазвитие». Одно письмо, когда маршрут будет готов.
+            {t("waitlist.lead")}
           </p>
           <div className="md:col-span-6">
             {status === "done" ? (
               <div className="inline-flex items-center gap-3 px-6 py-4 rounded-full bg-[color:var(--lime)]/10 border border-[color:var(--lime)]/40 text-[color:var(--lime)]">
                 <span className="size-2 rounded-full bg-[color:var(--lime)]" />
-                Записал. До встречи у базы.
+                {t("waitlist.done")}
               </div>
             ) : (
               <form
@@ -72,7 +72,7 @@ export function Waitlist() {
                     setEmail(e.target.value);
                     if (status === "error") setStatus("idle");
                   }}
-                  placeholder="ты@почта.ру"
+                  placeholder={t("waitlist.placeholder")}
                   aria-label="Email"
                   className="flex-1 px-6 py-4 rounded-full bg-white/[0.03] border border-[color:var(--line-strong)] text-white placeholder:text-white/35 outline-none focus:border-[color:var(--lime)] transition-colors"
                 />
@@ -81,19 +81,21 @@ export function Waitlist() {
                   disabled={status === "submitting"}
                   className="btn-lime justify-center disabled:opacity-60 px-8"
                 >
-                  {status === "submitting" ? "Записываем…" : "В первую волну"}
+                  {status === "submitting"
+                    ? t("waitlist.submitting")
+                    : t("waitlist.submit")}
                 </button>
               </form>
             )}
 
             {status === "error" && (
               <p className="mt-4 text-sm text-[color:var(--lime)]">
-                Похоже, в адресе опечатка — проверь почту?
+                {t("waitlist.error")}
               </p>
             )}
 
             <p className="mt-6 text-xs text-white/45">
-              Без рассылок. Без передачи третьим. Отписаться — в один клик.
+              {t("waitlist.privacy")}
             </p>
           </div>
         </div>

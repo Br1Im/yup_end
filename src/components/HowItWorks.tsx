@@ -1,27 +1,17 @@
-const STEPS = [
-  {
-    n: "01",
-    title: "Назови вершину",
-    text: "Опиши цель словами — без анкет на час. Говорить по-английски. Подтянуться 20 раз. Прочесть 12 книг. Выйти из тревоги. Это и есть вершина.",
-  },
-  {
-    n: "02",
-    title: "AI прокладывает маршрут",
-    text: "За пару минут — персональный путь на месяц вперёд. Конкретные шаги, лучшие источники, реалистичный темп. Никакого спама контентом ради контента.",
-  },
-  {
-    n: "03",
-    title: "Идёшь каждый день",
-    text: "Утром — список шагов на сегодня. Учитывает сон, ритм, вчерашнее состояние. Пропустил день — план перестраивается, не ломается.",
-  },
-  {
-    n: "04",
-    title: "Берёшь вершину",
-    text: "Чёткий ритм. Замеры. Видимый прогресс. И сразу — следующая, выше. YUP не оставляет тебя на плато.",
-  },
-];
+"use client";
+
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function HowItWorks() {
+  const { t } = useI18n();
+
+  const steps = [
+    { n: "01", title: t("how.s1.t"), text: t("how.s1.d") },
+    { n: "02", title: t("how.s2.t"), text: t("how.s2.d") },
+    { n: "03", title: t("how.s3.t"), text: t("how.s3.d") },
+    { n: "04", title: t("how.s4.t"), text: t("how.s4.d") },
+  ];
+
   return (
     <section
       id="how"
@@ -30,22 +20,22 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl px-6 py-28 md:py-40">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="size-2 rounded-full bg-[color:var(--lime)]" />
-          <span className="eyebrow text-white/55">Как устроен маршрут</span>
+          <span className="eyebrow text-white/55">{t("how.eyebrow")}</span>
         </div>
 
         <h2 className="display-tight text-[clamp(3rem,9vw,8.5rem)] leading-[0.86]">
-          <span className="block">ЧЕТЫРЕ ШАГА.</span>
-          <span className="block text-[color:var(--lime)]">И ТЫ УЖЕ ИДЁШЬ.</span>
+          <span className="block">{t("how.title.l1")}</span>
+          <span className="block text-[color:var(--lime)]">
+            {t("how.title.l2")}
+          </span>
         </h2>
 
         <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
-          Никаких опросников на час и абстрактных «персонализаций». Ты
-          называешь цель — система отвечает конкретным маршрутом и первым
-          шагом, который можно сделать прямо сейчас.
+          {t("how.lead")}
         </p>
 
         <ol className="mt-20 grid md:grid-cols-2 gap-x-px gap-y-px bg-[color:var(--line)]">
-          {STEPS.map((s) => (
+          {steps.map((s) => (
             <li
               key={s.n}
               className="group relative bg-[color:var(--bg)] hover:bg-[color:var(--bg-3)] p-8 md:p-10 transition-colors"

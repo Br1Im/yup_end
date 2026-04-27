@@ -1,46 +1,33 @@
-const ITEMS = [
-  {
-    q: "Это очередная подписка на «успех»?",
-    a: "Нет. YUP не продаёт мотивацию и не раздаёт значки. Это инструмент дисциплины: чёткий маршрут, ежедневный шаг, видимый прогресс. Хочешь идти — идёшь. Не хочешь — никто не спасёт.",
-  },
-  {
-    q: "Где берётся контент — вы делаете свои курсы?",
-    a: "Нет. AI собирает маршрут из уже существующих лучших ресурсов: книги, курсы, видео, статьи, тренировки. Ты платишь не за контент — за маршрут.",
-  },
-  {
-    q: "Что если я пропущу день или неделю?",
-    a: "План перестраивается. Никаких сожжённых стриков и токсичных уведомлений. Возвращаешься — продолжаешь с точки, где темп тебе по силам сегодня.",
-  },
-  {
-    q: "Сколько времени в день нужно?",
-    a: "Минимум — 20 минут. Можно час, можно три. AI считает твоё реальное расписание. Главное — каждый день, а не один раз героически.",
-  },
-  {
-    q: "Это подходит и парням, и девушкам?",
-    a: "Да. YUP не про «успешный успех» и не про мягкие аффирмации. Это про цель и путь к ней — одинаково для всех, кто хочет дойти.",
-  },
-  {
-    q: "Когда будет доступен?",
-    a: "Работаем над первой версией. Запись в waitlist выше — позовём первой волной, без рассылок и распродаж.",
-  },
-];
+"use client";
+
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function FAQ() {
+  const { t } = useI18n();
+  const items = [
+    { q: t("faq.q1.q"), a: t("faq.q1.a") },
+    { q: t("faq.q2.q"), a: t("faq.q2.a") },
+    { q: t("faq.q3.q"), a: t("faq.q3.a") },
+    { q: t("faq.q4.q"), a: t("faq.q4.a") },
+    { q: t("faq.q5.q"), a: t("faq.q5.a") },
+    { q: t("faq.q6.q"), a: t("faq.q6.a") },
+  ];
+
   return (
     <section id="faq" className="relative bg-[color:var(--bg)] scroll-mt-20 text-white">
       <div className="mx-auto max-w-7xl px-6 py-28 md:py-40">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="size-2 rounded-full bg-[color:var(--lime)]" />
-          <span className="eyebrow text-white/55">FAQ</span>
+          <span className="eyebrow text-white/55">{t("faq.eyebrow")}</span>
         </div>
 
         <h2 className="display-tight text-[clamp(3rem,9vw,8rem)] leading-[0.86]">
-          <span className="block">ЧАСТО</span>
-          <span className="block text-[color:var(--lime)]">СПРАШИВАЮТ.</span>
+          <span className="block">{t("faq.title.l1")}</span>
+          <span className="block text-[color:var(--lime)]">{t("faq.title.l2")}</span>
         </h2>
 
         <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
-          Если ответа нет — пиши на почту:
+          {t("faq.contact")}
           <a
             className="text-[color:var(--lime)] hover:underline ml-1"
             href="mailto:hi@yup.app"
@@ -50,7 +37,7 @@ export function FAQ() {
         </p>
 
         <ul className="mt-14 divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
-          {ITEMS.map((it) => (
+          {items.map((it) => (
             <li key={it.q}>
               <details className="group py-7">
                 <summary className="cursor-pointer list-none flex items-start justify-between gap-6">

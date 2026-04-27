@@ -1,53 +1,48 @@
+"use client";
+
+import { useI18n } from "@/i18n/I18nProvider";
+
 export function Problem() {
+  const { t } = useI18n();
+
+  const cards = [
+    { n: "01", t: t("problem.card1.t"), d: t("problem.card1.d") },
+    { n: "02", t: t("problem.card2.t"), d: t("problem.card2.d") },
+    { n: "03", t: t("problem.card3.t"), d: t("problem.card3.d") },
+  ];
+
   return (
     <section id="why" className="relative bg-[color:var(--bg)] text-white">
-      {/* Massive billboard */}
       <div className="relative mx-auto max-w-7xl px-6 pt-28 md:pt-40 pb-20">
         <div className="flex items-baseline gap-4 mb-12">
           <span className="size-2 rounded-full bg-[color:var(--lime)]" />
-          <span className="eyebrow text-white/55">
-            Почему саморазвитие проваливается
-          </span>
+          <span className="eyebrow text-white/55">{t("problem.eyebrow")}</span>
         </div>
 
         <h2 className="display-tight text-[clamp(3rem,9.5vw,9rem)] leading-[0.86]">
-          <span className="block">ДЕСЯТЬ ПРИЛОЖЕНИЙ.</span>
+          <span className="block">{t("problem.title.l1")}</span>
           <span className="block text-[color:var(--lime)]">
-            НИ ОДНОЙ ВЕРШИНЫ.
+            {t("problem.title.l2")}
           </span>
         </h2>
 
         <div className="mt-16 grid md:grid-cols-12 gap-10">
           <p className="md:col-span-6 md:col-start-1 text-white/70 leading-relaxed">
-            Языки в одном, тренировки во втором, заметки в третьем, медитация
-            в четвёртом. Каждое требует тебя целиком. Каждое тянет в свою
-            сторону. Ни одно не знает, что у тебя 24 часа в сутках и сегодня
-            ты вымотан.
+            {t("problem.lead")}
           </p>
           <p className="md:col-span-5 md:col-start-8 text-white/85 leading-relaxed">
-            YUP смотрит на цель, не на трекер. Один маршрут. Один план на
-            день. Один вектор —{" "}
-            <span className="text-[color:var(--lime)] font-semibold">вверх</span>.
+            {t("problem.lead2")}{" "}
+            <span className="text-[color:var(--lime)] font-semibold">
+              {t("problem.lead2.accent")}
+            </span>
+            .
           </p>
         </div>
 
-        {/* 3 problem cards */}
         <ul className="mt-20 grid md:grid-cols-3 gap-px bg-[color:var(--line)]">
-          <PCard
-            n="01"
-            t="Распыление"
-            d="5+ инструментов, ни одной завершённой цели. YUP объединяет всё в один маршрут."
-          />
-          <PCard
-            n="02"
-            t="Перегруз"
-            d="План на 3 часа в день. Ты сдаёшься на третий. YUP считает реальную загрузку."
-          />
-          <PCard
-            n="03"
-            t="Тишина"
-            d="Никто не замечает, что ты двигаешься. Кроме тебя. YUP видит и подстраивает темп."
-          />
+          {cards.map((c) => (
+            <PCard key={c.n} n={c.n} t={c.t} d={c.d} />
+          ))}
         </ul>
       </div>
     </section>

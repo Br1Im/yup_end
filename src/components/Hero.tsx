@@ -1,13 +1,17 @@
+"use client";
+
+import { useI18n } from "@/i18n/I18nProvider";
 import { Mountain } from "./Mountain";
 
 export function Hero() {
+  const { t } = useI18n();
+
   return (
     <section
       id="top"
       className="relative overflow-hidden bg-[color:var(--bg)] text-white pt-28 md:pt-32"
       style={{ isolation: "isolate" }}
     >
-      {/* Top ambient lime glow */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
@@ -15,39 +19,34 @@ export function Hero() {
             "radial-gradient(60% 50% at 50% 35%, rgba(205,255,61,0.10) 0%, rgba(205,255,61,0) 60%)",
         }}
       />
-      {/* Slash texture */}
       <div className="absolute inset-0 -z-10 slashes opacity-60" aria-hidden />
 
       <div className="relative mx-auto w-full max-w-7xl px-6 pb-12">
-        {/* Massive headline */}
         <h1 className="display-tight text-center mt-4 text-[clamp(3.4rem,11.5vw,11rem)] leading-[0.84]">
-          <span className="block">
-            ВЕРШИНА —
-          </span>
+          <span className="block">{t("hero.title.l1")}</span>
           <span className="block text-[color:var(--lime)] text-glow-lime">
-            ЭТО ВЫБОР.
+            {t("hero.title.l2")}
           </span>
         </h1>
 
-        {/* Mountain mockup floating in middle */}
         <div className="relative mt-2 md:-mt-12">
           <div className="relative mx-auto w-[78%] md:w-[58%] aspect-square">
             <Mountain className="w-full h-full block" />
           </div>
 
-          {/* Left intro panel */}
           <div className="md:absolute md:left-0 md:top-1/3 md:w-[22rem] mt-6 md:mt-0">
             <div className="hairline-lime w-12 mb-5" />
             <p className="text-white/70 text-sm md:text-base leading-relaxed">
-              YUP — один маршрут на язык, тело, знания, привычки и голову.
-              AI собирает план под твою жизнь. Ты — идёшь. Каждый день. Без
-              распыления, без отмазок.
+              {t("hero.intro")}
             </p>
 
             <div className="mt-6 inline-flex items-center gap-3">
               <a href="#how" className="btn-pill">
                 <span>
-                  Как устроен <span className="text-[color:var(--muted)]">/ 3 шага</span>
+                  {t("hero.cta.steps")}{" "}
+                  <span className="text-[color:var(--muted)]">
+                    {t("hero.cta.steps.suffix")}
+                  </span>
                 </span>
                 <span className="size-7 rounded-full bg-[color:var(--lime)] text-[color:var(--bg)] flex items-center justify-center">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -64,19 +63,17 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right stats stack */}
           <div className="md:absolute md:right-0 md:top-[28%] grid grid-cols-2 md:grid-cols-1 gap-4 mt-8 md:mt-0 md:w-[14rem]">
-            <StatCard kpi="10×" caption="Меньше распыления — один план вместо десятка приложений." />
-            <StatCard kpi="365" caption="Дней в году. Каждый — шаг к вершине, не к плато." />
+            <StatCard kpi={t("hero.stat1.kpi")} caption={t("hero.stat1.caption")} />
+            <StatCard kpi={t("hero.stat2.kpi")} caption={t("hero.stat2.caption")} />
           </div>
 
-          {/* Center CTA pill — overlaps mountain */}
           <div className="absolute left-1/2 -translate-x-1/2 bottom-[14%] md:bottom-[18%] z-10">
             <a
               href="#waitlist"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[color:var(--bg-3)]/90 border border-[color:var(--line-strong)] backdrop-blur text-white font-semibold hover:border-[color:var(--lime)] hover:text-[color:var(--lime)] transition-colors text-sm"
             >
-              Начать восхождение
+              {t("hero.cta.start")}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M7 17L17 7M17 7H8M17 7v9"
@@ -90,18 +87,17 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Partner / sphere strip — Ora-style */}
         <div className="mt-16 md:mt-8 border-t border-b border-[color:var(--line)] py-6">
           <div className="flex flex-wrap items-center justify-around gap-y-4 text-white/55 uppercase text-xs tracking-[0.2em]">
-            <Sphere label="Язык" />
+            <Sphere label={t("hero.spheres.lang")} />
             <Sep />
-            <Sphere label="Тело" />
+            <Sphere label={t("hero.spheres.body")} />
             <Sep />
-            <Sphere label="Знания" />
+            <Sphere label={t("hero.spheres.knowledge")} />
             <Sep />
-            <Sphere label="Привычки" />
+            <Sphere label={t("hero.spheres.habits")} />
             <Sep />
-            <Sphere label="Голова" />
+            <Sphere label={t("hero.spheres.mind")} />
           </div>
         </div>
       </div>

@@ -1,41 +1,46 @@
-const CAMPS = [
-  {
-    n: "00",
-    label: "База",
-    title: "Старт",
-    when: "День 1–7",
-    text: "Цель названа. AI выдаёт первую тропу — на 7 дней. Лёгкий вход, чтобы поверить в темп.",
-  },
-  {
-    n: "I",
-    label: "Лагерь",
-    title: "Маршрут",
-    when: "1–3 месяц",
-    text: "Ритм каждого дня. План адаптируется под жизнь — командировки, болезнь, сорванный сон. Главное — не остановиться.",
-  },
-  {
-    n: "II",
-    label: "Лагерь",
-    title: "Плечо",
-    when: "3–6 месяц",
-    text: "Привычки стоят. Появляются результаты — слова, форма, ясность. Дальше — последний рывок к гребню.",
-  },
-  {
-    n: "III",
-    label: "Вершина",
-    title: "Summit",
-    when: "Год+",
-    text: "Цель взята. Видно, как далеко ушёл. YUP становится напарником в следующем восхождении.",
-  },
-];
+"use client";
+
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function Journey() {
+  const { t } = useI18n();
+
+  const camps = [
+    {
+      n: "00",
+      label: t("journey.c1.label"),
+      title: t("journey.c1.t"),
+      when: t("journey.c1.when"),
+      text: t("journey.c1.d"),
+    },
+    {
+      n: "I",
+      label: t("journey.c2.label"),
+      title: t("journey.c2.t"),
+      when: t("journey.c2.when"),
+      text: t("journey.c2.d"),
+    },
+    {
+      n: "II",
+      label: t("journey.c3.label"),
+      title: t("journey.c3.t"),
+      when: t("journey.c3.when"),
+      text: t("journey.c3.d"),
+    },
+    {
+      n: "III",
+      label: t("journey.c4.label"),
+      title: t("journey.c4.t"),
+      when: t("journey.c4.when"),
+      text: t("journey.c4.d"),
+    },
+  ];
+
   return (
     <section
       id="journey"
       className="relative bg-[color:var(--bg-2)] text-white scroll-mt-20 overflow-hidden"
     >
-      {/* topographic faint pattern */}
       <svg
         className="absolute inset-0 w-full h-full opacity-[0.06] pointer-events-none"
         aria-hidden
@@ -56,22 +61,22 @@ export function Journey() {
       <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="size-2 rounded-full bg-[color:var(--lime)]" />
-          <span className="eyebrow text-white/55">Восхождение</span>
+          <span className="eyebrow text-white/55">{t("journey.eyebrow")}</span>
         </div>
 
         <h2 className="display-tight text-[clamp(3rem,9vw,8.5rem)] leading-[0.86]">
-          <span className="block">ОТ БАЗЫ —</span>
-          <span className="block text-[color:var(--lime)]">ДО ВЕРШИНЫ.</span>
+          <span className="block">{t("journey.title.l1")}</span>
+          <span className="block text-[color:var(--lime)]">
+            {t("journey.title.l2")}
+          </span>
         </h2>
 
         <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
-          Восхождение — не марафон выходного дня. Это система, которая держит
-          тебя в движении, когда мотивация заканчивается. А она всегда
-          заканчивается.
+          {t("journey.lead")}
         </p>
 
         <ol className="mt-20 grid md:grid-cols-4 gap-px bg-[color:var(--line)]">
-          {CAMPS.map((c, i) => (
+          {camps.map((c, i) => (
             <li
               key={c.n}
               className="relative bg-[color:var(--bg)] p-7 md:p-8 group hover:bg-[color:var(--bg-3)] transition-colors"
