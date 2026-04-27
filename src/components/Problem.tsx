@@ -1,70 +1,78 @@
 export function Problem() {
   return (
-    <section className="relative bg-[color:var(--paper)]">
-      <div className="mx-auto max-w-6xl px-6 py-28 md:py-36">
-        <div className="grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-6">
-            <span className="eyebrow">Почему саморазвитие проваливается</span>
-            <h2 className="display mt-5 text-4xl md:text-6xl leading-[1.0] tracking-[-0.02em] text-[color:var(--ink)]">
-              Десять приложений.
-              <br />
-              <span className="italic text-[color:var(--ember)]">
-                Ни одной вершины.
-              </span>
-            </h2>
-          </div>
-
-          <div className="md:col-span-6 md:pt-3">
-            <p className="text-base md:text-lg text-[color:var(--ink-2)] leading-relaxed">
-              Языки в одном, тренировки во втором, заметки в третьем,
-              медитация в четвёртом. Каждое приложение требует тебя
-              целиком. Каждое тянет в свою сторону. Ни одно не знает,
-              что у тебя 24 часа в сутках и сегодня ты вымотан.
-            </p>
-            <p className="mt-5 text-base md:text-lg text-[color:var(--ink-2)] leading-relaxed">
-              YUP смотрит на цель, не на трекер. Один маршрут.
-              Один план на день. Один вектор — вверх.
-            </p>
-          </div>
+    <section id="why" className="relative bg-[color:var(--bg)] text-white">
+      {/* Massive billboard */}
+      <div className="relative mx-auto max-w-7xl px-6 pt-28 md:pt-40 pb-20">
+        <div className="flex items-baseline gap-4 mb-12">
+          <span className="size-2 rounded-full bg-[color:var(--lime)]" />
+          <span className="eyebrow text-white/55">
+            Почему саморазвитие проваливается
+          </span>
         </div>
 
-        <div className="mt-20 grid md:grid-cols-3 gap-px bg-[color:var(--line)]/70">
-          <Pain
+        <h2 className="display-tight text-[clamp(3rem,9.5vw,9rem)] leading-[0.86]">
+          <span className="block">ДЕСЯТЬ ПРИЛОЖЕНИЙ.</span>
+          <span className="block text-[color:var(--lime)]">
+            НИ ОДНОЙ ВЕРШИНЫ.
+          </span>
+        </h2>
+
+        <div className="mt-16 grid md:grid-cols-12 gap-10">
+          <p className="md:col-span-6 md:col-start-1 text-white/70 leading-relaxed">
+            Языки в одном, тренировки во втором, заметки в третьем, медитация
+            в четвёртом. Каждое требует тебя целиком. Каждое тянет в свою
+            сторону. Ни одно не знает, что у тебя 24 часа в сутках и сегодня
+            ты вымотан.
+          </p>
+          <p className="md:col-span-5 md:col-start-8 text-white/85 leading-relaxed">
+            YUP смотрит на цель, не на трекер. Один маршрут. Один план на
+            день. Один вектор —{" "}
+            <span className="text-[color:var(--lime)] font-semibold">вверх</span>.
+          </p>
+        </div>
+
+        {/* 3 problem cards */}
+        <ul className="mt-20 grid md:grid-cols-3 gap-px bg-[color:var(--line)]">
+          <PCard
             n="01"
-            title="Распыление"
-            text="5+ инструментов, ни одной завершённой цели. YUP объединяет всё в один маршрут."
+            t="Распыление"
+            d="5+ инструментов, ни одной завершённой цели. YUP объединяет всё в один маршрут."
           />
-          <Pain
+          <PCard
             n="02"
-            title="Перегруз"
-            text="План на 3 часа в день. Ты сдаёшься на третий. YUP считает твою реальную загрузку."
+            t="Перегруз"
+            d="План на 3 часа в день. Ты сдаёшься на третий. YUP считает реальную загрузку."
           />
-          <Pain
+          <PCard
             n="03"
-            title="Без обратной связи"
-            text="Никто не замечает, что ты двигаешься. Кроме тебя. YUP видит и подстраивает темп."
+            t="Тишина"
+            d="Никто не замечает, что ты двигаешься. Кроме тебя. YUP видит и подстраивает темп."
           />
-        </div>
+        </ul>
       </div>
     </section>
   );
 }
 
-function Pain({ n, title, text }: { n: string; title: string; text: string }) {
+function PCard({ n, t, d }: { n: string; t: string; d: string }) {
   return (
-    <div className="bg-[color:var(--paper)] p-8">
-      <div className="flex items-baseline gap-3">
-        <span className="text-[0.7rem] tracking-[0.22em] uppercase font-semibold text-[color:var(--ember)]">
-          {n}
+    <li className="group bg-[color:var(--bg-2)] hover:bg-[color:var(--bg-3)] p-8 transition-colors">
+      <div className="flex items-start justify-between">
+        <span className="display text-2xl text-[color:var(--lime)]">{n}</span>
+        <span className="size-8 rounded-full border border-[color:var(--line-strong)] flex items-center justify-center text-white/40 group-hover:text-[color:var(--lime)] group-hover:border-[color:var(--lime)] transition-colors">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M7 17L17 7M17 7H8M17 7v9"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </span>
-        <span className="hairline-dotted flex-1" />
       </div>
-      <h3 className="mt-5 text-xl font-semibold text-[color:var(--ink)]">
-        {title}
-      </h3>
-      <p className="mt-3 text-[color:var(--muted)] leading-relaxed text-[0.95rem]">
-        {text}
-      </p>
-    </div>
+      <h3 className="display mt-10 text-2xl">{t}</h3>
+      <p className="mt-4 text-sm text-white/60 leading-relaxed">{d}</p>
+    </li>
   );
 }

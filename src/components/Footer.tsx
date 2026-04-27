@@ -1,75 +1,63 @@
 export function Footer() {
   return (
-    <footer className="relative bg-[color:var(--ink)] text-white border-t border-white/10">
-      <div className="mx-auto max-w-6xl px-6 pt-20 pb-12">
-        <div className="grid md:grid-cols-12 gap-10">
+    <footer className="relative bg-[color:var(--bg)] text-white border-t border-[color:var(--line)] overflow-hidden">
+      {/* Massive YUP wordmark */}
+      <div className="relative mx-auto max-w-7xl px-6 pt-20">
+        <div
+          className="display-tight text-[color:var(--lime)] text-glow-lime select-none leading-none"
+          style={{ fontSize: "clamp(7rem, 26vw, 22rem)" }}
+          aria-hidden
+        >
+          YUP.
+        </div>
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6 pt-12 pb-12">
+        <div className="grid md:grid-cols-12 gap-10 border-t border-[color:var(--line)] pt-10">
           <div className="md:col-span-6">
-            <div className="flex items-center gap-3">
-              <span className="text-base font-bold tracking-[0.18em]">
-                YUP
-              </span>
-              <span className="text-[0.7rem] tracking-[0.22em] uppercase text-white/45 font-semibold">
-                путь к вершине
-              </span>
-            </div>
-            <p className="display mt-8 text-3xl md:text-5xl text-white max-w-xl leading-[1.0] tracking-[-0.02em]">
-              «Гора не ждёт.
-              <br />
-              <span className="italic text-[color:var(--ember)]">
-                Она просто стоит.
-              </span>
-              »
+            <p className="display text-2xl md:text-3xl text-white max-w-xl leading-[1.05]">
+              «Гора не ждёт.{" "}
+              <span className="text-[color:var(--lime)]">Она просто стоит.</span>»
             </p>
             <p className="mt-6 text-white/55 max-w-md text-sm leading-relaxed">
-              YUP — серьёзный инструмент саморазвития для тех, кто
-              устал распыляться. Один маршрут. Один шаг в день. Одна
-              вершина за раз.
+              YUP — инструмент дисциплины для тех, кто устал распыляться. Один
+              маршрут. Один шаг в день. Одна вершина за раз.
             </p>
           </div>
 
           <div className="md:col-span-3">
-            <div className="text-[0.7rem] tracking-[0.22em] uppercase text-white/40 font-semibold">
-              Маршрут
-            </div>
+            <div className="eyebrow text-white/40">Маршрут</div>
             <ul className="mt-5 space-y-3 text-sm text-white/65">
               <li>
-                <a href="#how" className="hover:text-white transition-colors">
-                  Как устроен маршрут
+                <a href="#how" className="hover:text-[color:var(--lime)] transition-colors">
+                  Как устроен
                 </a>
               </li>
               <li>
-                <a
-                  href="#domains"
-                  className="hover:text-white transition-colors"
-                >
-                  Сферы роста
+                <a href="#domains" className="hover:text-[color:var(--lime)] transition-colors">
+                  Сферы
                 </a>
               </li>
               <li>
-                <a
-                  href="#journey"
-                  className="hover:text-white transition-colors"
-                >
+                <a href="#journey" className="hover:text-[color:var(--lime)] transition-colors">
                   Восхождение
                 </a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-white transition-colors">
-                  Вопросы
+                <a href="#faq" className="hover:text-[color:var(--lime)] transition-colors">
+                  FAQ
                 </a>
               </li>
             </ul>
           </div>
 
           <div className="md:col-span-3">
-            <div className="text-[0.7rem] tracking-[0.22em] uppercase text-white/40 font-semibold">
-              Связь
-            </div>
+            <div className="eyebrow text-white/40">Связь</div>
             <ul className="mt-5 space-y-3 text-sm text-white/65">
               <li>
                 <a
                   href="mailto:hi@yup.app"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-[color:var(--lime)] transition-colors"
                 >
                   hi@yup.app
                 </a>
@@ -77,20 +65,18 @@ export function Footer() {
               <li>
                 <a
                   href="#waitlist"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-[color:var(--lime)] transition-colors"
                 >
-                  Записаться в первую волну
+                  Записаться
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-6 border-t border-white/10 text-xs text-white/40">
+        <div className="mt-16 flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-6 border-t border-[color:var(--line)] text-xs text-white/40">
           <span>© {new Date().getFullYear()} YUP. Иди до конца.</span>
-          <span className="tracking-[0.18em] uppercase">
-            Made for the climb
-          </span>
+          <span className="tracking-[0.18em] uppercase">Made for the climb</span>
         </div>
       </div>
     </footer>

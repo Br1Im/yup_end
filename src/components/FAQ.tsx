@@ -13,7 +13,7 @@ const ITEMS = [
   },
   {
     q: "Сколько времени в день нужно?",
-    a: "Минимум — 20 минут. Можно час, можно три. AI считает твоё реальное расписание и не забивает день под завязку. Главное — каждый день, а не один раз героически.",
+    a: "Минимум — 20 минут. Можно час, можно три. AI считает твоё реальное расписание. Главное — каждый день, а не один раз героически.",
   },
   {
     q: "Это подходит и парням, и девушкам?",
@@ -27,51 +27,48 @@ const ITEMS = [
 
 export function FAQ() {
   return (
-    <section
-      id="faq"
-      className="relative bg-[color:var(--paper)] scroll-mt-20"
-    >
-      <div className="mx-auto max-w-4xl px-6 py-28 md:py-36">
-        <div className="grid md:grid-cols-12 gap-10 items-end">
-          <div className="md:col-span-7">
-            <span className="eyebrow">Вопросы</span>
-            <h2 className="display mt-5 text-4xl md:text-6xl leading-[1.0] tracking-[-0.02em] text-[color:var(--ink)]">
-              Часто спрашивают.
-            </h2>
-          </div>
-          <div className="md:col-span-5">
-            <p className="text-[color:var(--muted)] text-base leading-relaxed">
-              Если ответа здесь нет — можно написать прямо в почту:
-              <a
-                className="text-[color:var(--ember)] hover:underline ml-1"
-                href="mailto:hi@yup.app"
-              >
-                hi@yup.app
-              </a>
-            </p>
-          </div>
+    <section id="faq" className="relative bg-[color:var(--bg)] scroll-mt-20 text-white">
+      <div className="mx-auto max-w-7xl px-6 py-28 md:py-40">
+        <div className="flex items-baseline gap-4 mb-10">
+          <span className="size-2 rounded-full bg-[color:var(--lime)]" />
+          <span className="eyebrow text-white/55">FAQ</span>
         </div>
+
+        <h2 className="display-tight text-[clamp(3rem,9vw,8rem)] leading-[0.86]">
+          <span className="block">ЧАСТО</span>
+          <span className="block text-[color:var(--lime)]">СПРАШИВАЮТ.</span>
+        </h2>
+
+        <p className="mt-10 max-w-2xl text-white/65 leading-relaxed">
+          Если ответа нет — пиши на почту:
+          <a
+            className="text-[color:var(--lime)] hover:underline ml-1"
+            href="mailto:hi@yup.app"
+          >
+            hi@yup.app
+          </a>
+        </p>
 
         <ul className="mt-14 divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
           {ITEMS.map((it) => (
             <li key={it.q}>
-              <details className="group py-6">
+              <details className="group py-7">
                 <summary className="cursor-pointer list-none flex items-start justify-between gap-6">
-                  <span className="text-lg md:text-xl font-medium text-[color:var(--ink)] group-open:text-[color:var(--ember)] transition-colors">
+                  <span className="display text-lg md:text-2xl text-white group-open:text-[color:var(--lime)] transition-colors">
                     {it.q}
                   </span>
-                  <span className="mt-1 size-7 shrink-0 rounded-md border border-[color:var(--line)] flex items-center justify-center text-[color:var(--muted)] transition-transform group-open:rotate-45 group-open:border-[color:var(--ember)] group-open:text-[color:var(--ember)]">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <span className="mt-1 size-9 shrink-0 rounded-full border border-[color:var(--line-strong)] flex items-center justify-center text-white/50 transition-transform group-open:rotate-45 group-open:border-[color:var(--lime)] group-open:text-[color:var(--lime)]">
+                    <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
                       <path
                         d="M6 1v10M1 6h10"
                         stroke="currentColor"
-                        strokeWidth="1.5"
+                        strokeWidth="1.6"
                         strokeLinecap="round"
                       />
                     </svg>
                   </span>
                 </summary>
-                <p className="mt-4 text-[color:var(--muted)] leading-relaxed pr-10 max-w-2xl">
+                <p className="mt-4 text-white/65 leading-relaxed pr-10 max-w-3xl">
                   {it.a}
                 </p>
               </details>

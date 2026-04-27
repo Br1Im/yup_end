@@ -4,6 +4,7 @@ import { Problem } from "@/components/Problem";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Domains } from "@/components/Domains";
 import { Journey } from "@/components/Journey";
+import { Billboard } from "@/components/Billboard";
 import { Waitlist } from "@/components/Waitlist";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
@@ -18,6 +19,7 @@ export default function Page() {
         <HowItWorks />
         <Domains />
         <Journey />
+        <Billboard />
         <Waitlist />
         <FAQ />
       </main>

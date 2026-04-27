@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Unbounded } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,31 +8,30 @@ const inter = Inter({
   display: "swap",
 });
 
-const display = Playfair_Display({
+const display = Unbounded({
   variable: "--font-display",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["500", "600", "700", "800", "900"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://yup.app"),
-  title: "YUP — путь к твоей вершине",
+  title: "YUP — иди. покори. повтори.",
   description:
-    "Один план на все сферы роста: язык, тело, знания, привычки, голова. AI собирает маршрут, ты идёшь шаг за шагом — пока цель не возьмёшь.",
+    "Один маршрут к твоей вершине. AI собирает план — ты идёшь. Язык, тело, знания, привычки, голова. Без распыления, без отмазок.",
   openGraph: {
-    title: "YUP — путь к твоей вершине",
+    title: "YUP — иди. покори. повтори.",
     description:
-      "Серьёзная платформа для саморазвития. Цель → маршрут → восхождение. Без распыления.",
+      "Платформа для тех, кто берёт вершину, а не складирует мотивацию. Цель → маршрут → шаг → пик.",
     locale: "ru_RU",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#14151a",
-  colorScheme: "dark light",
+  themeColor: "#07080a",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

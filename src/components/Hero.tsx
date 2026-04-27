@@ -4,110 +4,131 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-[color:var(--stone-1)] text-white min-h-[100svh] flex flex-col"
+      className="relative overflow-hidden bg-[color:var(--bg)] text-white pt-28 md:pt-32"
       style={{ isolation: "isolate" }}
     >
-      {/* Mountain backdrop fills the section */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <Mountain className="w-full h-full block" />
-      </div>
+      {/* Top ambient lime glow */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 50% 35%, rgba(205,255,61,0.10) 0%, rgba(205,255,61,0) 60%)",
+        }}
+      />
+      {/* Slash texture */}
+      <div className="absolute inset-0 -z-10 slashes opacity-60" aria-hidden />
 
-      {/* Top vignette — keep nav legible */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[color:var(--stone-1)]/95 to-transparent -z-10" />
-      {/* Bottom hand-off into paper section below */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[color:var(--paper)] -z-10" />
+      <div className="relative mx-auto w-full max-w-7xl px-6 pb-12">
+        {/* Massive headline */}
+        <h1 className="display-tight text-center mt-4 text-[clamp(3.4rem,11.5vw,11rem)] leading-[0.84]">
+          <span className="block">
+            ВЕРШИНА —
+          </span>
+          <span className="block text-[color:var(--lime)] text-glow-lime">
+            ЭТО ВЫБОР.
+          </span>
+        </h1>
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 pt-32 md:pt-44 flex-1 flex flex-col">
-        <div className="max-w-3xl">
-          <div className="flex items-center gap-3 text-white/60">
-            <span className="size-1.5 rounded-full bg-[color:var(--ember)]" />
-            <span className="mono-tag">путь · цель · вершина</span>
+        {/* Mountain mockup floating in middle */}
+        <div className="relative mt-2 md:-mt-12">
+          <div className="relative mx-auto w-[78%] md:w-[58%] aspect-square">
+            <Mountain className="w-full h-full block" />
           </div>
 
-          <h1 className="display mt-8 text-[3.4rem] sm:text-[4.4rem] md:text-[6rem] leading-[0.95] tracking-[-0.025em]">
-            Подняться выше
-            <br />
-            <span className="italic text-[color:var(--gold)]">
-              — это решение,
-            </span>
-            <br />
-            не настроение.
-          </h1>
+          {/* Left intro panel */}
+          <div className="md:absolute md:left-0 md:top-1/3 md:w-[22rem] mt-6 md:mt-0">
+            <div className="hairline-lime w-12 mb-5" />
+            <p className="text-white/70 text-sm md:text-base leading-relaxed">
+              YUP — один маршрут на язык, тело, знания, привычки и голову.
+              AI собирает план под твою жизнь. Ты — идёшь. Каждый день. Без
+              распыления, без отмазок.
+            </p>
 
-          <p className="mt-8 text-base md:text-lg text-white/70 max-w-xl leading-relaxed">
-            YUP собирает один маршрут на все сферы роста — язык, тело,
-            знания, привычки, голову. Без распыления, без бесконечного
-            «начну с понедельника». Только цель, маршрут и шаг, который
-            нужно сделать сегодня.
-          </p>
+            <div className="mt-6 inline-flex items-center gap-3">
+              <a href="#how" className="btn-pill">
+                <span>
+                  Как устроен <span className="text-[color:var(--muted)]">/ 3 шага</span>
+                </span>
+                <span className="size-7 rounded-full bg-[color:var(--lime)] text-[color:var(--bg)] flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12h14M13 6l6 6-6 6"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a href="#waitlist" className="btn-ember">
+          {/* Right stats stack */}
+          <div className="md:absolute md:right-0 md:top-[28%] grid grid-cols-2 md:grid-cols-1 gap-4 mt-8 md:mt-0 md:w-[14rem]">
+            <StatCard kpi="10×" caption="Меньше распыления — один план вместо десятка приложений." />
+            <StatCard kpi="365" caption="Дней в году. Каждый — шаг к вершине, не к плато." />
+          </div>
+
+          {/* Center CTA pill — overlaps mountain */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-[14%] md:bottom-[18%] z-10">
+            <a
+              href="#waitlist"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[color:var(--bg-3)]/90 border border-[color:var(--line-strong)] backdrop-blur text-white font-semibold hover:border-[color:var(--lime)] hover:text-[color:var(--lime)] transition-colors text-sm"
+            >
               Начать восхождение
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                <path d="M7 17L17 7M17 7H8M17 7v9" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M7 17L17 7M17 7H8M17 7v9"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
-            </a>
-            <a href="#how" className="btn-ghost-light">
-              Как устроен маршрут
             </a>
           </div>
         </div>
 
-        {/* Bottom corner stat strip */}
-        <div className="mt-auto pt-20 pb-12 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10">
-          <Pillar
-            number="01"
-            title="Одна цель"
-            text="Всё, что не ведёт к ней — в сторону."
-          />
-          <Pillar
-            number="02"
-            title="Один маршрут"
-            text="AI собирает путь под твою жизнь, а не наоборот."
-          />
-          <Pillar
-            number="03"
-            title="Один шаг в день"
-            text="Не марафон по выходным — ежедневная дисциплина."
-          />
-          <Pillar
-            number="04"
-            title="Одна вершина"
-            text="И сразу следующая. Останавливаться нельзя."
-          />
+        {/* Partner / sphere strip — Ora-style */}
+        <div className="mt-16 md:mt-8 border-t border-b border-[color:var(--line)] py-6">
+          <div className="flex flex-wrap items-center justify-around gap-y-4 text-white/55 uppercase text-xs tracking-[0.2em]">
+            <Sphere label="Язык" />
+            <Sep />
+            <Sphere label="Тело" />
+            <Sep />
+            <Sphere label="Знания" />
+            <Sep />
+            <Sphere label="Привычки" />
+            <Sep />
+            <Sphere label="Голова" />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function Pillar({
-  number,
-  title,
-  text,
-}: {
-  number: string;
-  title: string;
-  text: string;
-}) {
+function StatCard({ kpi, caption }: { kpi: string; caption: string }) {
   return (
-    <div className="border-t border-white/15 pt-4 max-w-[18rem]">
-      <div className="text-[0.7rem] tracking-[0.22em] uppercase text-[color:var(--ember)] font-semibold">
-        {number}
-      </div>
-      <div className="mt-3 text-base font-semibold text-white">{title}</div>
-      <div className="mt-1.5 text-sm text-white/55 leading-relaxed">{text}</div>
+    <div className="card-glass p-5">
+      <div className="display text-3xl md:text-4xl text-white">{kpi}</div>
+      <p className="mt-3 text-xs text-white/60 leading-relaxed">{caption}</p>
     </div>
+  );
+}
+
+function Sphere({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-2 font-semibold">
+      <span className="size-1.5 rounded-full bg-[color:var(--lime)]" />
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function Sep() {
+  return (
+    <span className="hidden sm:inline-block h-4 w-px bg-[color:var(--line)]" />
   );
 }
