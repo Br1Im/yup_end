@@ -269,6 +269,57 @@ export const translations = {
     "lk.outro.title": "Гора не ждёт.",
     "lk.outro.accent": "Сделай шаг.",
 
+    // Identity epigraph
+    "lk.identity.prefix": "Я тот, кто",
+
+    // Mountain visualization
+    "lk.mountain.eyebrow": "ВОСХОЖДЕНИЕ",
+    "lk.mountain.you": "Ты здесь",
+    "lk.mountain.altitude": "Высота",
+    "lk.mountain.summit": "Вершина",
+    "lk.mountain.base": "База",
+    "lk.mountain.distance.before": "До вершины",
+    "lk.mountain.distance.after": "осталось",
+    "lk.mountain.days": "дн.",
+
+    // 14-day history heatmap
+    "lk.history.eyebrow": "ПОСЛЕДНИЕ 14 ДНЕЙ",
+    "lk.history.legend.empty": "пусто",
+    "lk.history.legend.partial": "частично",
+    "lk.history.legend.full": "5 / 5",
+    "lk.history.legend.closed": "закрыт",
+    "lk.history.legend.frozen": "заморозка",
+    "lk.history.tooltip.done": "Готово {n} / 5",
+    "lk.history.tooltip.closed": "Журнал закрыт",
+    "lk.history.tooltip.frozen": "Заморозка стрика",
+    "lk.history.empty": "Появится после первого дня.",
+
+    // Close day modal
+    "lk.closeday.eyebrow": "ВЕЧЕРНИЙ ЖУРНАЛ",
+    "lk.closeday.title": "Закрыть день",
+    "lk.closeday.lead": "Три строки. Чтобы AI знал, где ты завтра.",
+    "lk.closeday.good.label": "Что зашло",
+    "lk.closeday.good.ph": "Что получилось, чем я доволен.",
+    "lk.closeday.lost.label": "Что слилось",
+    "lk.closeday.lost.ph": "Что не сделал и почему.",
+    "lk.closeday.tomorrow.label": "Что меняем завтра",
+    "lk.closeday.tomorrow.ph": "Один вывод на завтра — без размазни.",
+    "lk.closeday.cta": "Закрыть день",
+    "lk.closeday.cta.short": "Закрыть",
+    "lk.closeday.cancel": "Отмена",
+    "lk.closeday.reopen": "Открыть заново",
+    "lk.closeday.closed": "День закрыт",
+    "lk.closeday.closed.at": "в {time}",
+
+    // Streak freeze
+    "lk.freeze.available": "Заморозка доступна",
+    "lk.freeze.used": "Использована",
+    "lk.freeze.hint": "1 в неделю — не сжигает стрик",
+    "lk.freeze.cta": "Использовать заморозку",
+    "lk.freeze.confirm.title": "Поставить заморозку на вчера?",
+    "lk.freeze.confirm.lead": "Стрик сохранится, как будто день был закрыт.",
+    "lk.freeze.confirm.cta": "Заморозить",
+
     // LK empty state (no plan yet)
     "lk.empty.eyebrow": "Маршрут не задан",
     "lk.empty.title.l1": "Сначала —",
@@ -296,6 +347,13 @@ export const translations = {
     "start.s1.goal.label": "Главная цель",
     "start.s1.goal.placeholder":
       "Например: к августу свободно говорю на испанском, делаю присед 100 кг, прочитал 6 книг по AI, держу утренний ритуал.",
+    "start.s1.identity.eyebrow": "ИДЕНТИЧНОСТЬ",
+    "start.s1.identity.label":
+      "Закончи фразу — это будет твой якорь на каждое утро.",
+    "start.s1.identity.prefix": "Я тот, кто",
+    "start.s1.identity.placeholder": "встаёт раньше, чем спорит с собой.",
+    "start.s1.identity.hint":
+      "Манифест в одну строку. Не результат — а кто ты, когда выбираешь маршрут.",
     "start.s1.spheres.title": "Сферы",
     "start.s1.spheres.optional": "Можно пропустить. Заполни только то, что важно.",
     "start.s1.sphere.from": "Сейчас",
@@ -622,6 +680,57 @@ export const translations = {
     "lk.outro.title": "The mountain doesn't wait.",
     "lk.outro.accent": "Take the step.",
 
+    // Identity epigraph
+    "lk.identity.prefix": "I am the kind of person who",
+
+    // Mountain visualization
+    "lk.mountain.eyebrow": "ASCENT",
+    "lk.mountain.you": "You're here",
+    "lk.mountain.altitude": "Altitude",
+    "lk.mountain.summit": "Summit",
+    "lk.mountain.base": "Base",
+    "lk.mountain.distance.before": "Summit in",
+    "lk.mountain.distance.after": "left",
+    "lk.mountain.days": "d.",
+
+    // 14-day history heatmap
+    "lk.history.eyebrow": "LAST 14 DAYS",
+    "lk.history.legend.empty": "empty",
+    "lk.history.legend.partial": "partial",
+    "lk.history.legend.full": "5 / 5",
+    "lk.history.legend.closed": "closed",
+    "lk.history.legend.frozen": "freeze",
+    "lk.history.tooltip.done": "Done {n} / 5",
+    "lk.history.tooltip.closed": "Journal closed",
+    "lk.history.tooltip.frozen": "Streak freeze",
+    "lk.history.empty": "Appears after your first day.",
+
+    // Close day modal
+    "lk.closeday.eyebrow": "EVENING JOURNAL",
+    "lk.closeday.title": "Close the day",
+    "lk.closeday.lead": "Three lines. So the AI knows where you are tomorrow.",
+    "lk.closeday.good.label": "What worked",
+    "lk.closeday.good.ph": "What landed, what I am proud of.",
+    "lk.closeday.lost.label": "What slipped",
+    "lk.closeday.lost.ph": "What I missed and why.",
+    "lk.closeday.tomorrow.label": "What we change tomorrow",
+    "lk.closeday.tomorrow.ph": "One conclusion for tomorrow — sharp.",
+    "lk.closeday.cta": "Close the day",
+    "lk.closeday.cta.short": "Close",
+    "lk.closeday.cancel": "Cancel",
+    "lk.closeday.reopen": "Reopen",
+    "lk.closeday.closed": "Day closed",
+    "lk.closeday.closed.at": "at {time}",
+
+    // Streak freeze
+    "lk.freeze.available": "Freeze available",
+    "lk.freeze.used": "Freeze used",
+    "lk.freeze.hint": "1 per week — keeps your streak",
+    "lk.freeze.cta": "Use freeze",
+    "lk.freeze.confirm.title": "Freeze yesterday?",
+    "lk.freeze.confirm.lead": "Your streak stays as if the day was closed.",
+    "lk.freeze.confirm.cta": "Freeze",
+
     // LK empty state (no plan yet)
     "lk.empty.eyebrow": "No route yet",
     "lk.empty.title.l1": "First —",
@@ -649,6 +758,13 @@ export const translations = {
     "start.s1.goal.label": "Main goal",
     "start.s1.goal.placeholder":
       "e.g. by August I speak Spanish fluently, squat 100 kg, finished 6 AI books, keep a morning ritual.",
+    "start.s1.identity.eyebrow": "IDENTITY",
+    "start.s1.identity.label":
+      "Finish the line — your anchor for every single morning.",
+    "start.s1.identity.prefix": "I am the kind of person who",
+    "start.s1.identity.placeholder": "shows up before doubt does.",
+    "start.s1.identity.hint":
+      "One sentence. Not a result — who you are when you choose the climb.",
     "start.s1.spheres.title": "Spheres",
     "start.s1.spheres.optional":
       "Optional. Fill in only what matters.",

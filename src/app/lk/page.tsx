@@ -2,10 +2,13 @@
 
 import { useMemo, useSyncExternalStore } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { CloseDayCard } from "@/components/lk/CloseDayCard";
+import { HistoryHeatmap } from "@/components/lk/HistoryHeatmap";
+import { IdentityEpigraph } from "@/components/lk/IdentityEpigraph";
 import { LevelCard } from "@/components/lk/LevelCard";
 import { LkEmpty } from "@/components/lk/LkEmpty";
 import { LkHeader } from "@/components/lk/LkHeader";
-import { MiniAscent } from "@/components/lk/MiniAscent";
+import { MountainAscent } from "@/components/lk/MountainAscent";
 import { QuestList } from "@/components/lk/QuestList";
 import { QuickAsk } from "@/components/lk/QuickAsk";
 import { RadarChart } from "@/components/lk/RadarChart";
@@ -18,6 +21,7 @@ import {
 } from "@/lib/plan/generator";
 import {
   computeStreak,
+  isFreezeAvailable,
   setStepDone,
   useProgress,
   usePlan,
@@ -92,6 +96,10 @@ function LoadedDashboard() {
   const stageTitle = t(stage.titleKey as TranslationKey);
   const windowLabel =
     FOCUS_WINDOW_LABELS[plan.intake.context.focusWindow] ?? "—";
+  const identity = plan.intake.identity?.trim() ?? "";
+  const todayKey = dateKey();
+  const todayEntry = progress?.journals?.[todayKey] ?? null;
+  const freezeAvailable = isFreezeAvailable(progress);
 
   const radarPoints = SPHERE_IDS.map((sphere) => ({
     sphere,
@@ -109,17 +117,18 @@ function LoadedDashboard() {
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
           {/* Greeting / day header */}
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <div>
+            <div className="space-y-4">
               <div className="eyebrow text-white/55 text-[0.65rem] flex items-center gap-2">
                 <span className="size-1.5 rounded-full bg-[color:var(--lime)] animate-pulse" />
                 {t("lk.topbar.greeting")}
               </div>
-              <h1 className="display-tight mt-2 text-3xl sm:text-5xl text-white leading-[0.96]">
+              <h1 className="display-tight text-3xl sm:text-5xl text-white leading-[0.96]">
                 {t("lk.hero.title.l1")}{" "}
                 <span className="text-[color:var(--lime)]">
                   {t("lk.hero.title.l2")}
                 </span>
               </h1>
+              {identity ? <IdentityEpigraph identity={identity} /> : null}
             </div>
             <div className="text-[0.62rem] tracking-[0.22em] uppercase text-white/45 font-semibold">
               {t("lk.level.day")} {day} / {plan.durationDays}
@@ -166,15 +175,32 @@ function LoadedDashboard() {
             total={totalSteps}
             loadMinutes={loadMinutes}
             windowLabel={windowLabel}
+            freezeAvailable={freezeAvailable}
           />
 
-          {/* Mini ascent */}
-          <MiniAscent
-            stages={plan.arc}
-            currentStageId={stage.id}
-            currentDay={day}
-            totalDays={plan.durationDays}
-          />
+          {/* Mountain + history grid */}
+          <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-3 sm:gap-4 items-stretch">
+            <MountainAscent
+              stages={plan.arc}
+              currentStageId={stage.id}
+              currentDay={day}
+              totalDays={plan.durationDays}
+            />
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <HistoryHeatmap
+                totalStepsPerDay={totalSteps}
+                byDay={progress?.byDay ?? {}}
+                journals={progress?.journals ?? {}}
+                freezes={progress?.freezes ?? {}}
+              />
+              <CloseDayCard
+                planId={plan.id}
+                doneToday={doneCount}
+                totalSteps={totalSteps}
+                todayEntry={todayEntry}
+              />
+            </div>
+          </section>
 
           {/* Quick ask */}
           <QuickAsk />

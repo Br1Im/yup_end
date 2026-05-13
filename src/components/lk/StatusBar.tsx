@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Flame, ListChecks, Clock, Sun } from "lucide-react";
+import type { ReactNode } from "react";
+import { Flame, ListChecks, Clock, Sun, Snowflake } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -12,6 +13,7 @@ type Props = {
   loadMinutes: number;
   /** e.g. "09:00–11:30". */
   windowLabel: string;
+  freezeAvailable: boolean;
 };
 
 type Item = {
@@ -20,6 +22,7 @@ type Item = {
   value: string;
   suffix?: string;
   pct?: number;
+  badge?: ReactNode;
 };
 
 export function StatusBar({
@@ -28,6 +31,7 @@ export function StatusBar({
   total,
   loadMinutes,
   windowLabel,
+  freezeAvailable,
 }: Props) {
   const { t } = useI18n();
 
@@ -44,6 +48,23 @@ export function StatusBar({
       value: String(streak),
       suffix: t("lk.stat.streak.suffix"),
       pct: Math.min(100, streak * 5),
+      badge: freezeAvailable ? (
+        <span
+          className="inline-flex items-center gap-1 text-[0.55rem] tracking-[0.18em] uppercase text-[color:var(--lime)] font-semibold"
+          title={t("lk.freeze.hint")}
+        >
+          <Snowflake className="size-2.5" strokeWidth={2} />
+          {t("lk.freeze.available")}
+        </span>
+      ) : (
+        <span
+          className="inline-flex items-center gap-1 text-[0.55rem] tracking-[0.18em] uppercase text-white/35 font-semibold"
+          title={t("lk.freeze.hint")}
+        >
+          <Snowflake className="size-2.5" strokeWidth={2} />
+          {t("lk.freeze.used")}
+        </span>
+      ),
     },
     {
       icon: ListChecks,
@@ -110,6 +131,7 @@ export function StatusBar({
             ) : (
               <div className="mt-3 h-1" />
             )}
+            {s.badge ? <div className="mt-2">{s.badge}</div> : null}
           </li>
         );
       })}

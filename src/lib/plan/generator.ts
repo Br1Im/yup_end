@@ -226,6 +226,26 @@ export function dateKey(now: Date = new Date()): string {
   return `${y}-${m}-${d}`;
 }
 
+/** ISO-8601 week key, e.g. "2026-W20" — used for streak-freeze quota. */
+export function weekKey(now: Date = new Date()): string {
+  const d = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+  );
+  // Move to nearest Thursday (ISO definition: week with thursday in year)
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil(
+    ((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7,
+  );
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, "0")}`;
+}
+
+export function shiftDate(base: Date, deltaDays: number): Date {
+  const d = new Date(base);
+  d.setUTCDate(d.getUTCDate() + deltaDays);
+  return d;
+}
+
 export function totalMinutes(steps: Step[]): number {
   return steps.reduce((acc, s) => acc + s.minutes, 0);
 }
