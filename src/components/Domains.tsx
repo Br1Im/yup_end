@@ -58,11 +58,11 @@ export function Domains() {
                 <div className="size-11 rounded-full border border-[color:var(--line-strong)] flex items-center justify-center text-white group-hover:border-[color:var(--lime)] group-hover:text-[color:var(--lime)] transition-colors">
                   <d.icon className="size-[18px]" strokeWidth={1.7} />
                 </div>
-                <span className="text-[0.66rem] tracking-[0.22em] uppercase text-white/35 font-semibold">
+                <span className="text-[0.66rem] tracking-[0.22em] uppercase text-white/35 group-hover:text-[color:var(--lime)] font-semibold transition-colors">
                   / 0{i + 1}
                 </span>
               </div>
-              <h3 className="display mt-8 text-2xl text-white">{d.title}</h3>
+              <h3 className="display mt-8 text-2xl text-white group-hover:text-[color:var(--lime)] transition-colors">{d.title}</h3>
               <p className="mt-3 text-white/55 leading-relaxed text-[0.9rem]">
                 {d.text}
               </p>

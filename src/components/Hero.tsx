@@ -63,7 +63,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="md:absolute md:right-0 md:top-[28%] grid grid-cols-2 md:grid-cols-1 gap-4 mt-8 md:mt-0 md:w-[14rem] hero-anim-fade hero-anim-fade-d4">
+          <div className="md:absolute md:right-0 md:top-[18%] grid grid-cols-2 md:grid-cols-1 gap-4 mt-8 md:mt-0 md:w-[14rem] hero-anim-fade hero-anim-fade-d4">
             <StatCard kpi={t("hero.stat1.kpi")} caption={t("hero.stat1.caption")} />
             <StatCard kpi={t("hero.stat2.kpi")} caption={t("hero.stat2.caption")} />
           </div>
@@ -123,7 +123,7 @@ export function Hero() {
 
 function StatCard({ kpi, caption }: { kpi: string; caption: string }) {
   return (
-    <div className="card-glass p-5">
+    <div className="card-glass p-5 backdrop-blur-sm border border-[color:var(--line-strong)] hover:border-[color:var(--lime)]/40 transition-colors">
       <div className="display text-3xl md:text-4xl text-white">{kpi}</div>
       <p className="mt-3 text-xs text-white/60 leading-relaxed">{caption}</p>
     </div>

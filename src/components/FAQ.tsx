@@ -49,10 +49,10 @@ export function FAQ() {
             >
               <details className="group py-7">
                 <summary className="cursor-pointer list-none flex items-start justify-between gap-6">
-                  <span className="display text-lg md:text-2xl text-white group-open:text-[color:var(--lime)] transition-colors">
+                  <span className="display text-lg md:text-2xl text-white group-hover:text-[color:var(--lime)] group-open:text-[color:var(--lime)] transition-colors">
                     {it.q}
                   </span>
-                  <span className="mt-1 size-9 shrink-0 rounded-full border border-[color:var(--line-strong)] flex items-center justify-center text-white/50 transition-transform group-open:rotate-45 group-open:border-[color:var(--lime)] group-open:text-[color:var(--lime)]">
+                  <span className="mt-1 size-9 shrink-0 rounded-full border border-[color:var(--line-strong)] flex items-center justify-center text-white/50 transition-[transform,color,border-color] duration-200 group-hover:border-[color:var(--lime)] group-hover:text-[color:var(--lime)] group-open:rotate-45 group-open:border-[color:var(--lime)] group-open:text-[color:var(--lime)]">
                     <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
                       <path
                         d="M6 1v10M1 6h10"
