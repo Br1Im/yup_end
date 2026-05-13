@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
-import type { Plan, Progress } from "./types";
-import { dateKey } from "./generator";
+import type { JournalEntry, Plan, Progress } from "./types";
+import { dateKey, weekKey } from "./generator";
 
 const PLAN_KEY = "yup.plan";
 const PROGRESS_KEY = "yup.progress";
@@ -114,19 +114,73 @@ export function setStepDone(planId: string, stepId: string, done: boolean) {
   emit();
 }
 
+/** Save (or clear) the evening reflection for the given date. */
+export function setJournalEntry(
+  planId: string,
+  date: string,
+  entry: Omit<JournalEntry, "closedAt"> | null,
+) {
+  if (typeof window === "undefined") return;
+  const current = readProgress(planId);
+  const journals = { ...(current.journals ?? {}) };
+  if (entry === null) {
+    delete journals[date];
+  } else {
+    journals[date] = { ...entry, closedAt: new Date().toISOString() };
+  }
+  const next: Progress = {
+    ...current,
+    journals,
+    lastVisit: new Date().toISOString(),
+  };
+  window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(next));
+  invalidateCaches();
+  emit();
+}
+
+/** Use the weekly streak-freeze on `date` if one is still available. */
+export function consumeStreakFreeze(planId: string, date: string): boolean {
+  if (typeof window === "undefined") return false;
+  const current = readProgress(planId);
+  const freezes = { ...(current.freezes ?? {}) };
+  const wk = weekKey(new Date(`${date}T12:00:00Z`));
+  if (freezes[wk]) return false;
+  freezes[wk] = date;
+  const next: Progress = {
+    ...current,
+    freezes,
+    lastVisit: new Date().toISOString(),
+  };
+  window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(next));
+  invalidateCaches();
+  emit();
+  return true;
+}
+
+export function isFreezeAvailable(
+  progress: Progress | null,
+  date: Date = new Date(),
+): boolean {
+  if (!progress) return true;
+  const wk = weekKey(date);
+  return !(progress.freezes ?? {})[wk];
+}
+
 export function computeStreak(plan: Plan, now: Date = new Date()): number {
   if (typeof window === "undefined") return 0;
   const progress = readProgress(plan.id);
+  const freezes = progress.freezes ?? {};
   let streak = 0;
   const cursor = new Date(now);
   for (let i = 0; i < plan.durationDays; i += 1) {
     const key = dateKey(cursor);
     const done = progress.byDay[key] ?? [];
-    if (i === 0 && done.length === 0) {
+    const isFrozen = Object.values(freezes).includes(key);
+    if (i === 0 && done.length === 0 && !isFrozen) {
       cursor.setUTCDate(cursor.getUTCDate() - 1);
       continue;
     }
-    if (done.length > 0) {
+    if (done.length > 0 || isFrozen) {
       streak += 1;
       cursor.setUTCDate(cursor.getUTCDate() - 1);
     } else {

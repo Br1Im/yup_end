@@ -9,8 +9,13 @@ import type { PlanIntake, SphereId, SphereIntake } from "@/lib/plan/types";
 
 type Props = {
   goal: string;
+  identity: string;
   spheres: PlanIntake["spheres"];
-  onChange: (next: { goal?: string; spheres?: PlanIntake["spheres"] }) => void;
+  onChange: (next: {
+    goal?: string;
+    identity?: string;
+    spheres?: PlanIntake["spheres"];
+  }) => void;
   errorVisible: boolean;
 };
 
@@ -52,7 +57,13 @@ const SPHERE_META: {
   },
 ];
 
-export function StepGoal({ goal, spheres, onChange, errorVisible }: Props) {
+export function StepGoal({
+  goal,
+  identity,
+  spheres,
+  onChange,
+  errorVisible,
+}: Props) {
   const { t } = useI18n();
 
   const updateSphere = (id: SphereId, patch: Partial<SphereIntake>) => {
@@ -110,6 +121,40 @@ export function StepGoal({ goal, spheres, onChange, errorVisible }: Props) {
                 {t("start.s1.error")}
               </p>
             ) : null}
+          </div>
+        </Reveal>
+
+        <Reveal variant="soft" delay={3}>
+          <div className="mt-8 rounded-2xl border border-[color:var(--line-strong)] bg-[color:var(--bg-2)]/70 p-5 sm:p-6">
+            <div className="flex items-baseline gap-3 mb-3">
+              <span className="size-2 rounded-full bg-[color:var(--lime)]/60" />
+              <span className="eyebrow text-white/55 text-[0.62rem]">
+                {t("start.s1.identity.eyebrow")}
+              </span>
+            </div>
+            <label
+              htmlFor="identity"
+              className="block text-[0.95rem] text-white/80 mb-3"
+            >
+              {t("start.s1.identity.label")}
+            </label>
+            <div className="flex items-baseline gap-3">
+              <span className="text-white/45 font-semibold whitespace-nowrap">
+                {t("start.s1.identity.prefix")}
+              </span>
+              <input
+                id="identity"
+                type="text"
+                value={identity}
+                onChange={(e) => onChange({ identity: e.target.value })}
+                placeholder={t("start.s1.identity.placeholder")}
+                maxLength={120}
+                className="flex-1 bg-transparent border-b border-[color:var(--line-strong)] focus:border-[color:var(--lime)] outline-none py-2 text-base text-white placeholder-white/30 transition-colors"
+              />
+            </div>
+            <p className="mt-3 text-xs text-white/40 leading-relaxed">
+              {t("start.s1.identity.hint")}
+            </p>
           </div>
         </Reveal>
       </div>

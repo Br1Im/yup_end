@@ -15,6 +15,7 @@ const TOTAL_STEPS = 3;
 
 const INITIAL_INTAKE: PlanIntake = {
   goal: "",
+  identity: "",
   spheres: {},
   context: {
     minutesPerDay: 45,
@@ -42,11 +43,13 @@ export default function StartPage() {
 
   const handleGoalChange = (patch: {
     goal?: string;
+    identity?: string;
     spheres?: PlanIntake["spheres"];
   }) => {
     setIntake((prev) => ({
       ...prev,
       ...(patch.goal !== undefined ? { goal: patch.goal } : {}),
+      ...(patch.identity !== undefined ? { identity: patch.identity } : {}),
       ...(patch.spheres !== undefined ? { spheres: patch.spheres } : {}),
     }));
     if (showGoalError) setShowGoalError(false);
@@ -135,6 +138,7 @@ export default function StartPage() {
           {step === 1 ? (
             <StepGoal
               goal={intake.goal}
+              identity={intake.identity ?? ""}
               spheres={intake.spheres}
               onChange={handleGoalChange}
               errorVisible={showGoalError}

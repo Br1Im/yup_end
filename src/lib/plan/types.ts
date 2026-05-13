@@ -10,6 +10,12 @@ export type MinutesPerDay = (typeof TIME_OPTIONS)[number];
 export const FOCUS_WINDOWS = ["morning", "day", "evening"] as const;
 export type FocusWindow = (typeof FOCUS_WINDOWS)[number];
 
+export const FOCUS_WINDOW_LABELS: Record<FocusWindow, string> = {
+  morning: "06:00–12:00",
+  day: "12:00–18:00",
+  evening: "18:00–22:00",
+};
+
 export const OBSTACLES = [
   "procrastination",
   "rhythm",
@@ -31,6 +37,8 @@ export type SphereIntake = {
 
 export type PlanIntake = {
   goal: string;
+  /** "I am someone who…" — one-line identity manifesto, surfaced as an epigraph. */
+  identity?: string;
   spheres: Partial<Record<SphereId, SphereIntake>>;
   context: {
     minutesPerDay: MinutesPerDay;
@@ -76,9 +84,24 @@ export type DayProgress = {
   done: string[];
 };
 
+export type JournalEntry = {
+  /** What worked today */
+  good: string;
+  /** What slipped */
+  lost: string;
+  /** What we change tomorrow */
+  tomorrow: string;
+  /** ISO timestamp when the day was closed */
+  closedAt: string;
+};
+
 export type Progress = {
   planId: string;
   /** date string -> step ids */
   byDay: Record<string, string[]>;
+  /** date string -> evening reflection */
+  journals?: Record<string, JournalEntry>;
+  /** ISO-week key ("YYYY-Www") -> date used as freeze */
+  freezes?: Record<string, string>;
   lastVisit: string;
 };
