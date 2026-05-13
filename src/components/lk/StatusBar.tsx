@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Flame, ListChecks, Clock, Sun } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -30,6 +31,12 @@ export function StatusBar({
 }: Props) {
   const { t } = useI18n();
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const r = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(r);
+  }, []);
+
   const items: Item[] = [
     {
       icon: Flame,
@@ -59,12 +66,17 @@ export function StatusBar({
 
   return (
     <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-      {items.map((s) => {
+      {items.map((s, i) => {
         const Icon = s.icon;
         return (
           <li
             key={s.label}
-            className="relative overflow-hidden rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--bg-2)] p-4 sm:p-5"
+            className="relative overflow-hidden rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--bg-2)] p-4 sm:p-5 transition-colors hover:border-[color:var(--lime)]/40"
+            style={{
+              opacity: mounted ? 1 : 0,
+              transform: mounted ? "translateY(0)" : "translateY(10px)",
+              transition: `opacity 460ms ease-out ${i * 90}ms, transform 520ms cubic-bezier(0.22, 1, 0.36, 1) ${i * 90}ms`,
+            }}
           >
             <div className="flex items-center justify-between gap-2">
               <span className="eyebrow text-white/45 text-[0.58rem] truncate">
@@ -88,8 +100,11 @@ export function StatusBar({
             {typeof s.pct === "number" ? (
               <div className="mt-3 h-1 w-full rounded-full bg-[color:var(--line)] overflow-hidden">
                 <div
-                  className="h-full bg-[color:var(--lime)] rounded-full transition-[width] duration-700 ease-out"
-                  style={{ width: `${s.pct}%` }}
+                  className="h-full bg-[color:var(--lime)] rounded-full"
+                  style={{
+                    width: mounted ? `${s.pct}%` : "0%",
+                    transition: `width 900ms cubic-bezier(0.22, 1, 0.36, 1) ${250 + i * 110}ms`,
+                  }}
                 />
               </div>
             ) : (

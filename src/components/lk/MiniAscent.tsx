@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
 import type { TranslationKey } from "@/i18n/translations";
 import type { ArcStage } from "@/lib/plan/types";
@@ -23,6 +24,14 @@ export function MiniAscent({
     stages.findIndex((s) => s.id === currentStageId),
   );
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const r = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(r);
+  }, []);
+
+  const targetWidthPct = (currentIndex / Math.max(1, stages.length - 1)) * 100;
+
   return (
     <section className="relative overflow-hidden rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--bg-2)] p-5 sm:p-6">
       <header className="flex items-center justify-between mb-5">
@@ -38,16 +47,22 @@ export function MiniAscent({
       </header>
 
       <div className="relative">
-        {/* Connector line */}
+        {/* Background connector */}
         <div className="absolute left-0 right-0 top-[11px] h-px bg-[color:var(--line)]" />
+        {/* Filled connector — animates from 0 to currentIndex */}
         <div
-          className="absolute left-0 top-[11px] h-px bg-[color:var(--lime)] shadow-[0_0_8px_rgba(205,255,61,0.6)]"
+          className="absolute left-0 top-[11px] h-px bg-[color:var(--lime)] shadow-[0_0_10px_rgba(205,255,61,0.7)]"
           style={{
-            width: `${(currentIndex / Math.max(1, stages.length - 1)) * 100}%`,
+            width: mounted ? `${targetWidthPct}%` : "0%",
+            transition:
+              "width 1100ms cubic-bezier(0.22, 1, 0.36, 1) 300ms",
           }}
         />
 
-        <ol className="relative grid" style={{ gridTemplateColumns: `repeat(${stages.length}, 1fr)` }}>
+        <ol
+          className="relative grid"
+          style={{ gridTemplateColumns: `repeat(${stages.length}, 1fr)` }}
+        >
           {stages.map((stage, i) => {
             const isCurrent = stage.id === currentStageId;
             const isPast = i < currentIndex;
@@ -62,15 +77,28 @@ export function MiniAscent({
                       ? "items-end text-right"
                       : "")
                 }
+                style={{
+                  opacity: mounted ? 1 : 0,
+                  transform: mounted ? "translateY(0)" : "translateY(6px)",
+                  transition: `opacity 420ms ease-out ${i * 100}ms, transform 480ms cubic-bezier(0.22, 1, 0.36, 1) ${i * 100}ms`,
+                }}
               >
                 <span
                   className={
-                    "size-[22px] rounded-full border-2 flex items-center justify-center mb-2 transition-colors " +
+                    "size-[22px] rounded-full border-2 flex items-center justify-center mb-2 transition-all duration-500 " +
                     (isCurrent
-                      ? "bg-[color:var(--lime)] border-[color:var(--lime)] shadow-[0_0_14px_rgba(205,255,61,0.55)]"
+                      ? "bg-[color:var(--lime)] border-[color:var(--lime)]"
                       : isPast
                         ? "bg-[color:var(--lime)]/30 border-[color:var(--lime)]"
                         : "bg-[color:var(--bg-2)] border-[color:var(--line-strong)]")
+                  }
+                  style={
+                    isCurrent
+                      ? {
+                          boxShadow: "0 0 14px rgba(205,255,61,0.55)",
+                          animation: "yup-ascent-pulse 2.4s ease-in-out infinite",
+                        }
+                      : undefined
                   }
                 >
                   {isCurrent ? (
@@ -97,6 +125,13 @@ export function MiniAscent({
           })}
         </ol>
       </div>
+
+      <style>{`
+        @keyframes yup-ascent-pulse {
+          0%, 100% { box-shadow: 0 0 14px rgba(205,255,61,0.55); }
+          50%      { box-shadow: 0 0 22px rgba(205,255,61,0.85); }
+        }
+      `}</style>
     </section>
   );
 }

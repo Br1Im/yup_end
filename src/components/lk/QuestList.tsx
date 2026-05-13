@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Activity, BookOpen, Brain, Check, Compass, Languages } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -32,12 +33,22 @@ type Props = {
 export function QuestList({ steps, done, onToggle, className }: Props) {
   const { t } = useI18n();
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const r = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(r);
+  }, []);
+
   return (
     <section
       className={
-        "relative overflow-hidden rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--bg-2)] " +
+        "relative overflow-hidden rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--bg-2)] transition-all duration-500 " +
         (className ?? "")
       }
+      style={{
+        opacity: mounted ? 1 : 0,
+        transform: mounted ? "translateY(0)" : "translateY(8px)",
+      }}
     >
       <header className="flex items-center justify-between px-4 sm:px-5 py-3.5 border-b border-[color:var(--line)]">
         <div className="flex items-center gap-2">
@@ -56,7 +67,14 @@ export function QuestList({ steps, done, onToggle, className }: Props) {
           const isDone = done.has(step.id);
           const Icon = SPHERE_ICON[step.sphere];
           return (
-            <li key={step.id}>
+            <li
+              key={step.id}
+              style={{
+                opacity: mounted ? 1 : 0,
+                transform: mounted ? "translateX(0)" : "translateX(-12px)",
+                transition: `opacity 460ms ease-out ${180 + i * 90}ms, transform 520ms cubic-bezier(0.22, 1, 0.36, 1) ${180 + i * 90}ms`,
+              }}
+            >
               <button
                 type="button"
                 onClick={() => onToggle(step.id)}
@@ -70,15 +88,19 @@ export function QuestList({ steps, done, onToggle, className }: Props) {
               >
                 <div
                   className={
-                    "shrink-0 size-9 rounded-md border flex items-center justify-center transition-colors " +
+                    "shrink-0 size-9 rounded-md border flex items-center justify-center transition-all duration-300 " +
                     (isDone
-                      ? "bg-[color:var(--lime)] border-[color:var(--lime)] text-[color:var(--bg)] shadow-[0_0_14px_rgba(205,255,61,0.45)]"
-                      : "border-[color:var(--line-strong)] text-white/70 group-hover:border-[color:var(--lime)] group-hover:text-[color:var(--lime)]")
+                      ? "bg-[color:var(--lime)] border-[color:var(--lime)] text-[color:var(--bg)] shadow-[0_0_14px_rgba(205,255,61,0.45)] scale-100"
+                      : "border-[color:var(--line-strong)] text-white/70 group-hover:border-[color:var(--lime)] group-hover:text-[color:var(--lime)] group-hover:scale-105")
                   }
                   aria-hidden
                 >
                   {isDone ? (
-                    <Check className="size-[18px]" strokeWidth={2.6} />
+                    <Check
+                      className="size-[18px]"
+                      strokeWidth={2.6}
+                      style={{ animation: "yup-check-pop 360ms cubic-bezier(0.34, 1.56, 0.64, 1)" }}
+                    />
                   ) : (
                     <Icon className="size-[17px]" strokeWidth={1.7} />
                   )}
@@ -115,6 +137,14 @@ export function QuestList({ steps, done, onToggle, className }: Props) {
           );
         })}
       </ul>
+
+      <style>{`
+        @keyframes yup-check-pop {
+          0%   { transform: scale(0.4); opacity: 0; }
+          60%  { transform: scale(1.15); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+      `}</style>
     </section>
   );
 }
