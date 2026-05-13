@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useI18n } from "@/i18n/I18nProvider";
 import { OnboardingHeader } from "@/components/start/OnboardingHeader";
@@ -8,7 +8,7 @@ import { StepGoal } from "@/components/start/StepGoal";
 import { StepContext } from "@/components/start/StepContext";
 import { StepPreview } from "@/components/start/StepPreview";
 import { generatePlan } from "@/lib/plan/generator";
-import { savePlan } from "@/lib/plan/storage";
+import { consumeIntakePrefill, savePlan } from "@/lib/plan/storage";
 import type { Plan, PlanIntake } from "@/lib/plan/types";
 
 const TOTAL_STEPS = 3;
@@ -32,6 +32,21 @@ export default function StartPage() {
   const [intake, setIntake] = useState<PlanIntake>(INITIAL_INTAKE);
   const [showGoalError, setShowGoalError] = useState(false);
   const [plan, setPlan] = useState<Plan | null>(null);
+  const [prefilled, setPrefilled] = useState(false);
+
+  // Rehydrate from a "rebuild plan" hand-off (sessionStorage → React state).
+  // One-shot read after mount; not part of any external subscription.
+  useEffect(() => {
+    const cached = consumeIntakePrefill();
+    if (!cached) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIntake({
+      ...INITIAL_INTAKE,
+      ...cached,
+      context: { ...INITIAL_INTAKE.context, ...cached.context },
+    });
+    setPrefilled(true);
+  }, []);
 
   const goalValid = useMemo(() => {
     const trimmedGoal = intake.goal.trim().length >= 10;
@@ -135,6 +150,14 @@ export default function StartPage() {
             </h1>
           </div>
 
+          {prefilled && step === 1 ? (
+            <div className="mb-8 flex items-start gap-3 rounded-2xl border border-[color:var(--lime)]/40 bg-[color:var(--lime)]/[0.05] px-4 py-3 sm:px-5 sm:py-4">
+              <span className="mt-1 size-1.5 rounded-full bg-[color:var(--lime)] shrink-0 animate-pulse" />
+              <p className="text-sm text-white/80 leading-relaxed">
+                {t("start.prefill.notice")}
+              </p>
+            </div>
+          ) : null}
           {step === 1 ? (
             <StepGoal
               goal={intake.goal}

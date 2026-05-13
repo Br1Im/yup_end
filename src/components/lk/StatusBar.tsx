@@ -33,7 +33,7 @@ export function StatusBar({
   windowLabel,
   freezeAvailable,
 }: Props) {
-  const { t } = useI18n();
+  const { t, tp } = useI18n();
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -46,7 +46,7 @@ export function StatusBar({
       icon: Flame,
       label: t("lk.stat.streak.label"),
       value: String(streak),
-      suffix: t("lk.stat.streak.suffix"),
+      suffix: tp("lk.stat.streak.suffix", streak),
       pct: Math.min(100, streak * 5),
       badge: freezeAvailable ? (
         <span
@@ -76,7 +76,7 @@ export function StatusBar({
       icon: Clock,
       label: t("lk.stat.load.label"),
       value: String(loadMinutes),
-      suffix: t("lk.stat.load.suffix"),
+      suffix: tp("lk.stat.load.suffix", loadMinutes),
     },
     {
       icon: Sun,
