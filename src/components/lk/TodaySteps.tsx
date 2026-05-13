@@ -1,88 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Activity, BookOpen, Brain, Check, Compass, Languages } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import type { TranslationKey } from "@/i18n/translations";
 import { Reveal } from "../Reveal";
+import type { SphereId, Step } from "@/lib/plan/types";
 
-type Step = {
-  id: string;
-  icon: LucideIcon;
-  sphereKey: TranslationKey;
-  titleKey: TranslationKey;
-  noteKey: TranslationKey;
-  duration: number;
+const SPHERE_ICON: Record<SphereId, LucideIcon> = {
+  lang: Languages,
+  body: Activity,
+  knowledge: BookOpen,
+  habits: Compass,
+  mind: Brain,
 };
 
-const STEPS: Step[] = [
-  {
-    id: "s1",
-    icon: Languages,
-    sphereKey: "lk.steps.s1.sphere",
-    titleKey: "lk.steps.s1.title",
-    noteKey: "lk.steps.s1.note",
-    duration: 12,
-  },
-  {
-    id: "s2",
-    icon: Activity,
-    sphereKey: "lk.steps.s2.sphere",
-    titleKey: "lk.steps.s2.title",
-    noteKey: "lk.steps.s2.note",
-    duration: 35,
-  },
-  {
-    id: "s3",
-    icon: BookOpen,
-    sphereKey: "lk.steps.s3.sphere",
-    titleKey: "lk.steps.s3.title",
-    noteKey: "lk.steps.s3.note",
-    duration: 25,
-  },
-  {
-    id: "s4",
-    icon: Compass,
-    sphereKey: "lk.steps.s4.sphere",
-    titleKey: "lk.steps.s4.title",
-    noteKey: "lk.steps.s4.note",
-    duration: 30,
-  },
-  {
-    id: "s5",
-    icon: Brain,
-    sphereKey: "lk.steps.s5.sphere",
-    titleKey: "lk.steps.s5.title",
-    noteKey: "lk.steps.s5.note",
-    duration: 3,
-  },
-];
+const SPHERE_LABEL: Record<SphereId, TranslationKey> = {
+  lang: "domains.lang.t",
+  body: "domains.body.t",
+  knowledge: "domains.knowledge.t",
+  habits: "domains.habits.t",
+  mind: "domains.mind.t",
+};
 
 type Props = {
-  initialDone?: string[];
-  onChange?: (done: string[]) => void;
+  steps: Step[];
+  done: Set<string>;
+  onToggle: (id: string) => void;
 };
 
-export function TodaySteps({ initialDone = [], onChange }: Props) {
+export function TodaySteps({ steps, done, onToggle }: Props) {
   const { t } = useI18n();
-  const [done, setDone] = useState<Set<string>>(() => new Set(initialDone));
-
-  useEffect(() => {
-    onChange?.(Array.from(done));
-  }, [done, onChange]);
-
-  const toggle = (id: string) => {
-    setDone((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
-  };
 
   return (
     <section id="today" className="relative bg-[color:var(--bg)] text-white">
@@ -104,8 +52,9 @@ export function TodaySteps({ initialDone = [], onChange }: Props) {
         </Reveal>
 
         <ul className="mt-12 divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
-          {STEPS.map((step, i) => {
+          {steps.map((step, i) => {
             const isDone = done.has(step.id);
+            const Icon = SPHERE_ICON[step.sphere];
             return (
               <Reveal
                 as="li"
@@ -123,7 +72,7 @@ export function TodaySteps({ initialDone = [], onChange }: Props) {
                     <span className="text-[0.62rem] tracking-[0.22em] uppercase text-white/35 font-semibold">
                       / 0{i + 1}
                     </span>
-                    <step.icon
+                    <Icon
                       className="size-5 text-white/70"
                       strokeWidth={1.7}
                     />
@@ -132,10 +81,10 @@ export function TodaySteps({ initialDone = [], onChange }: Props) {
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                       <span className="text-[0.66rem] tracking-[0.22em] uppercase font-semibold text-[color:var(--lime)]">
-                        {t(step.sphereKey)}
+                        {t(SPHERE_LABEL[step.sphere])}
                       </span>
                       <span className="text-xs text-white/45 tracking-[0.2em] uppercase font-semibold">
-                        {step.duration} {t("lk.steps.minutes")}
+                        {step.minutes} {t("lk.steps.minutes")}
                       </span>
                     </div>
                     <h3
@@ -146,16 +95,16 @@ export function TodaySteps({ initialDone = [], onChange }: Props) {
                           : "text-white group-hover:text-[color:var(--lime)]")
                       }
                     >
-                      {t(step.titleKey)}
+                      {step.title}
                     </h3>
                     <p className="mt-2 text-white/55 leading-relaxed text-sm max-w-2xl">
-                      {t(step.noteKey)}
+                      {step.note}
                     </p>
                   </div>
 
                   <button
                     type="button"
-                    onClick={() => toggle(step.id)}
+                    onClick={() => onToggle(step.id)}
                     aria-pressed={isDone}
                     aria-label={
                       isDone ? t("lk.steps.done.state") : t("lk.steps.done")

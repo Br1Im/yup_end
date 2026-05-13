@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 import { useI18n } from "@/i18n/I18nProvider";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { PeakMark } from "./PeakMark";
@@ -100,8 +101,8 @@ export function Header() {
           {/* Right: locale (desktop) + CTA */}
           <div className="flex items-center gap-2 sm:gap-3">
             <LocaleSwitcher className="hidden md:inline-flex" />
-            <a
-              href="#waitlist"
+            <Link
+              href="/start"
               className="btn-pill group !py-1.5 sm:!py-2 !pl-3 sm:!pl-4 !pr-1.5 text-xs sm:text-sm"
             >
               <span className="hidden sm:inline">
@@ -122,7 +123,7 @@ export function Header() {
                   />
                 </svg>
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </header>
