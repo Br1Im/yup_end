@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
-import type { JournalEntry, Plan, Progress } from "./types";
+import type { DayNote, JournalEntry, Plan, Progress, Step } from "./types";
 import { dateKey, weekKey } from "./generator";
 
 const PLAN_KEY = "yup.plan";
@@ -142,6 +142,47 @@ export function setStepDone(planId: string, stepId: string, done: boolean) {
   emit();
 }
 
+/**
+ * Persist an inline edit to one of the plan's daily-template steps.
+ * Only `title`, `note`, and `minutes` are mutable; `id` and `sphere` are stable.
+ */
+export function updatePlanStep(
+  stepId: string,
+  changes: Partial<Pick<Step, "title" | "note" | "minutes">>,
+) {
+  if (typeof window === "undefined") return;
+  const current = readPlan();
+  if (!current) return;
+  const nextSteps = current.dailyTemplate.map((s) =>
+    s.id === stepId ? { ...s, ...changes } : s,
+  );
+  const next: Plan = { ...current, dailyTemplate: nextSteps };
+  window.localStorage.setItem(PLAN_KEY, JSON.stringify(next));
+  invalidateCaches();
+  emit();
+}
+
+/** Append a Quick Ask note to today's progress bucket. */
+export function addDayNote(planId: string, text: string): DayNote | null {
+  if (typeof window === "undefined") return null;
+  const trimmed = text.trim();
+  if (!trimmed) return null;
+  const current = readProgress(planId);
+  const key = dateKey();
+  const entry: DayNote = { text: trimmed, addedAt: new Date().toISOString() };
+  const notes = { ...(current.notes ?? {}) };
+  notes[key] = [...(notes[key] ?? []), entry];
+  const next: Progress = {
+    ...current,
+    notes,
+    lastVisit: new Date().toISOString(),
+  };
+  window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(next));
+  invalidateCaches();
+  emit();
+  return entry;
+}
+
 /** Save (or clear) the evening reflection for the given date. */
 export function setJournalEntry(
   planId: string,
@@ -171,7 +212,9 @@ export function consumeStreakFreeze(planId: string, date: string): boolean {
   if (typeof window === "undefined") return false;
   const current = readProgress(planId);
   const freezes = { ...(current.freezes ?? {}) };
-  const wk = weekKey(new Date(`${date}T12:00:00Z`));
+  // Use noon to dodge DST edge cases when parsing the local date string.
+  const [y, m, d] = date.split("-").map(Number);
+  const wk = weekKey(new Date(y, (m ?? 1) - 1, d ?? 1, 12, 0, 0));
   if (freezes[wk]) return false;
   freezes[wk] = date;
   const next: Progress = {
@@ -205,12 +248,12 @@ export function computeStreak(plan: Plan, now: Date = new Date()): number {
     const done = progress.byDay[key] ?? [];
     const isFrozen = Object.values(freezes).includes(key);
     if (i === 0 && done.length === 0 && !isFrozen) {
-      cursor.setUTCDate(cursor.getUTCDate() - 1);
+      cursor.setDate(cursor.getDate() - 1);
       continue;
     }
     if (done.length > 0 || isFrozen) {
       streak += 1;
-      cursor.setUTCDate(cursor.getUTCDate() - 1);
+      cursor.setDate(cursor.getDate() - 1);
     } else {
       break;
     }

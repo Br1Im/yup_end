@@ -2,24 +2,33 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Moon, Pencil, X } from "lucide-react";
+import { MessageSquareText, Moon, Pencil, X } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
+import type { TranslationKey } from "@/i18n/translations";
 import { dateKey } from "@/lib/plan/generator";
 import { setJournalEntry } from "@/lib/plan/storage";
-import type { JournalEntry } from "@/lib/plan/types";
+import type { DayNote, JournalEntry } from "@/lib/plan/types";
 
 type Props = {
   planId: string;
   doneToday: number;
   totalSteps: number;
   todayEntry: JournalEntry | null;
+  /** Quick Ask notes captured earlier in the day. */
+  todayNotes?: DayNote[];
 };
 
 /**
  * Card that prompts the user to close their day with a 3-line journal.
  * Opens a modal with three textareas; on submit, persists to localStorage.
  */
-export function CloseDayCard({ planId, doneToday, totalSteps, todayEntry }: Props) {
+export function CloseDayCard({
+  planId,
+  doneToday,
+  totalSteps,
+  todayEntry,
+  todayNotes = [],
+}: Props) {
   const { t, locale } = useI18n();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -70,6 +79,9 @@ export function CloseDayCard({ planId, doneToday, totalSteps, todayEntry }: Prop
             </span>
           </div>
           <JournalPreview entry={todayEntry} />
+          {todayNotes.length > 0 ? (
+            <NotesPreview notes={todayNotes} locale={locale} t={t} />
+          ) : null}
           <button
             type="button"
             onClick={() => setOpen(true)}
@@ -88,6 +100,9 @@ export function CloseDayCard({ planId, doneToday, totalSteps, todayEntry }: Prop
             <p className="text-sm text-white/55 mt-1 max-w-lg leading-relaxed">
               {t("lk.closeday.lead")}
             </p>
+            {todayNotes.length > 0 ? (
+              <NotesPreview notes={todayNotes} locale={locale} t={t} />
+            ) : null}
           </div>
           <button
             type="button"
@@ -104,6 +119,7 @@ export function CloseDayCard({ planId, doneToday, totalSteps, todayEntry }: Prop
         <CloseDayModal
           planId={planId}
           existing={todayEntry}
+          notes={todayNotes}
           onClose={() => setOpen(false)}
         />
       ) : null}
@@ -132,13 +148,53 @@ function JournalPreview({ entry }: { entry: JournalEntry }) {
   );
 }
 
+function NotesPreview({
+  notes,
+  locale,
+  t,
+}: {
+  notes: DayNote[];
+  locale: "ru" | "en";
+  t: (key: TranslationKey) => string;
+}) {
+  const time = new Intl.DateTimeFormat(locale === "ru" ? "ru-RU" : "en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return (
+    <div className="mt-3 rounded-md border border-[color:var(--line)] bg-[color:var(--bg)] px-3 py-2.5">
+      <div className="flex items-center gap-1.5 mb-1.5">
+        <MessageSquareText
+          className="size-3 text-white/55"
+          strokeWidth={1.7}
+        />
+        <span className="text-[0.55rem] tracking-[0.22em] uppercase font-semibold text-white/55">
+          {t("lk.closeday.notes.title")}
+        </span>
+      </div>
+      <ul className="space-y-1 text-xs text-white/65 leading-relaxed">
+        {notes.map((n, idx) => (
+          <li key={idx} className="flex gap-2">
+            <span className="text-white/35 shrink-0 tabular-nums">
+              {time.format(new Date(n.addedAt))}
+            </span>
+            <span className="line-clamp-2">{n.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function CloseDayModal({
   planId,
   existing,
+  notes,
   onClose,
 }: {
   planId: string;
   existing: JournalEntry | null;
+  notes: DayNote[];
   onClose: () => void;
 }) {
   const { t } = useI18n();
@@ -233,6 +289,27 @@ function CloseDayModal({
             <X className="size-5" strokeWidth={1.7} />
           </button>
         </header>
+
+        {notes.length > 0 ? (
+          <div className="mb-4 rounded-md border border-[color:var(--line)] bg-[color:var(--bg)] px-3.5 py-3">
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <MessageSquareText
+                className="size-3 text-white/55"
+                strokeWidth={1.7}
+              />
+              <span className="text-[0.55rem] tracking-[0.22em] uppercase font-semibold text-white/55">
+                {t("lk.closeday.notes.title")}
+              </span>
+            </div>
+            <ul className="space-y-1 text-xs text-white/65 leading-relaxed">
+              {notes.map((n, idx) => (
+                <li key={idx} className="line-clamp-2">
+                  {n.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         <div className="space-y-4">
           <FieldArea

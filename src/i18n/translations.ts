@@ -288,8 +288,45 @@ export const translations = {
     "lk.ask.example1": "Не выспался",
     "lk.ask.example2": "Дедлайн вечером",
     "lk.ask.example3": "Хочу больше языка",
+    "lk.ask.saved": "Заметка сохранена — увидишь её вечером",
     "lk.outro.title": "Гора не ждёт.",
     "lk.outro.accent": "Сделай шаг.",
+
+    // Inline edit of daily-template steps
+    "lk.editstep.eyebrow": "РЕДАКТИРОВАНИЕ ШАГА",
+    "lk.editstep.title": "Подправить шаг",
+    "lk.editstep.open": "Редактировать шаг",
+    "lk.editstep.cancel": "Отмена",
+    "lk.editstep.save": "Сохранить",
+    "lk.editstep.title.label": "Заголовок",
+    "lk.editstep.note.label": "Что именно делать",
+    "lk.editstep.minutes.label": "Минуты в день",
+    "lk.editstep.minutes.hint": "5–240, шаг 5",
+
+    // Achievements
+    "lk.achv.eyebrow": "ДОСТИЖЕНИЯ",
+    "lk.achv.empty": "Пока пусто. Закрой первый шаг — появится «Первый шаг».",
+    "lk.achv.first_step.t": "Первый шаг",
+    "lk.achv.first_step.s": "Закрыт первый квест дня",
+    "lk.achv.first_close.t": "Первый вечер",
+    "lk.achv.first_close.s": "Закрыт первый день с журналом",
+    "lk.achv.streak3.t": "3 дня подряд",
+    "lk.achv.streak3.s": "Стрик длиной от трёх дней",
+    "lk.achv.streak7.t": "Неделя",
+    "lk.achv.streak7.s": "Семь дней дисциплины подряд",
+    "lk.achv.streak30.t": "Месяц",
+    "lk.achv.streak30.s": "Тридцать дней — это уже привычка",
+    "lk.achv.perfectDay.t": "Чистый день",
+    "lk.achv.perfectDay.s": "Все 5 шагов выполнены за один день",
+    "lk.achv.campI.t": "Лагерь I",
+    "lk.achv.campI.s": "Прошёл базу, держишь маршрут",
+    "lk.achv.halfway.t": "Полпути",
+    "lk.achv.halfway.s": "Закрыта половина дней маршрута",
+    "lk.achv.allSpheres.t": "Все 5 сфер",
+    "lk.achv.allSpheres.s": "Хотя бы один шаг закрыт во всех сферах за день",
+
+    // Day notes preview inside CloseDayCard
+    "lk.closeday.notes.title": "ЗАМЕТКИ ДНЯ",
 
     // Identity epigraph
     "lk.identity.prefix": "Я тот, кто",
@@ -719,8 +756,45 @@ export const translations = {
     "lk.ask.example1": "Didn't sleep",
     "lk.ask.example2": "Deadline tonight",
     "lk.ask.example3": "More language",
+    "lk.ask.saved": "Saved — you'll see it this evening",
     "lk.outro.title": "The mountain doesn't wait.",
     "lk.outro.accent": "Take the step.",
+
+    // Inline edit of daily-template steps
+    "lk.editstep.eyebrow": "EDIT STEP",
+    "lk.editstep.title": "Tune the step",
+    "lk.editstep.open": "Edit step",
+    "lk.editstep.cancel": "Cancel",
+    "lk.editstep.save": "Save",
+    "lk.editstep.title.label": "Title",
+    "lk.editstep.note.label": "What exactly to do",
+    "lk.editstep.minutes.label": "Minutes per day",
+    "lk.editstep.minutes.hint": "5–240, step 5",
+
+    // Achievements
+    "lk.achv.eyebrow": "ACHIEVEMENTS",
+    "lk.achv.empty": "Nothing yet. Close your first step to unlock \"First step\".",
+    "lk.achv.first_step.t": "First step",
+    "lk.achv.first_step.s": "You closed your first daily quest",
+    "lk.achv.first_close.t": "First evening",
+    "lk.achv.first_close.s": "First day closed with a journal entry",
+    "lk.achv.streak3.t": "3 days in a row",
+    "lk.achv.streak3.s": "Streak of at least three days",
+    "lk.achv.streak7.t": "One week",
+    "lk.achv.streak7.s": "Seven days of discipline in a row",
+    "lk.achv.streak30.t": "One month",
+    "lk.achv.streak30.s": "Thirty days — that's a habit now",
+    "lk.achv.perfectDay.t": "Clean day",
+    "lk.achv.perfectDay.s": "All 5 steps closed in a single day",
+    "lk.achv.campI.t": "Camp I",
+    "lk.achv.campI.s": "Past base, holding the route",
+    "lk.achv.halfway.t": "Halfway",
+    "lk.achv.halfway.s": "Half of the route's days are done",
+    "lk.achv.allSpheres.t": "All 5 spheres",
+    "lk.achv.allSpheres.s": "At least one step in every sphere closed in a day",
+
+    // Day notes preview inside CloseDayCard
+    "lk.closeday.notes.title": "DAY NOTES",
 
     // Identity epigraph
     "lk.identity.prefix": "I am the kind of person who",

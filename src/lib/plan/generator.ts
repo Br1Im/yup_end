@@ -203,46 +203,47 @@ export function stageForDay(plan: Plan, day: number): ArcStage {
   return plan.arc[plan.arc.length - 1];
 }
 
+/** Local-time midnight (00:00) of the given date as a Date instance. */
+function localMidnight(d: Date): Date {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
 export function dayOfPlan(plan: Plan, now: Date = new Date()): number {
-  const start = new Date(plan.startedAt);
-  const startUtc = Date.UTC(
-    start.getUTCFullYear(),
-    start.getUTCMonth(),
-    start.getUTCDate(),
-  );
-  const todayUtc = Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-  );
-  const diff = Math.floor((todayUtc - startUtc) / 86400000);
+  // Compute days from the user's *local* timezone so that the day rolls over
+  // at the user's local midnight, not UTC midnight.
+  const startMs = localMidnight(new Date(plan.startedAt)).getTime();
+  const nowMs = localMidnight(now).getTime();
+  const diff = Math.floor((nowMs - startMs) / 86400000);
   return Math.min(Math.max(diff + 1, 1), plan.durationDays);
 }
 
+/**
+ * Local-timezone date key, e.g. "2026-05-13".
+ * Switched from UTC in PR #7 — UTC keys caused yesterday/today drift for users
+ * outside the UTC zone (e.g. a +5 user past midnight saw the "previous" day).
+ */
 export function dateKey(now: Date = new Date()): string {
-  const y = now.getUTCFullYear();
-  const m = String(now.getUTCMonth() + 1).padStart(2, "0");
-  const d = String(now.getUTCDate()).padStart(2, "0");
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
   return `${y}-${m}-${d}`;
 }
 
-/** ISO-8601 week key, e.g. "2026-W20" — used for streak-freeze quota. */
+/** ISO-8601 week key in the user's local timezone, e.g. "2026-W20". */
 export function weekKey(now: Date = new Date()): string {
-  const d = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
-  );
+  const d = localMidnight(now);
   // Move to nearest Thursday (ISO definition: week with thursday in year)
-  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+  const yearStart = new Date(d.getFullYear(), 0, 1);
   const weekNo = Math.ceil(
     ((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7,
   );
-  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, "0")}`;
+  return `${d.getFullYear()}-W${String(weekNo).padStart(2, "0")}`;
 }
 
 export function shiftDate(base: Date, deltaDays: number): Date {
   const d = new Date(base);
-  d.setUTCDate(d.getUTCDate() + deltaDays);
+  d.setDate(d.getDate() + deltaDays);
   return d;
 }
 

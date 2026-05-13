@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Check } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { addDayNote } from "@/lib/plan/storage";
 
-export function QuickAsk() {
+export function QuickAsk({ planId }: { planId: string | null }) {
   const { t } = useI18n();
   const [value, setValue] = useState("");
   const [pulsing, setPulsing] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const examples = [
     t("lk.ask.example1"),
@@ -16,9 +19,14 @@ export function QuickAsk() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!value.trim()) return;
+    if (!value.trim() || !planId) return;
+    const stored = addDayNote(planId, value);
+    if (!stored) return;
     setPulsing(true);
+    setSaved(true);
+    setValue("");
     window.setTimeout(() => setPulsing(false), 1200);
+    window.setTimeout(() => setSaved(false), 2800);
   };
 
   return (
@@ -88,6 +96,20 @@ export function QuickAsk() {
                 {ex}
               </button>
             ))}
+          </div>
+
+          <div
+            aria-live="polite"
+            className="mt-3 flex items-center gap-2 text-[0.7rem] text-[color:var(--lime)]"
+            style={{
+              transition: "opacity 320ms ease-out, transform 320ms ease-out",
+              opacity: saved ? 1 : 0,
+              transform: saved ? "translateY(0)" : "translateY(-2px)",
+              pointerEvents: saved ? "auto" : "none",
+            }}
+          >
+            <Check className="size-3.5" strokeWidth={2.4} />
+            {t("lk.ask.saved")}
           </div>
         </div>
       </div>
