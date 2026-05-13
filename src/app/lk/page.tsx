@@ -112,6 +112,7 @@ function LoadedDashboard() {
         day={day}
         total={plan.durationDays}
         stageLabel={stageLabel}
+        intake={plan.intake}
       />
       <main className="min-h-[calc(100vh-3.5rem)] bg-[color:var(--bg)] text-white">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">

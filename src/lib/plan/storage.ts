@@ -6,6 +6,7 @@ import { dateKey, weekKey } from "./generator";
 
 const PLAN_KEY = "yup.plan";
 const PROGRESS_KEY = "yup.progress";
+const INTAKE_PREFILL_KEY = "yup.intake.prefill";
 
 type Listener = () => void;
 const listeners = new Set<Listener>();
@@ -95,6 +96,33 @@ export function clearPlan() {
   window.localStorage.removeItem(PROGRESS_KEY);
   invalidateCaches();
   emit();
+}
+
+/**
+ * Stash the current plan's intake so the /start onboarding can rehydrate it
+ * for a “rebuild plan” flow. Survives only the current tab session.
+ */
+export function setIntakePrefill(intake: import("./types").PlanIntake) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(INTAKE_PREFILL_KEY, JSON.stringify(intake));
+  } catch {
+    // ignore quota/serialization errors
+  }
+}
+
+export function consumeIntakePrefill():
+  | import("./types").PlanIntake
+  | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.sessionStorage.getItem(INTAKE_PREFILL_KEY);
+    if (!raw) return null;
+    window.sessionStorage.removeItem(INTAKE_PREFILL_KEY);
+    return JSON.parse(raw) as import("./types").PlanIntake;
+  } catch {
+    return null;
+  }
 }
 
 export function setStepDone(planId: string, stepId: string, done: boolean) {

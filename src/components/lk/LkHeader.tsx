@@ -1,21 +1,45 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { RotateCcw } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { LocaleSwitcher } from "../LocaleSwitcher";
 import { PeakMark } from "../PeakMark";
+import { LogoutConfirmModal } from "./LogoutConfirmModal";
+import { RebuildConfirmModal } from "./RebuildConfirmModal";
+import { clearPlan, setIntakePrefill } from "@/lib/plan/storage";
+import type { PlanIntake } from "@/lib/plan/types";
 
 export function LkHeader({
   day,
   total = 90,
   stageLabel,
+  intake,
 }: {
   day: number;
   total?: number;
   stageLabel?: string;
+  intake?: PlanIntake;
 }) {
   const { t } = useI18n();
+  const router = useRouter();
   const camp = stageLabel ?? t("lk.topbar.camp");
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const [rebuildOpen, setRebuildOpen] = useState(false);
+
+  const handleLogout = () => {
+    clearPlan();
+    setLogoutOpen(false);
+    router.push("/start");
+  };
+
+  const handleRebuild = () => {
+    if (intake) setIntakePrefill(intake);
+    setRebuildOpen(false);
+    router.push("/start");
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-[color:var(--bg)]/85 backdrop-blur-md border-b border-[color:var(--line)]">
@@ -42,8 +66,20 @@ export function LkHeader({
 
         <div className="flex items-center gap-2 sm:gap-3">
           <LocaleSwitcher className="hidden md:inline-flex" />
+          {intake ? (
+            <button
+              type="button"
+              onClick={() => setRebuildOpen(true)}
+              className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] sm:text-xs tracking-[0.16em] uppercase font-semibold text-white/65 hover:text-white border border-[color:var(--line-strong)] hover:border-[color:var(--lime)]/45 rounded-full py-1.5 px-3 transition-colors"
+              title={t("lk.rebuild.title")}
+            >
+              <RotateCcw className="size-3" strokeWidth={2.2} />
+              <span>{t("lk.header.rebuild.short")}</span>
+            </button>
+          ) : null}
           <button
             type="button"
+            onClick={() => setLogoutOpen(true)}
             className="btn-pill !py-1.5 sm:!py-2 !px-3 sm:!px-4 text-xs sm:text-sm"
           >
             {t("lk.header.logout")}
@@ -58,6 +94,17 @@ export function LkHeader({
         </span>
         <span className="text-[color:var(--lime)]">{camp}</span>
       </div>
+
+      <LogoutConfirmModal
+        open={logoutOpen}
+        onCancel={() => setLogoutOpen(false)}
+        onConfirm={handleLogout}
+      />
+      <RebuildConfirmModal
+        open={rebuildOpen}
+        onCancel={() => setRebuildOpen(false)}
+        onConfirm={handleRebuild}
+      />
     </header>
   );
 }
