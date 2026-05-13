@@ -1,38 +1,28 @@
 "use client";
 
 import { useI18n } from "@/i18n/I18nProvider";
+import type { TranslationKey } from "@/i18n/translations";
 import { Reveal } from "../Reveal";
+import type { ArcStage } from "@/lib/plan/types";
 
 type Props = {
-  /** 1-based index of current camp (1..4). */
-  currentIndex?: 1 | 2 | 3 | 4;
+  stages: ArcStage[];
+  currentStageId: ArcStage["id"];
+  currentDay: number;
+  totalDays: number;
 };
 
-export function AscentTimeline({ currentIndex = 2 }: Props) {
+export function AscentTimeline({
+  stages,
+  currentStageId,
+  currentDay,
+  totalDays,
+}: Props) {
   const { t } = useI18n();
-
-  const camps = [
-    {
-      label: t("lk.ascent.c1.label"),
-      title: t("lk.ascent.c1.t"),
-      when: t("lk.ascent.c1.when"),
-    },
-    {
-      label: t("lk.ascent.c2.label"),
-      title: t("lk.ascent.c2.t"),
-      when: t("lk.ascent.c2.when"),
-    },
-    {
-      label: t("lk.ascent.c3.label"),
-      title: t("lk.ascent.c3.t"),
-      when: t("lk.ascent.c3.when"),
-    },
-    {
-      label: t("lk.ascent.c4.label"),
-      title: t("lk.ascent.c4.t"),
-      when: t("lk.ascent.c4.when"),
-    },
-  ];
+  const currentIndex = Math.max(
+    0,
+    stages.findIndex((s) => s.id === currentStageId),
+  );
 
   return (
     <section className="relative bg-[color:var(--bg-2)] border-y border-[color:var(--line)] text-white">
@@ -55,16 +45,15 @@ export function AscentTimeline({ currentIndex = 2 }: Props) {
             aria-hidden
             className="absolute left-[14px] top-3 bottom-3 w-px bg-[color:var(--line)]"
           />
-          {camps.map((c, i) => {
-            const stepNum = i + 1;
-            const passed = stepNum < currentIndex;
-            const current = stepNum === currentIndex;
+          {stages.map((stage, i) => {
+            const passed = i < currentIndex;
+            const current = i === currentIndex;
             return (
               <Reveal
                 as="li"
                 variant="soft"
                 delay={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-                key={c.label + i}
+                key={stage.id}
                 className="relative pl-12 py-5 first:pt-1 last:pb-1"
               >
                 <span
@@ -90,7 +79,7 @@ export function AscentTimeline({ currentIndex = 2 }: Props) {
                             : "text-white/30")
                       }
                     >
-                      {c.label}
+                      {t(stage.labelKey as TranslationKey)}
                     </span>
                     <h3
                       className={
@@ -102,17 +91,20 @@ export function AscentTimeline({ currentIndex = 2 }: Props) {
                             : "text-white/45")
                       }
                     >
-                      {c.title}
+                      {t(stage.titleKey as TranslationKey)}
                     </h3>
                   </div>
                   <span className="text-xs text-white/35 uppercase tracking-[0.18em] font-semibold">
-                    {c.when}
+                    {stage.startDay === stage.endDay
+                      ? `${stage.startDay}`
+                      : `${stage.startDay}–${stage.endDay}`}
                   </span>
                 </div>
                 {current ? (
                   <span className="mt-2 inline-flex items-center gap-2 text-[0.66rem] tracking-[0.22em] uppercase text-[color:var(--lime)] font-semibold">
                     <span className="size-1.5 rounded-full bg-[color:var(--lime)] animate-pulse" />
-                    {t("lk.ascent.current")}
+                    {t("lk.ascent.current")} ·{" "}
+                    {t("lk.topbar.day", { day: currentDay, total: totalDays })}
                   </span>
                 ) : null}
               </Reveal>

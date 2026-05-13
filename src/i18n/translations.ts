@@ -186,7 +186,7 @@ export const translations = {
     "lk.header.ascent": "Восхождение",
     "lk.header.logout": "Выйти",
     "lk.topbar.eyebrow": "Восхождение",
-    "lk.topbar.day": "День {day} / 365",
+    "lk.topbar.day": "День {day} / {total}",
     "lk.topbar.camp": "Лагерь I · Маршрут",
     "lk.topbar.greeting": "Доброе утро, альпинист.",
     "lk.hero.title.l1": "Сегодня —",
@@ -268,6 +268,83 @@ export const translations = {
     "lk.ask.example3": "Хочу больше языка",
     "lk.outro.title": "Гора не ждёт.",
     "lk.outro.accent": "Сделай шаг.",
+
+    // LK empty state (no plan yet)
+    "lk.empty.eyebrow": "Маршрут не задан",
+    "lk.empty.title.l1": "Сначала —",
+    "lk.empty.title.l2": "вершина.",
+    "lk.empty.lead":
+      "У тебя ещё нет маршрута. Собери его — это минута. План адаптирован под твои часы и сферы.",
+    "lk.empty.cta": "Собрать маршрут",
+    "lk.empty.reset": "Сбросить локальные данные",
+
+    // /start onboarding
+    "start.head.eyebrow": "Маршрут на 90 дней",
+    "start.head.title.l1": "Назови вершину.",
+    "start.head.title.l2": "Соберём маршрут.",
+    "start.progress.of": "Шаг {cur} из {total}",
+    "start.nav.back": "Назад",
+    "start.nav.next": "Дальше",
+    "start.nav.generate": "Собрать маршрут",
+    "start.nav.go": "Идём",
+    "start.nav.refine": "Доработать",
+
+    "start.s1.eyebrow": "Шаг 1 · Вершина",
+    "start.s1.title": "Чего хочешь к вершине через 90 дней?",
+    "start.s1.lead":
+      "Свободным текстом. Опиши себя через 90 дней — кто ты, что умеешь, как живёшь. Ниже — пять опциональных сфер.",
+    "start.s1.goal.label": "Главная цель",
+    "start.s1.goal.placeholder":
+      "Например: к августу свободно говорю на испанском, делаю присед 100 кг, прочитал 6 книг по AI, держу утренний ритуал.",
+    "start.s1.spheres.title": "Сферы",
+    "start.s1.spheres.optional": "Можно пропустить. Заполни только то, что важно.",
+    "start.s1.sphere.from": "Сейчас",
+    "start.s1.sphere.to": "Куда",
+    "start.s1.sphere.lang.label": "Язык",
+    "start.s1.sphere.lang.hint": "Испанский · B1 → B2",
+    "start.s1.sphere.body.label": "Тело",
+    "start.s1.sphere.body.hint": "Присед 80 → 100 кг",
+    "start.s1.sphere.knowledge.label": "Знания",
+    "start.s1.sphere.knowledge.hint": "12 книг по AI / 6 эссе",
+    "start.s1.sphere.habits.label": "Привычки",
+    "start.s1.sphere.habits.hint": "Утро без телефона · 60 дней",
+    "start.s1.sphere.mind.label": "Голова",
+    "start.s1.sphere.mind.hint": "3 строки рефлексии / день",
+    "start.s1.error":
+      "Опиши вершину одним-двумя предложениями (или заполни хотя бы одну сферу).",
+
+    "start.s2.eyebrow": "Шаг 2 · Контекст",
+    "start.s2.title": "Сколько готов вкладывать?",
+    "start.s2.lead":
+      "AI учтёт это при сборке плана. Не геройствуй — лучше 30 мин каждый день, чем 3 часа раз в неделю.",
+    "start.s2.time.label": "Минут в день",
+    "start.s2.time.suffix": "мин",
+    "start.s2.window.label": "Окно фокуса",
+    "start.s2.window.morning": "Утро · 06–12",
+    "start.s2.window.day": "День · 12–18",
+    "start.s2.window.evening": "Вечер · 18–22",
+    "start.s2.obstacles.label": "Главные блоки",
+    "start.s2.obstacles.lead":
+      "Что чаще всего срывает темп? Можно выбрать несколько.",
+    "start.s2.obs.procrastination": "Прокрастинация",
+    "start.s2.obs.rhythm": "Нет режима",
+    "start.s2.obs.deadlines": "Слитные дедлайны",
+    "start.s2.obs.invisible": "Не вижу прогресса",
+    "start.s2.obs.social": "Соц-сети",
+    "start.s2.obs.sleep": "Не высыпаюсь",
+
+    "start.s3.eyebrow": "Шаг 3 · Превью",
+    "start.s3.title.l1": "Вот твой маршрут.",
+    "start.s3.title.l2": "90 дней.",
+    "start.s3.lead":
+      "AI собрал этапы и дневной шаблон из 5 шагов. Стартуем сегодня — день 1.",
+    "start.s3.arc.title": "Маршрут",
+    "start.s3.daily.title": "Дневной шаблон",
+    "start.s3.daily.subtitle": "{total} мин в день · 5 шагов",
+    "start.s3.tip":
+      "Это твой первый набросок — план можно пересобрать позже, прямо из ЛК.",
+
+    "lk.spheres.streak.days": "{days} дней подряд",
   },
   en: {
     // Header
@@ -453,7 +530,7 @@ export const translations = {
     "lk.header.ascent": "Ascent",
     "lk.header.logout": "Log out",
     "lk.topbar.eyebrow": "Ascent",
-    "lk.topbar.day": "Day {day} / 365",
+    "lk.topbar.day": "Day {day} / {total}",
     "lk.topbar.camp": "Camp I · Route",
     "lk.topbar.greeting": "Good morning, climber.",
     "lk.hero.title.l1": "Today —",
@@ -535,6 +612,84 @@ export const translations = {
     "lk.ask.example3": "More language",
     "lk.outro.title": "The mountain doesn't wait.",
     "lk.outro.accent": "Take the step.",
+
+    // LK empty state (no plan yet)
+    "lk.empty.eyebrow": "No route yet",
+    "lk.empty.title.l1": "First —",
+    "lk.empty.title.l2": "the summit.",
+    "lk.empty.lead":
+      "You don't have a route yet. Build it — takes a minute. The plan is fitted to your hours and your spheres.",
+    "lk.empty.cta": "Build the route",
+    "lk.empty.reset": "Reset local data",
+
+    // /start onboarding
+    "start.head.eyebrow": "90-day route",
+    "start.head.title.l1": "Name the summit.",
+    "start.head.title.l2": "We'll build the route.",
+    "start.progress.of": "Step {cur} of {total}",
+    "start.nav.back": "Back",
+    "start.nav.next": "Next",
+    "start.nav.generate": "Build the route",
+    "start.nav.go": "Let's go",
+    "start.nav.refine": "Refine",
+
+    "start.s1.eyebrow": "Step 1 · Summit",
+    "start.s1.title": "What do you want 90 days from now?",
+    "start.s1.lead":
+      "Plain words. Describe yourself in 90 days — who you are, what you can do, how you live. Five optional spheres below.",
+    "start.s1.goal.label": "Main goal",
+    "start.s1.goal.placeholder":
+      "e.g. by August I speak Spanish fluently, squat 100 kg, finished 6 AI books, keep a morning ritual.",
+    "start.s1.spheres.title": "Spheres",
+    "start.s1.spheres.optional":
+      "Optional. Fill in only what matters.",
+    "start.s1.sphere.from": "Now",
+    "start.s1.sphere.to": "To",
+    "start.s1.sphere.lang.label": "Language",
+    "start.s1.sphere.lang.hint": "Spanish · B1 → B2",
+    "start.s1.sphere.body.label": "Body",
+    "start.s1.sphere.body.hint": "Squat 80 → 100 kg",
+    "start.s1.sphere.knowledge.label": "Knowledge",
+    "start.s1.sphere.knowledge.hint": "12 AI books / 6 essays",
+    "start.s1.sphere.habits.label": "Habits",
+    "start.s1.sphere.habits.hint": "Phone-free morning · 60 days",
+    "start.s1.sphere.mind.label": "Mind",
+    "start.s1.sphere.mind.hint": "3 lines of reflection per day",
+    "start.s1.error":
+      "Describe the summit in one or two sentences (or fill at least one sphere).",
+
+    "start.s2.eyebrow": "Step 2 · Context",
+    "start.s2.title": "How much can you put in?",
+    "start.s2.lead":
+      "AI uses this to size the plan. Don't be a hero — 30 min daily beats 3 hours once a week.",
+    "start.s2.time.label": "Minutes per day",
+    "start.s2.time.suffix": "min",
+    "start.s2.window.label": "Focus window",
+    "start.s2.window.morning": "Morning · 06–12",
+    "start.s2.window.day": "Day · 12–18",
+    "start.s2.window.evening": "Evening · 18–22",
+    "start.s2.obstacles.label": "Biggest blockers",
+    "start.s2.obstacles.lead":
+      "What breaks your pace most often? Pick one or several.",
+    "start.s2.obs.procrastination": "Procrastination",
+    "start.s2.obs.rhythm": "No rhythm",
+    "start.s2.obs.deadlines": "Deadlines pile up",
+    "start.s2.obs.invisible": "Can't see progress",
+    "start.s2.obs.social": "Social feeds",
+    "start.s2.obs.sleep": "Not sleeping enough",
+
+    "start.s3.eyebrow": "Step 3 · Preview",
+    "start.s3.title.l1": "Here is your route.",
+    "start.s3.title.l2": "90 days.",
+    "start.s3.lead":
+      "AI assembled the stages and a daily template of 5 steps. We start today — day 1.",
+    "start.s3.arc.title": "Route",
+    "start.s3.daily.title": "Daily template",
+    "start.s3.daily.subtitle": "{total} min per day · 5 steps",
+    "start.s3.tip":
+      "This is your first draft — you can rebuild the plan later from the dashboard.",
+
+    "lk.spheres.streak.days": "{days} days so far",
   },
 } as const;
 

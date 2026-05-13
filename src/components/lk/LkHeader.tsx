@@ -5,8 +5,17 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { LocaleSwitcher } from "../LocaleSwitcher";
 import { PeakMark } from "../PeakMark";
 
-export function LkHeader({ day }: { day: number }) {
+export function LkHeader({
+  day,
+  total = 90,
+  stageLabel,
+}: {
+  day: number;
+  total?: number;
+  stageLabel?: string;
+}) {
   const { t } = useI18n();
+  const camp = stageLabel ?? t("lk.topbar.camp");
 
   return (
     <header className="sticky top-0 z-40 bg-[color:var(--bg)]/85 backdrop-blur-md border-b border-[color:var(--line)]">
@@ -26,11 +35,9 @@ export function LkHeader({ day }: { day: number }) {
           <span className="size-1.5 rounded-full bg-[color:var(--lime)] animate-pulse" />
           <span className="text-white/55">{t("lk.topbar.eyebrow")}</span>
           <span className="h-3 w-px bg-[color:var(--line)]" />
-          <span className="text-white">{t("lk.topbar.day", { day })}</span>
+          <span className="text-white">{t("lk.topbar.day", { day, total })}</span>
           <span className="h-3 w-px bg-[color:var(--line)]" />
-          <span className="text-[color:var(--lime)]">
-            {t("lk.topbar.camp")}
-          </span>
+          <span className="text-[color:var(--lime)]">{camp}</span>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -47,9 +54,9 @@ export function LkHeader({ day }: { day: number }) {
       <div className="md:hidden border-t border-[color:var(--line)] px-4 py-2 flex items-center justify-between text-[0.66rem] tracking-[0.2em] uppercase font-semibold text-white/55">
         <span className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-[color:var(--lime)]" />
-          {t("lk.topbar.day", { day })}
+          {t("lk.topbar.day", { day, total })}
         </span>
-        <span className="text-[color:var(--lime)]">{t("lk.topbar.camp")}</span>
+        <span className="text-[color:var(--lime)]">{camp}</span>
       </div>
     </header>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useI18n } from "@/i18n/I18nProvider";
 import { Mountain } from "./Mountain";
 
@@ -69,8 +70,8 @@ export function Hero() {
           </div>
 
           <div className="hidden md:block md:absolute left-1/2 -translate-x-1/2 bottom-[18%] z-10 hero-anim-fade hero-anim-fade-d4">
-            <a
-              href="#waitlist"
+            <Link
+              href="/start"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[color:var(--bg-3)]/90 border border-[color:var(--line-strong)] backdrop-blur text-white font-semibold hover:border-[color:var(--lime)] hover:text-[color:var(--lime)] transition-colors text-sm"
             >
               {t("hero.cta.start")}
@@ -83,13 +84,13 @@ export function Hero() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 
         {/* Mobile-only primary CTA */}
         <div className="md:hidden mt-10 flex justify-center hero-anim-fade hero-anim-fade-d4">
-          <a href="#waitlist" className="btn-lime text-sm w-full max-w-xs justify-center">
+          <Link href="/start" className="btn-lime text-sm w-full max-w-xs justify-center">
             {t("hero.cta.start")}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
               <path
@@ -100,7 +101,7 @@ export function Hero() {
                 strokeLinejoin="round"
               />
             </svg>
-          </a>
+          </Link>
         </div>
 
         <div className="mt-12 md:mt-8 border-t border-b border-[color:var(--line)] py-6">
