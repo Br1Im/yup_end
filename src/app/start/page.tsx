@@ -8,6 +8,7 @@ import { StepGoal } from "@/components/start/StepGoal";
 import { StepContext } from "@/components/start/StepContext";
 import { StepPreview } from "@/components/start/StepPreview";
 import { generatePlan } from "@/lib/plan/generator";
+import { readSharedIntakeFromLocation } from "@/lib/plan/share";
 import { consumeIntakePrefill, savePlan } from "@/lib/plan/storage";
 import type { Plan, PlanIntake } from "@/lib/plan/types";
 
@@ -33,19 +34,44 @@ export default function StartPage() {
   const [showGoalError, setShowGoalError] = useState(false);
   const [plan, setPlan] = useState<Plan | null>(null);
   const [prefilled, setPrefilled] = useState(false);
+  const [sharedFrom, setSharedFrom] = useState<"rebuild" | "shared" | null>(
+    null,
+  );
 
-  // Rehydrate from a "rebuild plan" hand-off (sessionStorage → React state).
-  // One-shot read after mount; not part of any external subscription.
+  // Rehydrate from either:
+  //   - a "rebuild plan" hand-off (sessionStorage → React state), or
+  //   - a shared `?plan=` URL parameter from another user.
+  // The URL share takes precedence if both are present, but practically only
+  // one source is set at a time. One-shot read after mount.
   useEffect(() => {
+    const shared = readSharedIntakeFromLocation();
+    if (shared) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIntake({
+        ...INITIAL_INTAKE,
+        ...shared,
+        context: { ...INITIAL_INTAKE.context, ...shared.context },
+      });
+      setPrefilled(true);
+      setSharedFrom("shared");
+      // Clean the URL — no need to keep the long query param hanging around
+      // once we've consumed it. Doesn't reload the page.
+      if (typeof window !== "undefined") {
+        const cleanUrl = new URL(window.location.href);
+        cleanUrl.searchParams.delete("plan");
+        window.history.replaceState(null, "", cleanUrl.toString());
+      }
+      return;
+    }
     const cached = consumeIntakePrefill();
     if (!cached) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIntake({
       ...INITIAL_INTAKE,
       ...cached,
       context: { ...INITIAL_INTAKE.context, ...cached.context },
     });
     setPrefilled(true);
+    setSharedFrom("rebuild");
   }, []);
 
   const goalValid = useMemo(() => {
@@ -154,7 +180,9 @@ export default function StartPage() {
             <div className="mb-8 flex items-start gap-3 rounded-2xl border border-[color:var(--lime)]/40 bg-[color:var(--lime)]/[0.05] px-4 py-3 sm:px-5 sm:py-4">
               <span className="mt-1 size-1.5 rounded-full bg-[color:var(--lime)] shrink-0 animate-pulse" />
               <p className="text-sm text-white/80 leading-relaxed">
-                {t("start.prefill.notice")}
+                {sharedFrom === "shared"
+                  ? t("start.shared.notice")
+                  : t("start.prefill.notice")}
               </p>
             </div>
           ) : null}

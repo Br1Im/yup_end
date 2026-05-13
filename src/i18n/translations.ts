@@ -187,6 +187,24 @@ export const translations = {
     "lk.header.logout": "Выйти",
     "lk.header.rebuild": "Пересобрать план",
     "lk.header.rebuild.short": "Пересобрать",
+    "lk.header.share.short": "Поделиться",
+
+    // Share plan modal
+    "lk.share.eyebrow": "ПОДЕЛИТЬСЯ МАРШРУТОМ",
+    "lk.share.title": "Скопируй ссылку",
+    "lk.share.lead":
+      "Открыв ссылку, друг увидит твою цель и сферы — и сможет одним кликом собрать свой маршрут.",
+    "lk.share.url.label": "Ссылка на твой маршрут",
+    "lk.share.copy": "Скопировать",
+    "lk.share.copied": "Готово",
+    "lk.share.close": "Закрыть",
+    "lk.share.native.cta": "Поделиться через систему…",
+    "lk.share.native.title": "YUP — мой маршрут на 90 дней",
+    "lk.share.native.text":
+      "Собрал маршрут на 90 дней. Открой и собери свой — без логина.",
+    "lk.share.note":
+      "В ссылке только формулировка цели и сфер — без журнала и прогресса.",
+
     "lk.logout.eyebrow": "Сброс маршрута",
     "lk.logout.title": "Точно выйти?",
     "lk.logout.lead":
@@ -201,6 +219,8 @@ export const translations = {
     "lk.rebuild.confirm": "Перейти к пересборке",
     "start.prefill.notice":
       "Поля предзаполнены из твоего текущего маршрута. Можно откорректировать и собрать заново.",
+    "start.shared.notice":
+      "Кто-то поделился с тобой маршрутом. Поля предзаполнены — поправь и собери свой.",
     "lk.topbar.eyebrow": "Восхождение",
     "lk.topbar.day": "День {day} / {total}",
     "lk.topbar.camp": "Лагерь I · Маршрут",
@@ -620,6 +640,24 @@ export const translations = {
     "lk.header.logout": "Sign out",
     "lk.header.rebuild": "Rebuild plan",
     "lk.header.rebuild.short": "Rebuild",
+    "lk.header.share.short": "Share",
+
+    // Share plan modal
+    "lk.share.eyebrow": "SHARE THE ROUTE",
+    "lk.share.title": "Copy the link",
+    "lk.share.lead":
+      "Open this link and a friend will see your goal and spheres — they can build their own route with one click.",
+    "lk.share.url.label": "Link to your route",
+    "lk.share.copy": "Copy",
+    "lk.share.copied": "Copied",
+    "lk.share.close": "Close",
+    "lk.share.native.cta": "Share via system…",
+    "lk.share.native.title": "YUP — my 90-day route",
+    "lk.share.native.text":
+      "I built a 90-day route. Open it and build your own — no login.",
+    "lk.share.note":
+      "The link only carries the goal and sphere descriptions — no journal or progress.",
+
     "lk.logout.eyebrow": "Reset route",
     "lk.logout.title": "Sign out?",
     "lk.logout.lead":
@@ -634,6 +672,8 @@ export const translations = {
     "lk.rebuild.confirm": "Go to rebuild",
     "start.prefill.notice":
       "Fields are prefilled from your current route. Tweak anything and rebuild.",
+    "start.shared.notice":
+      "Someone shared a route with you. Tweak the fields and build your own.",
     "lk.topbar.eyebrow": "Ascent",
     "lk.topbar.day": "Day {day} / {total}",
     "lk.topbar.camp": "Camp I · Route",
