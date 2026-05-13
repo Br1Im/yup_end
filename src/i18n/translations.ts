@@ -345,6 +345,15 @@ export const translations = {
       "Это твой первый набросок — план можно пересобрать позже, прямо из ЛК.",
 
     "lk.spheres.streak.days": "{days} дней подряд",
+
+    "lk.level.title": "Текущий этап",
+    "lk.level.day": "День",
+    "lk.level.xp": "Прогресс",
+    "lk.level.toSummit": "До вершины",
+    "lk.level.daysShort": "дн.",
+    "lk.quests.eyebrow": "Квесты дня",
+    "lk.radar.eyebrow": "Сферы",
+    "lk.radar.sphere": "{n} осей",
   },
   en: {
     // Header
@@ -690,6 +699,15 @@ export const translations = {
       "This is your first draft — you can rebuild the plan later from the dashboard.",
 
     "lk.spheres.streak.days": "{days} days so far",
+
+    "lk.level.title": "Current stage",
+    "lk.level.day": "Day",
+    "lk.level.xp": "Progress",
+    "lk.level.toSummit": "To the summit",
+    "lk.level.daysShort": "d.",
+    "lk.quests.eyebrow": "Quests of the day",
+    "lk.radar.eyebrow": "Spheres",
+    "lk.radar.sphere": "{n} axes",
   },
 } as const;
 

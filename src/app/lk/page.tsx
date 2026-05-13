@@ -2,18 +2,14 @@
 
 import { useMemo, useSyncExternalStore } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
-import { AscentTimeline } from "@/components/lk/AscentTimeline";
+import { LevelCard } from "@/components/lk/LevelCard";
 import { LkEmpty } from "@/components/lk/LkEmpty";
 import { LkHeader } from "@/components/lk/LkHeader";
-import { LkOutro } from "@/components/lk/LkOutro";
+import { MiniAscent } from "@/components/lk/MiniAscent";
+import { QuestList } from "@/components/lk/QuestList";
 import { QuickAsk } from "@/components/lk/QuickAsk";
-import {
-  SphereProgress,
-  type SphereStat,
-} from "@/components/lk/SphereProgress";
-import { StatStrip } from "@/components/lk/StatStrip";
-import { TodayHero } from "@/components/lk/TodayHero";
-import { TodaySteps } from "@/components/lk/TodaySteps";
+import { RadarChart } from "@/components/lk/RadarChart";
+import { StatusBar } from "@/components/lk/StatusBar";
 import {
   dateKey,
   dayOfPlan,
@@ -26,7 +22,12 @@ import {
   useProgress,
   usePlan,
 } from "@/lib/plan/storage";
-import { SPHERE_IDS, type SphereId } from "@/lib/plan/types";
+import {
+  FOCUS_WINDOW_LABELS,
+  SPHERE_IDS,
+  type SphereId,
+} from "@/lib/plan/types";
+import type { Plan } from "@/lib/plan/types";
 import type { TranslationKey } from "@/i18n/translations";
 
 function useHydrated(): boolean {
@@ -75,8 +76,7 @@ function LoadedDashboard() {
     const stage = stageForDay(plan, day);
     const todayKey = dateKey();
     const todayDone = new Set(progress?.byDay[todayKey] ?? []);
-    const stageLabel = stage.id; // resolved via i18n in header below
-    return { day, stage, todayDone, stageLabel };
+    return { day, stage, todayDone };
   }, [plan, progress]);
 
   if (!plan || !computed) return null;
@@ -88,82 +88,113 @@ function LoadedDashboard() {
   ).length;
   const loadMinutes = totalMinutes(plan.dailyTemplate);
   const streak = computeStreak(plan);
+  const stageLabel = t(stage.labelKey as TranslationKey);
+  const stageTitle = t(stage.titleKey as TranslationKey);
+  const windowLabel =
+    FOCUS_WINDOW_LABELS[plan.intake.context.focusWindow] ?? "—";
 
-  const sphereStats: SphereStat[] = SPHERE_IDS.map((sphere) =>
-    buildSphereStat(sphere, plan, progress?.byDay ?? {}, day, t),
-  );
+  const radarPoints = SPHERE_IDS.map((sphere) => ({
+    sphere,
+    value: spherePercent(sphere, plan, progress?.byDay ?? {}, day),
+  }));
 
   return (
     <>
       <LkHeader
         day={day}
         total={plan.durationDays}
-        stageLabel={t(stage.labelKey as TranslationKey)}
+        stageLabel={stageLabel}
       />
-      <main>
-        <TodayHero />
-        <StatStrip
-          done={doneCount}
-          total={totalSteps}
-          streak={streak}
-          loadMinutes={loadMinutes}
-        />
-        <TodaySteps
-          steps={plan.dailyTemplate}
-          done={todayDone}
-          onToggle={(id) => setStepDone(plan.id, id, !todayDone.has(id))}
-        />
-        <AscentTimeline
-          stages={plan.arc}
-          currentStageId={stage.id}
-          currentDay={day}
-          totalDays={plan.durationDays}
-        />
-        <SphereProgress items={sphereStats} />
-        <QuickAsk />
-        <LkOutro />
+      <main className="min-h-[calc(100vh-3.5rem)] bg-[color:var(--bg)] text-white">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
+          {/* Greeting / day header */}
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <div>
+              <div className="eyebrow text-white/55 text-[0.65rem] flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-[color:var(--lime)] animate-pulse" />
+                {t("lk.topbar.greeting")}
+              </div>
+              <h1 className="display-tight mt-2 text-3xl sm:text-5xl text-white leading-[0.96]">
+                {t("lk.hero.title.l1")}{" "}
+                <span className="text-[color:var(--lime)]">
+                  {t("lk.hero.title.l2")}
+                </span>
+              </h1>
+            </div>
+            <div className="text-[0.62rem] tracking-[0.22em] uppercase text-white/45 font-semibold">
+              {t("lk.level.day")} {day} / {plan.durationDays}
+            </div>
+          </div>
+
+          {/* Hero band: Level / Radar / Quests */}
+          <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(0,1.4fr)] gap-3 sm:gap-4 items-stretch">
+            <LevelCard
+              stageLabel={stageLabel}
+              stageTitle={stageTitle}
+              day={day}
+              total={plan.durationDays}
+            />
+
+            <article className="relative overflow-hidden rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--bg-2)] p-4 sm:p-5 flex flex-col">
+              <header className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="size-1.5 rounded-full bg-[color:var(--lime)]" />
+                  <h3 className="eyebrow text-white text-[0.65rem]">
+                    {t("lk.radar.eyebrow")}
+                  </h3>
+                </div>
+                <span className="text-[0.6rem] tracking-[0.22em] uppercase text-white/45 font-semibold">
+                  {t("lk.radar.sphere", { n: SPHERE_IDS.length })}
+                </span>
+              </header>
+              <div className="flex-1 flex items-center justify-center min-h-[240px]">
+                <RadarChart points={radarPoints} size={280} />
+              </div>
+            </article>
+
+            <QuestList
+              steps={plan.dailyTemplate}
+              done={todayDone}
+              onToggle={(id) => setStepDone(plan.id, id, !todayDone.has(id))}
+            />
+          </section>
+
+          {/* Status bar */}
+          <StatusBar
+            streak={streak}
+            done={doneCount}
+            total={totalSteps}
+            loadMinutes={loadMinutes}
+            windowLabel={windowLabel}
+          />
+
+          {/* Mini ascent */}
+          <MiniAscent
+            stages={plan.arc}
+            currentStageId={stage.id}
+            currentDay={day}
+            totalDays={plan.durationDays}
+          />
+
+          {/* Quick ask */}
+          <QuickAsk />
+        </div>
       </main>
     </>
   );
 }
 
-function buildSphereStat(
+function spherePercent(
   sphere: SphereId,
-  plan: ReturnType<typeof usePlan>["plan"],
+  plan: Plan,
   byDay: Record<string, string[]>,
   currentDay: number,
-  t: (key: TranslationKey, vars?: Record<string, string | number>) => string,
-): SphereStat {
-  if (!plan) {
-    return {
-      sphere,
-      metric: "",
-      streakLabel: "",
-      progress: 0,
-    };
-  }
+): number {
   const step = plan.dailyTemplate.find((s) => s.sphere === sphere);
-  const intake = plan.intake.spheres[sphere];
-
-  const completedDays = Object.values(byDay).filter((dayIds) =>
-    step ? dayIds.includes(step.id) : false,
+  if (!step) return 0;
+  const completedDays = Object.values(byDay).filter((ids) =>
+    ids.includes(step.id),
   ).length;
-
   const denom = Math.max(1, currentDay);
-  const pct = Math.min(100, Math.round((completedDays / denom) * 100));
-
-  const metric =
-    intake?.title?.trim() ||
-    (intake?.from && intake?.to
-      ? `${intake.from} → ${intake.to}`
-      : step?.title || t(`domains.${sphere}.t` as TranslationKey));
-
-  const streakLabel = t("lk.spheres.streak.days", { days: completedDays });
-
-  return {
-    sphere,
-    metric,
-    streakLabel,
-    progress: pct,
-  };
+  return Math.min(100, Math.round((completedDays / denom) * 100));
 }

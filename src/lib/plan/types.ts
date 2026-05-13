@@ -10,6 +10,12 @@ export type MinutesPerDay = (typeof TIME_OPTIONS)[number];
 export const FOCUS_WINDOWS = ["morning", "day", "evening"] as const;
 export type FocusWindow = (typeof FOCUS_WINDOWS)[number];
 
+export const FOCUS_WINDOW_LABELS: Record<FocusWindow, string> = {
+  morning: "06:00–12:00",
+  day: "12:00–18:00",
+  evening: "18:00–22:00",
+};
+
 export const OBSTACLES = [
   "procrastination",
   "rhythm",

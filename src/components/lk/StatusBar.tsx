@@ -1,0 +1,103 @@
+"use client";
+
+import { Flame, ListChecks, Clock, Sun } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
+
+type Props = {
+  streak: number;
+  done: number;
+  total: number;
+  loadMinutes: number;
+  /** e.g. "09:00–11:30". */
+  windowLabel: string;
+};
+
+type Item = {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  suffix?: string;
+  pct?: number;
+};
+
+export function StatusBar({
+  streak,
+  done,
+  total,
+  loadMinutes,
+  windowLabel,
+}: Props) {
+  const { t } = useI18n();
+
+  const items: Item[] = [
+    {
+      icon: Flame,
+      label: t("lk.stat.streak.label"),
+      value: String(streak),
+      suffix: t("lk.stat.streak.suffix"),
+      pct: Math.min(100, streak * 5),
+    },
+    {
+      icon: ListChecks,
+      label: t("lk.stat.completed.label"),
+      value: `${done} / ${total}`,
+      pct: total > 0 ? Math.round((done / total) * 100) : 0,
+    },
+    {
+      icon: Clock,
+      label: t("lk.stat.load.label"),
+      value: String(loadMinutes),
+      suffix: t("lk.stat.load.suffix"),
+    },
+    {
+      icon: Sun,
+      label: t("lk.stat.peakwindow.label"),
+      value: windowLabel,
+    },
+  ];
+
+  return (
+    <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {items.map((s) => {
+        const Icon = s.icon;
+        return (
+          <li
+            key={s.label}
+            className="relative overflow-hidden rounded-lg border border-[color:var(--line-strong)] bg-[color:var(--bg-2)] p-4 sm:p-5"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="eyebrow text-white/45 text-[0.58rem] truncate">
+                {s.label}
+              </span>
+              <Icon
+                className="size-3.5 text-white/45 shrink-0"
+                strokeWidth={1.7}
+              />
+            </div>
+            <div className="mt-2.5 flex items-baseline gap-1.5">
+              <span className="display text-2xl sm:text-3xl text-white leading-none">
+                {s.value}
+              </span>
+              {s.suffix ? (
+                <span className="text-[0.62rem] text-white/45 tracking-[0.18em] uppercase font-semibold">
+                  {s.suffix}
+                </span>
+              ) : null}
+            </div>
+            {typeof s.pct === "number" ? (
+              <div className="mt-3 h-1 w-full rounded-full bg-[color:var(--line)] overflow-hidden">
+                <div
+                  className="h-full bg-[color:var(--lime)] rounded-full transition-[width] duration-700 ease-out"
+                  style={{ width: `${s.pct}%` }}
+                />
+              </div>
+            ) : (
+              <div className="mt-3 h-1" />
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
