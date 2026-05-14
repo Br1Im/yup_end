@@ -2,6 +2,7 @@
 
 import { useMemo, useSyncExternalStore } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { AchievementsCard } from "@/components/lk/AchievementsCard";
 import { CloseDayCard } from "@/components/lk/CloseDayCard";
 import { HistoryHeatmap } from "@/components/lk/HistoryHeatmap";
 import { IdentityEpigraph } from "@/components/lk/IdentityEpigraph";
@@ -199,12 +200,14 @@ function LoadedDashboard() {
                 doneToday={doneCount}
                 totalSteps={totalSteps}
                 todayEntry={todayEntry}
+                todayNotes={progress?.notes?.[todayKey] ?? []}
               />
+              <AchievementsCard plan={plan} progress={progress} />
             </div>
           </section>
 
           {/* Quick ask */}
-          <QuickAsk />
+          <QuickAsk planId={plan.id} />
         </div>
       </main>
     </>

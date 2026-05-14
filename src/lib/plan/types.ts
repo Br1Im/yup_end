@@ -95,12 +95,26 @@ export type JournalEntry = {
   closedAt: string;
 };
 
+/**
+ * A note the user dictated through Quick Ask during the day. Surfaced later in
+ * the evening journal so the AI (when wired up) has full context, and so the
+ * user can see what they asked earlier without re-typing it.
+ */
+export type DayNote = {
+  /** Freeform text the user typed */
+  text: string;
+  /** ISO timestamp when the note was added */
+  addedAt: string;
+};
+
 export type Progress = {
   planId: string;
   /** date string -> step ids */
   byDay: Record<string, string[]>;
   /** date string -> evening reflection */
   journals?: Record<string, JournalEntry>;
+  /** date string -> Quick Ask notes captured during that day */
+  notes?: Record<string, DayNote[]>;
   /** ISO-week key ("YYYY-Www") -> date used as freeze */
   freezes?: Record<string, string>;
   lastVisit: string;

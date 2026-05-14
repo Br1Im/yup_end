@@ -1,11 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Activity, BookOpen, Brain, Check, Compass, Languages } from "lucide-react";
+import {
+  Activity,
+  BookOpen,
+  Brain,
+  Check,
+  Compass,
+  Languages,
+  Pencil,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import type { TranslationKey } from "@/i18n/translations";
 import type { SphereId, Step } from "@/lib/plan/types";
+import { EditStepModal } from "./EditStepModal";
 
 const SPHERE_ICON: Record<SphereId, LucideIcon> = {
   lang: Languages,
@@ -34,10 +43,12 @@ export function QuestList({ steps, done, onToggle, className }: Props) {
   const { t } = useI18n();
 
   const [mounted, setMounted] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   useEffect(() => {
     const r = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(r);
   }, []);
+  const editing = editingId ? steps.find((s) => s.id === editingId) ?? null : null;
 
   return (
     <section
@@ -69,6 +80,7 @@ export function QuestList({ steps, done, onToggle, className }: Props) {
           return (
             <li
               key={step.id}
+              className="group/row relative"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateX(0)" : "translateX(-12px)",
@@ -133,6 +145,18 @@ export function QuestList({ steps, done, onToggle, className }: Props) {
                   </p>
                 </div>
               </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditingId(step.id);
+                }}
+                aria-label={t("lk.editstep.open")}
+                title={t("lk.editstep.open")}
+                className="absolute top-3 right-3 sm:top-3.5 sm:right-4 size-7 rounded-md border border-transparent text-white/35 hover:text-[color:var(--lime)] hover:border-[color:var(--line-strong)] focus:text-[color:var(--lime)] focus:border-[color:var(--line-strong)] focus:outline-none transition-all opacity-0 group-hover/row:opacity-100 focus:opacity-100 flex items-center justify-center"
+              >
+                <Pencil className="size-3.5" strokeWidth={1.7} />
+              </button>
             </li>
           );
         })}
@@ -145,6 +169,10 @@ export function QuestList({ steps, done, onToggle, className }: Props) {
           100% { transform: scale(1); opacity: 1; }
         }
       `}</style>
+
+      {editing ? (
+        <EditStepModal step={editing} onClose={() => setEditingId(null)} />
+      ) : null}
     </section>
   );
 }
