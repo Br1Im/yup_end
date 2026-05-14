@@ -125,6 +125,89 @@ export function consumeIntakePrefill():
   }
 }
 
+/**
+ * Patch the current plan's intake context (focus window, minutes per day,
+ * obstacles). Returns the updated plan or null if there's no plan saved.
+ */
+export function updateIntakeContext(
+  patch: Partial<import("./types").PlanIntake["context"]>,
+): Plan | null {
+  if (typeof window === "undefined") return null;
+  const current = readPlan();
+  if (!current) return null;
+  const next: Plan = {
+    ...current,
+    intake: {
+      ...current.intake,
+      context: { ...current.intake.context, ...patch },
+    },
+  };
+  window.localStorage.setItem(PLAN_KEY, JSON.stringify(next));
+  invalidateCaches();
+  emit();
+  return next;
+}
+
+/**
+ * Serialize the current plan + progress into a portable snapshot the user
+ * can download / paste into another browser. Returns null when there's no
+ * plan to export.
+ */
+export function exportSnapshot(): string | null {
+  if (typeof window === "undefined") return null;
+  const plan = readPlan();
+  if (!plan) return null;
+  const progress = readProgress(plan.id);
+  const snapshot = {
+    kind: "yup-snapshot" as const,
+    version: 1 as const,
+    exportedAt: new Date().toISOString(),
+    plan,
+    progress,
+  };
+  return JSON.stringify(snapshot, null, 2);
+}
+
+type Snapshot = {
+  kind: "yup-snapshot";
+  version: 1;
+  exportedAt: string;
+  plan: Plan;
+  progress: Progress;
+};
+
+/**
+ * Restore a plan + progress from a snapshot JSON string. Returns true on
+ * success. Validation is intentionally loose — we trust the snapshot since
+ * it was exported by the same app, but we reject anything that doesn't have
+ * the expected shape.
+ */
+export function importSnapshot(raw: string): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const parsed = JSON.parse(raw) as Partial<Snapshot>;
+    if (
+      parsed?.kind !== "yup-snapshot" ||
+      parsed.version !== 1 ||
+      !parsed.plan ||
+      parsed.plan.version !== 1 ||
+      !parsed.progress
+    ) {
+      return false;
+    }
+    window.localStorage.setItem(PLAN_KEY, JSON.stringify(parsed.plan));
+    window.localStorage.setItem(
+      PROGRESS_KEY,
+      JSON.stringify({ ...parsed.progress, planId: parsed.plan.id }),
+    );
+    invalidateCaches();
+    emit();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function setStepDone(planId: string, stepId: string, done: boolean) {
   if (typeof window === "undefined") return;
   const current = readProgress(planId);

@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Unbounded } from "next/font/google";
 import { I18nProvider } from "@/i18n/I18nProvider";
 import { ScrollReset } from "@/components/ScrollReset";
 import { PwaRegistrar } from "@/components/PwaRegistrar";
+import { TmaInit } from "@/components/TmaInit";
 import "./globals.css";
 
 const inter = Inter({
@@ -57,8 +59,13 @@ export default function RootLayout({
       className={`${inter.variable} ${display.variable}`}
     >
       <body className="min-h-dvh">
+        <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+          strategy="afterInteractive"
+        />
         <ScrollReset />
         <PwaRegistrar />
+        <TmaInit />
         <div className="grain" aria-hidden />
         <I18nProvider>{children}</I18nProvider>
       </body>

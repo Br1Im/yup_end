@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { RotateCcw, Share2 } from "lucide-react";
+import { RotateCcw, Settings as SettingsIcon, Share2 } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { LocaleSwitcher } from "../LocaleSwitcher";
 import { PeakMark } from "../PeakMark";
@@ -90,6 +90,14 @@ export function LkHeader({
               </button>
             </>
           ) : null}
+          <Link
+            href="/settings"
+            className="inline-flex items-center justify-center size-8 sm:size-9 rounded-full border border-[color:var(--line-strong)] hover:border-[color:var(--lime)]/45 text-white/65 hover:text-white transition-colors"
+            title={t("settings.eyebrow")}
+            aria-label={t("settings.eyebrow")}
+          >
+            <SettingsIcon className="size-3.5" strokeWidth={1.8} />
+          </Link>
           <button
             type="button"
             onClick={() => setLogoutOpen(true)}

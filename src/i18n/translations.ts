@@ -221,6 +221,61 @@ export const translations = {
       "Поля предзаполнены из твоего текущего маршрута. Можно откорректировать и собрать заново.",
     "start.shared.notice":
       "Кто-то поделился с тобой маршрутом. Поля предзаполнены — поправь и собери свой.",
+
+    // Weekly recap card
+    "lk.recap.eyebrow": "Прошлая неделя",
+    "lk.recap.stat.completion": "Выполнено",
+    "lk.recap.stat.closed": "Дней закрыто",
+    "lk.recap.stat.active": "Активных дней",
+    "lk.recap.leader": "Лидер недели",
+    "lk.recap.laggard": "Где провисало",
+
+    // Settings page
+    "settings.eyebrow": "Настройки",
+    "settings.back": "К маршруту",
+    "settings.title.l1": "Подгони",
+    "settings.title.l2": "маршрут под себя.",
+    "settings.lead": "Меняй язык, нагрузку, окно фокуса и анимации. Всё хранится локально на устройстве — экспортируй снапшот, чтобы перенести на другое.",
+
+    "settings.section.locale": "ЯЗЫК И ВРЕМЯ",
+    "settings.locale.title": "Локаль интерфейса",
+    "settings.locale.lead": "Переключение языка перерисует тексты, но не тронет твой план.",
+    "settings.locale.label": "Язык",
+    "settings.tz.label": "Часовой пояс",
+
+    "settings.section.load": "НАГРУЗКА",
+    "settings.load.title": "Минут в день",
+    "settings.load.lead": "Сколько времени готов держать на маршрут каждый день. Влияет на длительность шагов.",
+    "settings.load.unit": "мин",
+
+    "settings.section.window": "ОКНО ФОКУСА",
+    "settings.window.title": "Когда ты в форме",
+    "settings.window.lead": "Подскажет, в какое окно ставить тяжёлые шаги.",
+    "settings.window.morning": "Утро · 06:00–12:00",
+    "settings.window.day": "День · 12:00–18:00",
+    "settings.window.evening": "Вечер · 18:00–22:00",
+
+    "settings.section.motion": "АНИМАЦИИ",
+    "settings.motion.title": "Движение интерфейса",
+    "settings.motion.lead": "Выключи, если устают глаза или нужен максимальный battery-life.",
+    "settings.motion.on": "Включены",
+    "settings.motion.off": "Выключены",
+
+    "settings.section.data": "ДАННЫЕ",
+    "settings.data.title": "Экспорт и импорт",
+    "settings.data.lead": "Скачай снапшот плана и прогресса, чтобы перенести на другое устройство или сохранить как резерв.",
+    "settings.data.export": "Скачать снапшот",
+    "settings.data.import": "Загрузить снапшот",
+    "settings.data.imported": "Импорт прошёл — план и прогресс восстановлены.",
+    "settings.data.imported.bad": "Файл не похож на снапшот YUP. Попробуй другой.",
+    "settings.data.empty": "Пока экспортировать нечего — собери маршрут на /start.",
+
+    "settings.section.danger": "СБРОС",
+    "settings.danger.title": "Опасная зона",
+    "settings.danger.lead": "Сброс полностью стирает план, журналы и заморозки. Сначала экспортируй, если жалко.",
+    "settings.danger.rebuild": "Пересобрать в /lk",
+    "settings.danger.reset": "Стереть всё",
+
     "lk.topbar.eyebrow": "Восхождение",
     "lk.topbar.day": "День {day} / {total}",
     "lk.topbar.camp": "Лагерь I · Маршрут",
@@ -711,6 +766,61 @@ export const translations = {
       "Fields are prefilled from your current route. Tweak anything and rebuild.",
     "start.shared.notice":
       "Someone shared a route with you. Tweak the fields and build your own.",
+
+    // Weekly recap card
+    "lk.recap.eyebrow": "Last week",
+    "lk.recap.stat.completion": "Completion",
+    "lk.recap.stat.closed": "Days closed",
+    "lk.recap.stat.active": "Active days",
+    "lk.recap.leader": "Lead sphere",
+    "lk.recap.laggard": "Lagging sphere",
+
+    // Settings page
+    "settings.eyebrow": "Settings",
+    "settings.back": "Back to route",
+    "settings.title.l1": "Tune",
+    "settings.title.l2": "the route to fit you.",
+    "settings.lead": "Change language, daily load, focus window and animations. Everything is stored locally — export a snapshot to move it to another device.",
+
+    "settings.section.locale": "LANGUAGE & TIME",
+    "settings.locale.title": "Interface locale",
+    "settings.locale.lead": "Switching the language re-renders all copy without touching your plan.",
+    "settings.locale.label": "Language",
+    "settings.tz.label": "Timezone",
+
+    "settings.section.load": "LOAD",
+    "settings.load.title": "Minutes per day",
+    "settings.load.lead": "How much time you're ready to commit each day. Affects step durations.",
+    "settings.load.unit": "min",
+
+    "settings.section.window": "FOCUS WINDOW",
+    "settings.window.title": "When you're at your best",
+    "settings.window.lead": "Drives which window we suggest for the hardest steps.",
+    "settings.window.morning": "Morning · 06:00–12:00",
+    "settings.window.day": "Day · 12:00–18:00",
+    "settings.window.evening": "Evening · 18:00–22:00",
+
+    "settings.section.motion": "MOTION",
+    "settings.motion.title": "Interface motion",
+    "settings.motion.lead": "Turn off if motion tires your eyes or you want max battery.",
+    "settings.motion.on": "On",
+    "settings.motion.off": "Off",
+
+    "settings.section.data": "DATA",
+    "settings.data.title": "Export and import",
+    "settings.data.lead": "Download a snapshot of your plan and progress so you can move to another device or keep a backup.",
+    "settings.data.export": "Download snapshot",
+    "settings.data.import": "Load snapshot",
+    "settings.data.imported": "Imported — your plan and progress are restored.",
+    "settings.data.imported.bad": "This file isn't a YUP snapshot. Try another.",
+    "settings.data.empty": "Nothing to export yet — build a route first.",
+
+    "settings.section.danger": "RESET",
+    "settings.danger.title": "Danger zone",
+    "settings.danger.lead": "Resetting wipes your plan, journals and freezes. Export first if you want a backup.",
+    "settings.danger.rebuild": "Rebuild from /lk",
+    "settings.danger.reset": "Wipe everything",
+
     "lk.topbar.eyebrow": "Ascent",
     "lk.topbar.day": "Day {day} / {total}",
     "lk.topbar.camp": "Camp I · Route",
