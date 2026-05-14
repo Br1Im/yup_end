@@ -14,6 +14,7 @@ import { QuestList } from "@/components/lk/QuestList";
 import { QuickAsk } from "@/components/lk/QuickAsk";
 import { RadarChart } from "@/components/lk/RadarChart";
 import { StatusBar } from "@/components/lk/StatusBar";
+import { WeeklyRecap } from "@/components/lk/WeeklyRecap";
 import {
   dateKey,
   dayOfPlan,
@@ -205,6 +206,9 @@ function LoadedDashboard() {
               <AchievementsCard plan={plan} progress={progress} />
             </div>
           </section>
+
+          {/* Weekly recap (only shown once the last ISO week has data) */}
+          <WeeklyRecap plan={plan} progress={progress} />
 
           {/* Quick ask */}
           <QuickAsk planId={plan.id} />

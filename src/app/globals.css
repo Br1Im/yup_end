@@ -70,6 +70,17 @@ html {
   html { scroll-behavior: auto; }
 }
 
+/* User-toggleable animations off — applied via JS in /settings. */
+html.no-anim,
+html.no-anim *,
+html.no-anim *::before,
+html.no-anim *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
 html, body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   font-feature-settings: "ss01", "cv11";
