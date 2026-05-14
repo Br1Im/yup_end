@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Share2 } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { LocaleSwitcher } from "../LocaleSwitcher";
 import { PeakMark } from "../PeakMark";
 import { LogoutConfirmModal } from "./LogoutConfirmModal";
 import { RebuildConfirmModal } from "./RebuildConfirmModal";
+import { SharePlanModal } from "./SharePlanModal";
 import { clearPlan, setIntakePrefill } from "@/lib/plan/storage";
 import type { PlanIntake } from "@/lib/plan/types";
 
@@ -28,6 +29,7 @@ export function LkHeader({
   const camp = stageLabel ?? t("lk.topbar.camp");
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [rebuildOpen, setRebuildOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const handleLogout = () => {
     clearPlan();
@@ -67,15 +69,26 @@ export function LkHeader({
         <div className="flex items-center gap-2 sm:gap-3">
           <LocaleSwitcher className="hidden md:inline-flex" />
           {intake ? (
-            <button
-              type="button"
-              onClick={() => setRebuildOpen(true)}
-              className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] sm:text-xs tracking-[0.16em] uppercase font-semibold text-white/65 hover:text-white border border-[color:var(--line-strong)] hover:border-[color:var(--lime)]/45 rounded-full py-1.5 px-3 transition-colors"
-              title={t("lk.rebuild.title")}
-            >
-              <RotateCcw className="size-3" strokeWidth={2.2} />
-              <span>{t("lk.header.rebuild.short")}</span>
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={() => setShareOpen(true)}
+                className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] sm:text-xs tracking-[0.16em] uppercase font-semibold text-white/65 hover:text-white border border-[color:var(--line-strong)] hover:border-[color:var(--lime)]/45 rounded-full py-1.5 px-3 transition-colors"
+                title={t("lk.share.title")}
+              >
+                <Share2 className="size-3" strokeWidth={2.2} />
+                <span>{t("lk.header.share.short")}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setRebuildOpen(true)}
+                className="hidden md:inline-flex items-center gap-1.5 text-[0.7rem] sm:text-xs tracking-[0.16em] uppercase font-semibold text-white/65 hover:text-white border border-[color:var(--line-strong)] hover:border-[color:var(--lime)]/45 rounded-full py-1.5 px-3 transition-colors"
+                title={t("lk.rebuild.title")}
+              >
+                <RotateCcw className="size-3" strokeWidth={2.2} />
+                <span>{t("lk.header.rebuild.short")}</span>
+              </button>
+            </>
           ) : null}
           <button
             type="button"
@@ -105,6 +118,9 @@ export function LkHeader({
         onCancel={() => setRebuildOpen(false)}
         onConfirm={handleRebuild}
       />
+      {shareOpen && intake ? (
+        <SharePlanModal intake={intake} onClose={() => setShareOpen(false)} />
+      ) : null}
     </header>
   );
 }
